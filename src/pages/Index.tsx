@@ -765,6 +765,14 @@ export default function Index() {
     <div className="section-divider"></div>
   );
 
+  const SplitWords = ({ text, className = "" }: { text: string; className?: string }) => (
+    <span className={className}>
+      {text.split(" ").map((w, i) => (
+        <span className="word" key={i}><span className="word-inner">{w}</span>&nbsp;</span>
+      ))}
+    </span>
+  );
+
   const SectionHeading = ({ number, label, title, accent }: { number: string; label: string; title: string; accent: string }) => (
     <div className="section-heading-wrap">
       <span className="section-label">
@@ -772,7 +780,7 @@ export default function Index() {
         <span className="label-number">{number}</span>
         {label}
       </span>
-      <h2 className="section-heading" data-splitting>{title} <span className="accent">{accent}</span></h2>
+      <h2 className="section-heading">{title} <span className="accent">{accent}</span></h2>
       <div className="heading-underline"></div>
     </div>
   );
