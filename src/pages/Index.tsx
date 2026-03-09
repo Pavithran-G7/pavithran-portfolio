@@ -534,7 +534,6 @@ export default function Index() {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin);
 
     requestAnimationFrame(() => {
-      Splitting({ target: '[data-splitting]', by: 'words' });
 
       // ---- HERO ----
       const roleEl = heroRoleRef.current;
@@ -766,6 +765,14 @@ export default function Index() {
     <div className="section-divider"></div>
   );
 
+  const SplitWords = ({ text, className = "" }: { text: string; className?: string }) => (
+    <span className={className}>
+      {text.split(" ").map((w, i) => (
+        <span className="word" key={i}><span className="word-inner">{w}</span>&nbsp;</span>
+      ))}
+    </span>
+  );
+
   const SectionHeading = ({ number, label, title, accent }: { number: string; label: string; title: string; accent: string }) => (
     <div className="section-heading-wrap">
       <span className="section-label">
@@ -773,7 +780,7 @@ export default function Index() {
         <span className="label-number">{number}</span>
         {label}
       </span>
-      <h2 className="section-heading" data-splitting>{title} <span className="accent">{accent}</span></h2>
+      <h2 className="section-heading">{title} <span className="accent">{accent}</span></h2>
       <div className="heading-underline"></div>
     </div>
   );
@@ -887,9 +894,9 @@ export default function Index() {
               <span className="about-badge">STUDENT DEVELOPER</span>
             </div>
             <div className="about-text">
-              <p data-splitting>I'm a third-year Computer Science student at Mumbai Institute of Technology with a deep passion for building beautiful, functional web experiences. My journey started with a simple HTML page in high school and has evolved into a full-stack skill set spanning React, Node.js, Python, and cloud technologies.</p>
-              <p data-splitting>When I'm not coding, you'll find me contributing to open-source projects, participating in hackathons, or mentoring junior developers at our college tech club. I believe great software is born from the intersection of clean code, thoughtful design, and relentless curiosity.</p>
-              <p data-splitting>I'm currently seeking internship opportunities where I can apply my skills to real-world problems and continue growing as a developer. Let's build something amazing together.</p>
+              <p><SplitWords text="I'm a third-year Computer Science student at Mumbai Institute of Technology with a deep passion for building beautiful, functional web experiences. My journey started with a simple HTML page in high school and has evolved into a full-stack skill set spanning React, Node.js, Python, and cloud technologies." /></p>
+              <p><SplitWords text="When I'm not coding, you'll find me contributing to open-source projects, participating in hackathons, or mentoring junior developers at our college tech club. I believe great software is born from the intersection of clean code, thoughtful design, and relentless curiosity." /></p>
+              <p><SplitWords text="I'm currently seeking internship opportunities where I can apply my skills to real-world problems and continue growing as a developer. Let's build something amazing together." /></p>
               <div className="about-stats">
                 {[
                   { val: 2, suffix: "+", label: "Years Coding" },
