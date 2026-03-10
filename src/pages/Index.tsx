@@ -865,10 +865,6 @@ export default function Index() {
                   { icon: "fa-brands fa-github", text: "github.com/alexchen" },
                   { icon: "fa-brands fa-linkedin", text: "linkedin.com/in/alexchen" },
                   { icon: "fa-brands fa-x-twitter", text: "twitter.com/alexchendev" },
-                  { icon: "fa-brands fa-instagram", text: "instagram.com/alexchen" },
-                  { icon: "fa-solid fa-envelope", text: "alex@chendev.com" },
-                  { icon: "fa-solid fa-code", text: "leetcode.com/alexchen" },
-                  { icon: "fa-solid fa-globe", text: "alexchen.dev" },
                 ].map((l, i) => (
                   <a className="contact-link-row" href="#" key={i}>
                     <i className={l.icon}></i>
