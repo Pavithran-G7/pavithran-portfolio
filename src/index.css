@@ -92,9 +92,9 @@ body {
   transform: translate(-50%, -50%);
   will-change: left, top;
 }
-.cursor-ring.hovering { transform: translate(-50%, -50%) scale(1.7); border-color: hsl(var(--accent-mint)); }
-.cursor-ring.text-hover { transform: translate(-50%, -50%) scaleX(2.5) scaleY(0.25); border-color: hsl(var(--accent-ice)); }
-.cursor-ring.clicking { transform: translate(-50%, -50%) scale(0.6); }
+.cursor-ring.hovering { transform: translate(-50%, -50%) scale(1.7); border-color: hsl(var(--accent-mint)); transition: transform 0.2s ease, border-color 0.2s; }
+.cursor-ring.text-hover { transform: translate(-50%, -50%) scaleX(2.5) scaleY(0.25); border-color: hsl(var(--accent-ice)); transition: transform 0.2s ease, border-color 0.2s; }
+.cursor-ring.clicking { transform: translate(-50%, -50%) scale(0.6); transition: transform 0.1s ease; }
 
 .cursor-dot {
   position: fixed; width: 6px; height: 6px; background: hsl(var(--accent-ice));
