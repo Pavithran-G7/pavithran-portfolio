@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
 import project001 from "@/assets/project-001.jpg";
 import project002 from "@/assets/project-002.jpg";
 import project003 from "@/assets/project-003.jpg";
