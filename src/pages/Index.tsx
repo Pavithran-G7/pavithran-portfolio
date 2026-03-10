@@ -621,10 +621,6 @@ export default function Index() {
       {/* NAVBAR */}
       <nav className={`navbar ${navScrolled ? 'scrolled' : ''}`}>
         <div className="navbar-inner">
-          <svg className="nav-logo" width="32" height="32" viewBox="0 0 36 36" onClick={() => scrollToSection('home')} style={{ cursor: 'pointer' }}>
-            <polygon points="18,2 34,18 18,34 2,18" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="2"/>
-            <polygon points="18,8 28,18 18,28 8,18" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="1.5" opacity="0.5"/>
-          </svg>
           <ul className="nav-links">
             {NAV_LINKS.map(id => (
               <li key={id}><a className={activeNav === id ? 'active' : ''} onClick={() => scrollToSection(id)}>{id}</a></li>
