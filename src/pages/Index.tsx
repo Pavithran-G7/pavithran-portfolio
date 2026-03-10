@@ -303,8 +303,8 @@ export default function Index() {
     const up = () => { ring.classList.remove('clicking'); dot.classList.remove('clicking'); };
 
     const lerpLoop = () => {
-      ringPos.current.x += (mousePos.current.x - ringPos.current.x) * 0.10;
-      ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.10;
+      ringPos.current.x += (mousePos.current.x - ringPos.current.x) * 0.18;
+      ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.18;
       ring.style.left = ringPos.current.x + 'px';
       ring.style.top = ringPos.current.y + 'px';
       requestAnimationFrame(lerpLoop);
