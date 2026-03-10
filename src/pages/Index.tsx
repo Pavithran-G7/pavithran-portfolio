@@ -624,6 +624,14 @@ export default function Index() {
         <div className="loader-progress"><div className="loader-progress-bar" ref={loaderBarRef}></div></div>
       </div>
 
+      {/* DOOR REVEAL */}
+      {!doorsGone && (
+        <div className="door-overlay">
+          <div className={`door-panel door-left ${doorOpen ? 'open' : ''}`}></div>
+          <div className={`door-panel door-right ${doorOpen ? 'open' : ''}`}></div>
+        </div>
+      )}
+
       {/* CURSORS */}
       <div className="cursor-ring" ref={cursorRingRef}></div>
       <div className="cursor-dot" ref={cursorDotRef}></div>
