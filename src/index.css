@@ -132,10 +132,7 @@ body {
   box-shadow: 0 4px 30px hsl(var(--bg-void) / 0.5);
 }
 
-.nav-logo {
-  margin: 0 10px 0 6px;
-  flex-shrink: 0;
-}
+/* nav-logo removed */
 
 .nav-links {
   display: flex; gap: 0; list-style: none;
