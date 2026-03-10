@@ -643,7 +643,7 @@ export default function Index() {
         <SocialIcons />
       </div>
 
-      {/* PROJECT POPUP */}
+      {/* PROJECT POPUP — clean minimal */}
       {popupProject && (
         <div className="project-popup-overlay" onClick={() => setPopupProject(null)}>
           <div className="project-popup" onClick={e => e.stopPropagation()}>
@@ -652,7 +652,6 @@ export default function Index() {
             </button>
             <img src={popupProject.image} alt={popupProject.title} className="popup-image" />
             <div className="popup-body">
-              <span className="popup-mission">MISSION-{popupProject.id}</span>
               <h3 className="popup-title">{popupProject.title}</h3>
               <p className="popup-desc">{popupProject.longDesc}</p>
               <div className="popup-tech">
