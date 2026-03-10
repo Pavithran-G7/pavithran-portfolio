@@ -612,13 +612,8 @@ export default function Index() {
       <div className="cursor-ring" ref={cursorRingRef}></div>
       <div className="cursor-dot" ref={cursorDotRef}></div>
 
-      {/* BG CANVAS */}
-      <canvas id="bg-canvas" ref={bgCanvasRef}></canvas>
-
-      {/* FOG */}
+      {/* FOG — subtle gradient only */}
       <div className="fog-overlay">
-        <div className="fog-blob"></div>
-        <div className="fog-blob"></div>
         <div className="fog-blob"></div>
         <div className="fog-blob"></div>
       </div>
