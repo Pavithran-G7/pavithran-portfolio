@@ -73,7 +73,7 @@ const SOCIAL_ICONS = [
   { icon: "fa-brands fa-x-twitter", url: "#", tooltip: "Twitter/X" },
 ];
 
-const PROJECT_CARD_WIDTH = 400;
+const PROJECT_CARD_WIDTH = 480;
 const PROJECT_GAP = 32;
 
 function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: typeof PROJECTS; onProjectClick: (p: typeof PROJECTS[0]) => void }) {
@@ -83,14 +83,15 @@ function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: type
     offset: ["start start", "end end"],
   });
 
-  const totalDistance = (projects.length - 1) * (PROJECT_CARD_WIDTH + PROJECT_GAP);
-  const x = useTransform(scrollYProgress, [0, 1], [0, -totalDistance]);
+  // Calculate total distance: all cards + gaps, minus one viewport width so last card ends at right edge
+  const totalDistance = projects.length * (PROJECT_CARD_WIDTH + PROJECT_GAP);
+  const x = useTransform(scrollYProgress, [0, 1], [0, -totalDistance + (typeof window !== 'undefined' ? window.innerWidth - 80 : 800)]);
 
   return (
     <section
       id="projects"
       ref={containerRef}
-      style={{ height: `${projects.length * 100}vh`, position: 'relative' }}
+      style={{ height: `${(projects.length + 1) * 100}vh`, position: 'relative' }}
     >
       <div
         style={{
