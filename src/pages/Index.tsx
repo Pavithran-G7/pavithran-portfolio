@@ -10,29 +10,29 @@ declare const Splitting: any;
 const NAV_LINKS = ["home","about","skills","projects","experience","contact"];
 
 const SKILLS = [
-  { name: "HTML5", icon: "fa-brands fa-html5", category: "FRONTEND", level: 90, status: "OPERATIONAL" },
-  { name: "CSS3", icon: "fa-brands fa-css3-alt", category: "FRONTEND", level: 85, status: "OPERATIONAL" },
-  { name: "JavaScript", icon: "fa-brands fa-js", category: "FRONTEND", level: 88, status: "OPERATIONAL" },
-  { name: "React", icon: "fa-brands fa-react", category: "FRONTEND", level: 82, status: "ADVANCED" },
-  { name: "Tailwind CSS", icon: "fa-solid fa-wind", category: "FRONTEND", level: 78, status: "OPERATIONAL" },
-  { name: "Node.js", icon: "fa-brands fa-node-js", category: "BACKEND", level: 75, status: "ADVANCED" },
-  { name: "Python", icon: "fa-brands fa-python", category: "BACKEND", level: 80, status: "OPERATIONAL" },
-  { name: "Express.js", icon: "fa-solid fa-server", category: "BACKEND", level: 70, status: "ADVANCED" },
-  { name: "MongoDB", icon: "fa-solid fa-database", category: "DATABASE", level: 72, status: "ADVANCED" },
-  { name: "MySQL", icon: "fa-solid fa-table", category: "DATABASE", level: 68, status: "ADVANCED" },
-  { name: "Firebase", icon: "fa-solid fa-fire", category: "DATABASE", level: 65, status: "LEARNING" },
-  { name: "Git", icon: "fa-brands fa-git-alt", category: "TOOLS", level: 85, status: "OPERATIONAL" },
-  { name: "GitHub", icon: "fa-brands fa-github", category: "TOOLS", level: 88, status: "OPERATIONAL" },
-  { name: "Docker", icon: "fa-brands fa-docker", category: "TOOLS", level: 55, status: "LEARNING" },
-  { name: "Figma", icon: "fa-brands fa-figma", category: "TOOLS", level: 70, status: "ADVANCED" },
+  { name: "HTML5", icon: "fa-brands fa-html5", category: "FRONTEND", level: 90 },
+  { name: "CSS3", icon: "fa-brands fa-css3-alt", category: "FRONTEND", level: 85 },
+  { name: "JavaScript", icon: "fa-brands fa-js", category: "FRONTEND", level: 88 },
+  { name: "React", icon: "fa-brands fa-react", category: "FRONTEND", level: 82 },
+  { name: "Tailwind CSS", icon: "fa-solid fa-wind", category: "FRONTEND", level: 78 },
+  { name: "Node.js", icon: "fa-brands fa-node-js", category: "BACKEND", level: 75 },
+  { name: "Python", icon: "fa-brands fa-python", category: "BACKEND", level: 80 },
+  { name: "Express.js", icon: "fa-solid fa-server", category: "BACKEND", level: 70 },
+  { name: "MongoDB", icon: "fa-solid fa-database", category: "DATABASE", level: 72 },
+  { name: "MySQL", icon: "fa-solid fa-table", category: "DATABASE", level: 68 },
+  { name: "Firebase", icon: "fa-solid fa-fire", category: "DATABASE", level: 65 },
+  { name: "Git", icon: "fa-brands fa-git-alt", category: "TOOLS", level: 85 },
+  { name: "GitHub", icon: "fa-brands fa-github", category: "TOOLS", level: 88 },
+  { name: "Docker", icon: "fa-brands fa-docker", category: "TOOLS", level: 55 },
+  { name: "Figma", icon: "fa-brands fa-figma", category: "TOOLS", level: 70 },
 ];
 
 const PROJECTS = [
-  { id: "001", title: "Personal Portfolio Website", desc: "A fully interactive portfolio with Three.js 3D scenes, GSAP scroll animations, and responsive design.", tech: ["React","Three.js","GSAP","CSS3"], gradient: "linear-gradient(135deg, #00c2ff33, #3dffa033)" },
-  { id: "002", title: "Weather Dashboard App", desc: "Real-time weather app with location search, 7-day forecasts, and interactive radar maps using OpenWeather API.", tech: ["React","OpenWeather API","Chart.js","Tailwind"], gradient: "linear-gradient(135deg, #f0a50033, #00c2ff33)" },
-  { id: "003", title: "Task Management System", desc: "Full-stack Kanban board with drag-and-drop, user auth, real-time collaboration, and project analytics.", tech: ["React","Node.js","MongoDB","Socket.io"], gradient: "linear-gradient(135deg, #3dffa033, #00c2ff33)" },
-  { id: "004", title: "E-Commerce Frontend Clone", desc: "Pixel-perfect Shopify-style storefront with cart functionality, product filtering, and Stripe checkout integration.", tech: ["React","Redux","Stripe","Firebase"], gradient: "linear-gradient(135deg, #00c2ff33, #f0a50033)" },
-  { id: "005", title: "Chat Application", desc: "Real-time messaging app with private rooms, typing indicators, file sharing, and message reactions.", tech: ["React","Socket.io","Express","MongoDB"], gradient: "linear-gradient(135deg, #f0a50033, #3dffa033)" },
+  { id: "001", title: "Personal Portfolio Website", desc: "A fully interactive portfolio with Three.js 3D scenes, GSAP scroll animations, and responsive design.", tech: ["React","Three.js","GSAP","CSS3"], gradient: "linear-gradient(135deg, #00c2ff22, #3dffa022)" },
+  { id: "002", title: "Weather Dashboard App", desc: "Real-time weather app with location search, 7-day forecasts, and interactive radar maps using OpenWeather API.", tech: ["React","OpenWeather API","Chart.js","Tailwind"], gradient: "linear-gradient(135deg, #f0a50022, #00c2ff22)" },
+  { id: "003", title: "Task Management System", desc: "Full-stack Kanban board with drag-and-drop, user auth, real-time collaboration, and project analytics.", tech: ["React","Node.js","MongoDB","Socket.io"], gradient: "linear-gradient(135deg, #3dffa022, #00c2ff22)" },
+  { id: "004", title: "E-Commerce Frontend Clone", desc: "Pixel-perfect Shopify-style storefront with cart functionality, product filtering, and Stripe checkout integration.", tech: ["React","Redux","Stripe","Firebase"], gradient: "linear-gradient(135deg, #00c2ff22, #f0a50022)" },
+  { id: "005", title: "Chat Application", desc: "Real-time messaging app with private rooms, typing indicators, file sharing, and message reactions.", tech: ["React","Socket.io","Express","MongoDB"], gradient: "linear-gradient(135deg, #f0a50022, #3dffa022)" },
 ];
 
 const EDUCATION = [
@@ -61,47 +61,83 @@ const EXPERIENCE = [
   { date: "Mar 2023 – Present", role: "Freelance Web Developer", company: "Self-Employed", bullets: ["Delivered 8+ client projects including landing pages, portfolios, and small business websites","Built custom WordPress themes and headless CMS solutions for content-driven sites","Maintained a 5-star rating on Fiverr with 100% client satisfaction rate"], status: "active", statusText: "ACTIVE" },
 ];
 
-const SOCIAL_ICONS = [
-  { icon: "fa-brands fa-github", url: "#", tooltip: "GitHub" },
-  { icon: "fa-brands fa-linkedin", url: "#", tooltip: "LinkedIn" },
-  { icon: "fa-brands fa-x-twitter", url: "#", tooltip: "Twitter/X" },
-  { icon: "fa-brands fa-instagram", url: "#", tooltip: "Instagram" },
-  { icon: "fa-brands fa-free-code-camp", url: "#", tooltip: "LeetCode" },
-  { icon: "fa-solid fa-envelope", url: "#", tooltip: "Email" },
+const SOCIAL_LINKS = [
+  { icon: "fa-brands fa-github", url: "#", label: "GitHub" },
+  { icon: "fa-brands fa-linkedin", url: "#", label: "LinkedIn" },
+  { icon: "fa-brands fa-x-twitter", url: "#", label: "X" },
 ];
 
+// SVG wave divider paths (flat → final shape)
+const DIVIDERS = [
+  { flat: "M0,60 L1440,60", final: "M0,60 Q360,0 720,60 T1440,60" }, // gentle sine
+  { flat: "M0,60 L1440,60", final: "M0,0 L1440,80" }, // diagonal cut
+  { flat: "M0,60 L1440,60", final: "M0,60 Q240,10 480,50 Q720,90 960,40 Q1200,10 1440,60" }, // double wave
+  { flat: "M0,60 L1440,60", final: "M0,60 L360,60 L360,30 L720,30 L720,60 L1080,60 L1080,20 L1440,20" }, // staircase
+  { flat: "M0,60 L1440,60", final: "M0,60 Q720,-20 1440,60" }, // mountain peak
+  { flat: "M0,60 L1440,60", final: "M0,50 L180,20 L360,55 L540,15 L720,45 L900,10 L1080,50 L1260,25 L1440,40" }, // jagged data
+  { flat: "M0,60 L1440,60", final: "M0,40 Q480,80 720,30 Q960,-10 1440,50" }, // asymmetric wave
+];
+
+const SectionDivider = ({ index }: { index: number }) => {
+  const d = DIVIDERS[index % DIVIDERS.length];
+  return (
+    <div className="section-divider">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="divider-svg">
+        <path className="divider-path" d={d.flat} data-final={d.final} fill="none" stroke="hsl(195,100%,50%)" strokeWidth="1" opacity="0.2" />
+      </svg>
+    </div>
+  );
+};
+
 export default function Index() {
-  const [loaded, setLoaded] = useState(false);
+  const [loaderPhase, setLoaderPhase] = useState<'sweep'|'reveal'|'split'|'done'>('sweep');
   const [navScrolled, setNavScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showBackTop, setShowBackTop] = useState(false);
   const [activeNav, setActiveNav] = useState("home");
   const [formSent, setFormSent] = useState(false);
+  const [formSending, setFormSending] = useState(false);
+  const [scrollIndicatorVisible, setScrollIndicatorVisible] = useState(false);
 
   const bgCanvasRef = useRef<HTMLCanvasElement>(null);
   const heroCanvasRef = useRef<HTMLDivElement>(null);
   const cursorRingRef = useRef<HTMLDivElement>(null);
   const cursorDotRef = useRef<HTMLDivElement>(null);
-  const loaderBarRef = useRef<HTMLDivElement>(null);
-  const loaderTextRef = useRef<HTMLSpanElement>(null);
+  const cursorGlowRef = useRef<HTMLDivElement>(null);
   const heroRoleRef = useRef<HTMLDivElement>(null);
   const heroTaglineRef = useRef<HTMLDivElement>(null);
+  const loaderNameRef = useRef<HTMLDivElement>(null);
 
   const mousePos = useRef({ x: 0, y: 0 });
   const ringPos = useRef({ x: 0, y: 0 });
+  const glowPos = useRef({ x: 0, y: 0 });
 
   // ===== LOADER SEQUENCE =====
   useEffect(() => {
-    const tl = gsap.timeline();
-    tl.to({}, { duration: 0.7 })
-      .to(loaderTextRef.current, { duration: 1.0, text: "INITIALIZING PORTFOLIO SYSTEMS...", ease: "none" }, 0.9)
-      .call(() => { if (loaderBarRef.current) loaderBarRef.current.style.width = "100%"; }, [], 1.9)
-      .to("#loader > *", { opacity: 0, duration: 0.4 }, 2.7)
-      .call(() => setLoaded(true), [], 3.1);
+    // Phase 1: sweep (700ms)
+    setTimeout(() => setLoaderPhase('reveal'), 800);
+    // Phase 2: reveal content (name chars, role, bar)
+    setTimeout(() => setLoaderPhase('split'), 2300);
+    // Phase 3: split panels exit
+    setTimeout(() => {
+      setLoaderPhase('done');
+      setScrollIndicatorVisible(true);
+    }, 2900);
   }, []);
 
-  // ===== THREE.JS BACKGROUND =====
+  // Loader name char reveal
+  useEffect(() => {
+    if (loaderPhase === 'reveal' && loaderNameRef.current) {
+      const chars = loaderNameRef.current.querySelectorAll('.loader-char');
+      gsap.fromTo(chars,
+        { clipPath: "inset(0 100% 0 0)", opacity: 0 },
+        { clipPath: "inset(0 0% 0 0)", opacity: 1, stagger: 0.05, duration: 0.4, ease: "power2.out", delay: 0.2 }
+      );
+    }
+  }, [loaderPhase]);
+
+  // ===== THREE.JS BACKGROUND (simplified) =====
   useEffect(() => {
     if (!bgCanvasRef.current) return;
     const scene = new THREE.Scene();
@@ -112,13 +148,12 @@ export default function Index() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     const isMobile = window.innerWidth <= 768;
-    const starCount = isMobile ? 1500 : 6000;
+    const starCount = isMobile ? 800 : 2500;
 
-    // Stars
+    // Stars - reduced opacity
     const starGeo = new THREE.BufferGeometry();
     const positions = new Float32Array(starCount * 3);
     const colors = new Float32Array(starCount * 3);
-    const sizes = new Float32Array(starCount);
     for (let i = 0; i < starCount; i++) {
       positions[i*3] = (Math.random()-0.5)*2000;
       positions[i*3+1] = (Math.random()-0.5)*2000;
@@ -127,18 +162,15 @@ export default function Index() {
       colors[i*3] = isIce ? 0 : 0.78;
       colors[i*3+1] = isIce ? 0.76 : 0.91;
       colors[i*3+2] = 1;
-      sizes[i] = Math.random() > 0.5 ? 2.0 : 0.8;
     }
     starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     starGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-    starGeo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-    const starMat = new THREE.PointsMaterial({ size: 1.5, vertexColors: true, transparent: true, opacity: 0.8, sizeAttenuation: true });
+    const starMat = new THREE.PointsMaterial({ size: 1.2, vertexColors: true, transparent: true, opacity: 0.4, sizeAttenuation: true });
     const stars = new THREE.Points(starGeo, starMat);
     scene.add(stars);
 
-    // Wireframe drifters
+    // Wireframe drifters - very low opacity ghost shapes
     const drifters: any[] = [];
-    const drifterMeshes: any[] = [];
     const geos = [
       new THREE.IcosahedronGeometry(20, 1),
       new THREE.IcosahedronGeometry(28, 1),
@@ -147,18 +179,17 @@ export default function Index() {
       new THREE.OctahedronGeometry(18, 0),
     ];
     geos.forEach((g, i) => {
-      const mat = new THREE.MeshBasicMaterial({ color: 0x00c2ff, wireframe: true, transparent: true, opacity: 0.12 + Math.random()*0.06 });
+      const mat = new THREE.MeshBasicMaterial({ color: 0x00c2ff, wireframe: true, transparent: true, opacity: 0.04 + Math.random()*0.03 });
       const m = new THREE.Mesh(g, mat);
       m.position.set((Math.random()-0.5)*300, (Math.random()-0.5)*200, (Math.random()-0.5)*200);
       if (i >= 2) m.rotation.z = 0.7;
       scene.add(m);
-      drifterMeshes.push(m);
       drifters.push({ mesh: m, driftDir: 1, driftSpeed: 0.005 + Math.random()*0.005, rotSpeed: { x: Math.random()*0.005, y: Math.random()*0.008, z: i===4 ? 0.003 : 0 } });
     });
 
     const sceneGroup = new THREE.Group();
     sceneGroup.add(stars);
-    drifterMeshes.forEach(m => sceneGroup.add(m));
+    drifters.forEach(d => sceneGroup.add(d.mesh));
     scene.add(sceneGroup);
 
     let targetRotX = 0, targetRotY = 0;
@@ -185,7 +216,6 @@ export default function Index() {
         d.mesh.position.y += d.driftDir * d.driftSpeed;
         if (Math.abs(d.mesh.position.y) > 120) d.driftDir *= -1;
       });
-      // animate star drift
       const pos = starGeo.attributes.position.array as Float32Array;
       for (let i = 0; i < starCount; i++) {
         pos[i*3+1] += Math.sin(Date.now() * 0.0001 + i) * 0.02;
@@ -210,15 +240,15 @@ export default function Index() {
     };
   }, []);
 
-  // ===== HERO 3D CENTERPIECE =====
+  // ===== HERO 3D — FULL SCREEN =====
   useEffect(() => {
-    if (!heroCanvasRef.current || !loaded) return;
+    if (!heroCanvasRef.current || loaderPhase !== 'done') return;
     const container = heroCanvasRef.current;
-    const w = container.clientWidth || 400;
-    const h = container.clientHeight || 400;
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 500);
-    camera.position.z = 200;
+    const camera = new THREE.PerspectiveCamera(50, w / h, 0.1, 1000);
+    camera.position.z = 300;
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(w, h);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -226,106 +256,161 @@ export default function Index() {
 
     const group = new THREE.Group();
 
-    // Inner solid icosahedron
-    const innerGeo = new THREE.IcosahedronGeometry(48, 1);
-    const innerMat = new THREE.MeshPhongMaterial({ color: 0x00c2ff, shininess: 100, flatShading: true });
-    const inner = new THREE.Mesh(innerGeo, innerMat);
-    group.add(inner);
+    // Central compound: dark sphere + icosahedron cage
+    const sphereGeo = new THREE.SphereGeometry(30, 32, 32);
+    const sphereMat = new THREE.MeshPhongMaterial({ color: 0x0a1628, shininess: 20, transparent: true, opacity: 0.6 });
+    group.add(new THREE.Mesh(sphereGeo, sphereMat));
 
-    // Outer wireframe cage
-    const outerGeo = new THREE.IcosahedronGeometry(68, 1);
-    const outerMat = new THREE.MeshBasicMaterial({ color: 0x00c2ff, wireframe: true, transparent: true, opacity: 0.25 });
-    group.add(new THREE.Mesh(outerGeo, outerMat));
+    const cageGeo = new THREE.IcosahedronGeometry(50, 1);
+    const cageMat = new THREE.MeshBasicMaterial({ color: 0x00c2ff, wireframe: true, transparent: true, opacity: 0.2 });
+    const cage = new THREE.Mesh(cageGeo, cageMat);
+    group.add(cage);
 
-    // Rings
-    const ring1 = new THREE.Mesh(new THREE.TorusGeometry(82, 1.4, 16, 64), new THREE.MeshBasicMaterial({ color: 0x00c2ff, transparent: true, opacity: 0.2 }));
-    group.add(ring1);
-    const ring2 = new THREE.Mesh(new THREE.TorusGeometry(94, 0.8, 16, 64), new THREE.MeshBasicMaterial({ color: 0x3dffa0, transparent: true, opacity: 0.15 }));
-    ring2.rotation.x = 0.73; // ~42 degrees
-    group.add(ring2);
+    // 3 orbital rings with satellite dots
+    const ringColors = [0x00c2ff, 0x3dffa0, 0xf0a500];
+    const ringTilts = [
+      { x: 0, z: 0 },
+      { x: Math.PI / 4, z: Math.PI / 6 },
+      { x: -Math.PI / 3, z: Math.PI / 3 },
+    ];
+    const satellites: { angle: number; speed: number; radius: number; mesh: any; ringGroup: any }[] = [];
 
-    // Orbiting points
-    const orbitGeo = new THREE.BufferGeometry();
-    const orbitPos = new Float32Array(60 * 3);
-    for (let i = 0; i < 60; i++) {
-      const phi = Math.acos(-1 + (2*i)/60);
-      const theta = Math.sqrt(60 * Math.PI) * phi;
-      orbitPos[i*3] = 85 * Math.cos(theta) * Math.sin(phi);
-      orbitPos[i*3+1] = 85 * Math.sin(theta) * Math.sin(phi);
-      orbitPos[i*3+2] = 85 * Math.cos(phi);
-    }
-    orbitGeo.setAttribute('position', new THREE.BufferAttribute(orbitPos, 3));
-    const orbitMat = new THREE.PointsMaterial({ color: 0x00c2ff, size: 2, transparent: true, opacity: 0.6 });
-    group.add(new THREE.Points(orbitGeo, orbitMat));
+    ringColors.forEach((color, i) => {
+      const ringGeo = new THREE.TorusGeometry(70 + i * 18, 0.6, 16, 64);
+      const ringMat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.12 });
+      const ring = new THREE.Mesh(ringGeo, ringMat);
+      ring.rotation.x = ringTilts[i].x;
+      ring.rotation.z = ringTilts[i].z;
+      group.add(ring);
+
+      // Satellite dot
+      const satGeo = new THREE.SphereGeometry(1.5, 8, 8);
+      const satMat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.9 });
+      const sat = new THREE.Mesh(satGeo, satMat);
+      ring.add(sat);
+      satellites.push({ angle: Math.random() * Math.PI * 2, speed: 0.008 + i * 0.004, radius: 70 + i * 18, mesh: sat, ringGroup: ring });
+    });
+
+    // 8-10 scattered wireframe shapes (space debris)
+    const debrisGeos = [
+      new THREE.TetrahedronGeometry(5, 0),
+      new THREE.OctahedronGeometry(4, 0),
+      new THREE.IcosahedronGeometry(3, 0),
+      new THREE.BoxGeometry(4, 4, 4),
+      new THREE.TetrahedronGeometry(6, 0),
+      new THREE.OctahedronGeometry(5, 0),
+      new THREE.IcosahedronGeometry(4, 0),
+      new THREE.BoxGeometry(3, 3, 3),
+      new THREE.TetrahedronGeometry(3, 0),
+      new THREE.OctahedronGeometry(3, 0),
+    ];
+    const debris: any[] = [];
+    debrisGeos.forEach((g) => {
+      const mat = new THREE.MeshBasicMaterial({ color: 0x00c2ff, wireframe: true, transparent: true, opacity: 0.08 + Math.random() * 0.06 });
+      const m = new THREE.Mesh(g, mat);
+      m.position.set(
+        (Math.random() - 0.5) * 500,
+        (Math.random() - 0.5) * 300,
+        (Math.random() - 0.5) * 200 - 50
+      );
+      group.add(m);
+      debris.push({ mesh: m, rotX: (Math.random()-0.5)*0.01, rotY: (Math.random()-0.5)*0.01, phase: Math.random()*Math.PI*2 });
+    });
 
     scene.add(group);
     scene.add(new THREE.AmbientLight(0x001133, 0.5));
-    const pLight1 = new THREE.PointLight(0x00c2ff, 2.2, 400);
+    const pLight1 = new THREE.PointLight(0x00c2ff, 1.8, 500);
     pLight1.position.set(100, 100, 100);
     scene.add(pLight1);
-    const pLight2 = new THREE.PointLight(0x3dffa0, 1.0, 400);
+    const pLight2 = new THREE.PointLight(0x3dffa0, 0.8, 500);
     pLight2.position.set(-100, -50, 80);
     scene.add(pLight2);
 
     let targetRX = 0, targetRY = 0;
     const handleMouse = (e: MouseEvent) => {
-      targetRX = (e.clientY / window.innerHeight - 0.5) * 0.6;
-      targetRY = (e.clientX / window.innerWidth - 0.5) * 0.6;
+      targetRX = (e.clientY / window.innerHeight - 0.5) * 0.4;
+      targetRY = (e.clientX / window.innerWidth - 0.5) * 0.4;
     };
     window.addEventListener('mousemove', handleMouse);
 
     const anim = () => {
       requestAnimationFrame(anim);
-      group.rotation.y += 0.005;
-      ring1.rotation.x += 0.009;
-      ring2.rotation.y += 0.006;
+      cage.rotation.y += 0.003;
+      cage.rotation.x += 0.001;
+
+      satellites.forEach(s => {
+        s.angle += s.speed;
+        s.mesh.position.x = Math.cos(s.angle) * s.radius;
+        s.mesh.position.y = Math.sin(s.angle) * s.radius;
+      });
+
+      debris.forEach(d => {
+        d.mesh.rotation.x += d.rotX;
+        d.mesh.rotation.y += d.rotY;
+        d.mesh.position.y += Math.sin(Date.now() * 0.001 + d.phase) * 0.05;
+      });
+
       group.rotation.x += (targetRX - group.rotation.x) * 0.04;
-      // keep the auto-rotation + mouse blend
+      group.rotation.y += (targetRY - group.rotation.y) * 0.04;
       renderer.render(scene, camera);
     };
     anim();
 
+    const handleResize = () => {
+      const nw = container.clientWidth;
+      const nh = container.clientHeight;
+      camera.aspect = nw / nh;
+      camera.updateProjectionMatrix();
+      renderer.setSize(nw, nh);
+    };
+    window.addEventListener('resize', handleResize);
+
     return () => {
       window.removeEventListener('mousemove', handleMouse);
+      window.removeEventListener('resize', handleResize);
       renderer.dispose();
-      container.innerHTML = '';
+      if (container.contains(renderer.domElement)) container.removeChild(renderer.domElement);
     };
-  }, [loaded]);
+  }, [loaderPhase]);
 
-  // ===== CUSTOM CURSOR =====
+  // ===== CUSTOM CURSOR + AMBIENT GLOW =====
   useEffect(() => {
     if (window.innerWidth <= 768) return;
     const ring = cursorRingRef.current;
     const dot = cursorDotRef.current;
+    const glow = cursorGlowRef.current;
     if (!ring || !dot) return;
 
-    let clicking = false;
     const move = (e: MouseEvent) => {
       dot.style.left = e.clientX + 'px';
       dot.style.top = e.clientY + 'px';
       mousePos.current = { x: e.clientX, y: e.clientY };
     };
-    const down = () => { clicking = true; ring.classList.add('clicking'); dot.classList.add('clicking'); };
-    const up = () => { clicking = false; ring.classList.remove('clicking'); dot.classList.remove('clicking'); };
+    const down = () => { ring.classList.add('clicking'); dot.classList.add('clicking'); };
+    const up = () => { ring.classList.remove('clicking'); dot.classList.remove('clicking'); };
 
     const lerpLoop = () => {
       ringPos.current.x += (mousePos.current.x - ringPos.current.x) * 0.10;
       ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.10;
       ring.style.left = ringPos.current.x + 'px';
       ring.style.top = ringPos.current.y + 'px';
+
+      // Ambient cursor glow
+      if (glow) {
+        glowPos.current.x += (mousePos.current.x - glowPos.current.x) * 0.06;
+        glowPos.current.y += (mousePos.current.y - glowPos.current.y) * 0.06;
+        glow.style.left = glowPos.current.x + 'px';
+        glow.style.top = glowPos.current.y + 'px';
+      }
+
       requestAnimationFrame(lerpLoop);
     };
     lerpLoop();
 
-    // Hover detection
     const addHover = () => {
-      document.querySelectorAll('a, button, .btn-primary, .btn-secondary, .btn-transmit, .skill-card, .project-card').forEach(el => {
+      document.querySelectorAll('a, button, .btn-primary, .btn-secondary, .skill-card, .project-card').forEach(el => {
         el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
         el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
-      });
-      document.querySelectorAll('p, h1, h2, h3, span, li').forEach(el => {
-        el.addEventListener('mouseenter', () => ring.classList.add('text-hover'));
-        el.addEventListener('mouseleave', () => ring.classList.remove('text-hover'));
       });
     };
     setTimeout(addHover, 3500);
@@ -349,7 +434,11 @@ export default function Index() {
       setNavScrolled(scrollTop > 80);
       setShowBackTop(scrollTop > 400);
 
-      // Active section
+      // Hide scroll indicator on first scroll
+      if (scrollTop > 50 && scrollIndicatorVisible) {
+        setScrollIndicatorVisible(false);
+      }
+
       const sections = NAV_LINKS.map(id => document.getElementById(id));
       for (let i = sections.length - 1; i >= 0; i--) {
         const s = sections[i];
@@ -361,20 +450,22 @@ export default function Index() {
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [scrollIndicatorVisible]);
 
   // ===== GSAP ANIMATIONS =====
   useEffect(() => {
-    if (!loaded) return;
+    if (loaderPhase !== 'done') return;
 
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin);
 
-    // Wait a frame for DOM
     requestAnimationFrame(() => {
-      // Splitting.js
-      Splitting({ target: '[data-splitting]', by: 'words' });
+      // Hero entrance stagger
+      gsap.from('.hero-label', { y: 30, opacity: 0, duration: 0.6, delay: 0.1, ease: "power3.out" });
+      gsap.from('.hero-name', { y: 40, opacity: 0, duration: 0.7, delay: 0.25, ease: "power3.out" });
+      gsap.from('.hero-role', { y: 30, opacity: 0, duration: 0.6, delay: 0.45, ease: "power3.out" });
+      gsap.from('.hero-tagline', { y: 30, opacity: 0, duration: 0.6, delay: 0.6, ease: "power3.out" });
+      gsap.from('.hero-buttons', { y: 30, opacity: 0, duration: 0.6, delay: 0.75, ease: "power3.out" });
 
-      // ---- HERO ANIMATIONS ----
       // Text scramble for role
       const roleEl = heroRoleRef.current;
       if (roleEl) {
@@ -411,9 +502,28 @@ export default function Index() {
         x: -120, opacity: 0,
         scrollTrigger: { trigger: "#home", start: "top top", end: "+=150%", scrub: 1, pin: true }
       });
-      gsap.to(".hero-3d", {
-        scale: 0.6, opacity: 0, rotation: 30,
+      gsap.to(".hero-3d-canvas", {
+        scale: 0.6, opacity: 0,
         scrollTrigger: { trigger: "#home", start: "top top", end: "+=150%", scrub: 1 }
+      });
+
+      // ---- Section heading accent lines ----
+      document.querySelectorAll('.heading-accent-line').forEach(line => {
+        gsap.fromTo(line, { width: 0 }, {
+          width: '60px', duration: 0.8, ease: "power2.out",
+          scrollTrigger: { trigger: line, start: "top 85%", toggleActions: "play none none reverse" }
+        });
+      });
+
+      // ---- SVG Divider morph animations ----
+      document.querySelectorAll('.divider-path').forEach(path => {
+        const finalD = (path as SVGPathElement).getAttribute('data-final');
+        if (finalD) {
+          gsap.to(path, {
+            attr: { d: finalD },
+            scrollTrigger: { trigger: path, start: "top 90%", end: "top 50%", scrub: 1 }
+          });
+        }
       });
 
       // ---- ABOUT: Curtain word reveal ----
@@ -432,9 +542,7 @@ export default function Index() {
         const target = parseInt((el as HTMLElement).dataset.target || "0");
         const suffix = (el as HTMLElement).dataset.suffix || "";
         ScrollTrigger.create({
-          trigger: el,
-          start: "top 85%",
-          once: true,
+          trigger: el, start: "top 85%", once: true,
           onEnter: () => {
             const obj = { val: 0 };
             gsap.to(obj, { val: target, duration: 1.5, ease: "power2.out", onUpdate: () => {
@@ -445,33 +553,19 @@ export default function Index() {
       });
 
       // ---- SKILLS: 3D card flip cascade ----
-      const skillCards = document.querySelectorAll('.skill-card');
-      gsap.from(skillCards, {
+      gsap.from('.skill-card', {
         rotateX: 90, opacity: 0, y: 40,
         transformOrigin: "top center",
         stagger: { each: 0.07, from: "center" },
-        duration: 0.9,
-        ease: "back.out(1.5)",
+        duration: 0.9, ease: "back.out(1.5)",
         scrollTrigger: { trigger: ".skills-section", start: "top 60%", toggleActions: "play none none reverse" }
       });
-
-      // Skills heading chars
-      const skillChars = document.querySelectorAll('.skills-section .section-heading .char');
-      if (skillChars.length) {
-        gsap.from(skillChars, {
-          opacity: 0, y: 80, rotation: -15,
-          stagger: 0.04, ease: "expo.out",
-          scrollTrigger: { trigger: ".skills-section", start: "top 70%", toggleActions: "play none none reverse" }
-        });
-      }
 
       // Skill bar fill
       document.querySelectorAll('.skill-bar-fill').forEach(bar => {
         const level = (bar as HTMLElement).dataset.level || "0";
         ScrollTrigger.create({
-          trigger: bar,
-          start: "top 90%",
-          once: true,
+          trigger: bar, start: "top 90%", once: true,
           onEnter: () => { (bar as HTMLElement).style.width = level + "%"; }
         });
       });
@@ -481,16 +575,11 @@ export default function Index() {
       if (track) {
         const getScrollAmount = () => -(track.scrollWidth - window.innerWidth);
         gsap.to(track, {
-          x: getScrollAmount,
-          ease: "none",
+          x: getScrollAmount, ease: "none",
           scrollTrigger: {
-            trigger: ".projects-section",
-            start: "top top",
+            trigger: ".projects-section", start: "top top",
             end: () => "+=" + (track.scrollWidth - window.innerWidth),
-            pin: true,
-            scrub: 1.2,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
+            pin: true, scrub: 1.2, anticipatePin: 1, invalidateOnRefresh: true,
           }
         });
       }
@@ -505,7 +594,6 @@ export default function Index() {
         );
       });
 
-      // Education line height
       const eduLine = document.querySelector('.education-line') as HTMLElement;
       if (eduLine) {
         gsap.to(eduLine, {
@@ -519,15 +607,12 @@ export default function Index() {
         const target = parseInt((el as HTMLElement).dataset.target || "0");
         const suffix = (el as HTMLElement).dataset.suffix || "";
         ScrollTrigger.create({
-          trigger: el,
-          start: "top 85%",
-          once: true,
+          trigger: el, start: "top 85%", once: true,
           onEnter: () => {
             const obj = { val: 0 };
             gsap.to(obj, { val: target, duration: 1.5, ease: "power2.out", onUpdate: () => {
               (el as HTMLElement).textContent = Math.floor(obj.val) + suffix;
             }});
-            // Burst
             const burst = (el as HTMLElement).parentElement?.querySelector('.radial-burst');
             if (burst) {
               gsap.fromTo(burst.children, { scale: 0, opacity: 1 }, { scale: 1, opacity: 0, duration: 0.8, stagger: 0.03, ease: "power2.out" });
@@ -536,7 +621,6 @@ export default function Index() {
         });
       });
 
-      // Achievement cards slide from right
       gsap.from('.achievement-card', {
         x: 60, opacity: 0, stagger: 0.1, duration: 0.8, ease: "power3.out",
         scrollTrigger: { trigger: '.achievement-cards', start: "top 80%", toggleActions: "play none none reverse" }
@@ -561,26 +645,68 @@ export default function Index() {
         });
       });
 
-      // ---- CONTACT: Scale + spring ----
-      gsap.from('.radar-container', {
-        scale: 0, duration: 1, ease: "elastic.out(1, 0.5)",
+      // ---- CONTACT: columns slide in from sides ----
+      gsap.from('.contact-info', {
+        x: -80, opacity: 0, duration: 0.9, ease: "power3.out",
         scrollTrigger: { trigger: ".contact-section", start: "top 70%", toggleActions: "play none none reverse" }
       });
-      gsap.from('.contact-form', {
-        y: 80, opacity: 0, duration: 0.8, delay: 0.2, ease: "power3.out",
+      gsap.from('.contact-form-panel', {
+        x: 80, opacity: 0, duration: 0.9, delay: 0.15, ease: "power3.out",
         scrollTrigger: { trigger: ".contact-section", start: "top 70%", toggleActions: "play none none reverse" }
-      });
-      gsap.from('.contact-link-row', {
-        x: -40, opacity: 0, stagger: 0.06, duration: 0.6, ease: "power3.out",
-        scrollTrigger: { trigger: ".contact-links", start: "top 85%", toggleActions: "play none none reverse" }
       });
 
+      // ---- MAGNETIC BUTTONS ----
+      if (window.innerWidth > 768) {
+        document.querySelectorAll('.btn-primary, .btn-secondary, .btn-submit').forEach(btn => {
+          const el = btn as HTMLElement;
+          el.addEventListener('mousemove', (e: MouseEvent) => {
+            const rect = el.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const dx = e.clientX - cx;
+            const dy = e.clientY - cy;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 80) {
+              const pull = (80 - dist) / 80;
+              gsap.to(el, { x: dx * pull * 0.3, y: dy * pull * 0.3, duration: 0.3, ease: "power2.out" });
+            }
+          });
+          el.addEventListener('mouseleave', () => {
+            gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.5)" });
+          });
+        });
+      }
+
+      // ---- CHARACTER HOVER LIGHTING on headings ----
+      if (window.innerWidth > 768) {
+        document.querySelectorAll('.section-heading').forEach(heading => {
+          const chars = heading.querySelectorAll('.char');
+          if (!chars.length) return;
+          chars.forEach((ch: Element) => {
+            const el = ch as HTMLElement;
+            el.addEventListener('mouseenter', () => {
+              el.style.color = 'hsl(195, 100%, 50%)';
+              el.style.textShadow = '0 0 12px hsla(195, 100%, 50%, 0.5)';
+              el.style.transition = 'color 0.15s, text-shadow 0.15s';
+            });
+            el.addEventListener('mouseleave', () => {
+              setTimeout(() => {
+                el.style.color = '';
+                el.style.textShadow = '';
+              }, 200);
+            });
+          });
+        });
+      }
+
+      // ---- Splitting.js for headings ----
+      try { Splitting({ target: '[data-splitting]', by: 'chars' }); } catch(e) {}
     });
 
     return () => { ScrollTrigger.getAll().forEach((t: any) => t.kill()); };
-  }, [loaded]);
+  }, [loaderPhase]);
 
-  // ===== SKILL CARD TILT (mouse) =====
+  // ===== SKILL CARD TILT =====
   const handleSkillMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (window.innerWidth <= 768) return;
     const card = e.currentTarget;
@@ -600,47 +726,53 @@ export default function Index() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setFormSent(true);
-    setTimeout(() => setFormSent(false), 3000);
+    setFormSending(true);
+    setTimeout(() => {
+      setFormSending(false);
+      setFormSent(true);
+      setTimeout(() => setFormSent(false), 3000);
+    }, 1200);
   };
 
-  const SocialIcons = ({ className = "" }: { className?: string }) => (
-    <div className={`social-icons ${className}`}>
-      {SOCIAL_ICONS.map(s => (
-        <a key={s.tooltip} href={s.url} data-tooltip={s.tooltip} aria-label={s.tooltip}>
-          <i className={s.icon}></i>
-        </a>
-      ))}
-    </div>
-  );
+  const loaderName = "ALEX CHEN";
 
   return (
     <>
-      {/* LOADER */}
-      <div id="loader" className={loaded ? "hidden" : ""}>
-        <div className="loader-scanline" />
-        <svg className="loader-logo" viewBox="0 0 60 60">
-          <polygon points="30,2 58,30 30,58 2,30" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="2"/>
-          <polygon points="30,12 48,30 30,48 12,30" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="1.5" opacity="0.5"/>
-        </svg>
-        <div className="loader-text"><span ref={loaderTextRef}></span></div>
-        <div className="loader-progress"><div className="loader-progress-bar" ref={loaderBarRef}></div></div>
-      </div>
+      {/* ===== LOADER ===== */}
+      {loaderPhase !== 'done' && (
+        <div className="loader-overlay">
+          {/* Split panels for exit */}
+          <div className={`loader-panel loader-panel-top ${loaderPhase === 'split' ? 'exit' : ''}`}></div>
+          <div className={`loader-panel loader-panel-bottom ${loaderPhase === 'split' ? 'exit' : ''}`}></div>
+
+          {/* Sweep line */}
+          {loaderPhase === 'sweep' && <div className="loader-sweep-line" />}
+
+          {/* Reveal content */}
+          {(loaderPhase === 'reveal' || loaderPhase === 'split') && (
+            <div className="loader-reveal-content">
+              <div className="loader-portfolio-label">PORTFOLIO 2025</div>
+              <div className="loader-name-reveal" ref={loaderNameRef}>
+                {loaderName.split('').map((ch, i) => (
+                  <span key={i} className={`loader-char ${ch === ' ' ? 'space' : ''}`}>{ch}</span>
+                ))}
+              </div>
+              <div className="loader-role-reveal">Full-Stack Developer</div>
+              <div className="loader-bar-wrap">
+                <div className={`loader-bar-fill ${loaderPhase === 'reveal' || loaderPhase === 'split' ? 'filling' : ''}`}></div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* CURSORS */}
       <div className="cursor-ring" ref={cursorRingRef}></div>
       <div className="cursor-dot" ref={cursorDotRef}></div>
+      <div className="cursor-glow" ref={cursorGlowRef}></div>
 
       {/* BG CANVAS */}
       <canvas id="bg-canvas" ref={bgCanvasRef}></canvas>
-
-      {/* FOG */}
-      <div className="fog-overlay">
-        <div className="fog-blob"></div>
-        <div className="fog-blob"></div>
-        <div className="fog-blob"></div>
-        <div className="fog-blob"></div>
-      </div>
 
       {/* NAVBAR */}
       <nav className={`navbar ${navScrolled ? 'scrolled' : ''}`}>
@@ -653,7 +785,6 @@ export default function Index() {
             <li key={id}><a className={activeNav === id ? 'active' : ''} onClick={() => scrollToSection(id)}>{id}</a></li>
           ))}
         </ul>
-        <SocialIcons />
         <div className={`hamburger ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
           <span/><span/><span/>
         </div>
@@ -667,14 +798,19 @@ export default function Index() {
         {NAV_LINKS.map(id => (
           <a key={id} onClick={() => scrollToSection(id)}>{id}</a>
         ))}
-        <SocialIcons />
+        <div className="social-icons">
+          {SOCIAL_LINKS.map(s => (
+            <a key={s.label} href={s.url} aria-label={s.label}><i className={s.icon}></i></a>
+          ))}
+        </div>
       </div>
 
       <div className="content-wrapper">
         {/* ===== HERO ===== */}
         <section id="home" className="hero-section">
+          <div className="hero-3d-canvas" ref={heroCanvasRef}></div>
           <div className="hero-text">
-            <div className="hero-status"><span className="dot"></span> SYSTEM ONLINE</div>
+            <div className="hero-label">● SYSTEM ONLINE</div>
             <h1 className="hero-name">ALEX CHEN</h1>
             <div className="hero-role" ref={heroRoleRef}>&nbsp;</div>
             <div className="hero-tagline" ref={heroTaglineRef}>&nbsp;</div>
@@ -682,25 +818,32 @@ export default function Index() {
               <button className="btn-primary" onClick={() => scrollToSection('projects')}>VIEW PROJECTS</button>
               <button className="btn-secondary" onClick={() => scrollToSection('contact')}>CONTACT ME</button>
             </div>
-            <div className="hero-social">
-              {SOCIAL_ICONS.map(s => (
-                <a key={s.tooltip} href={s.url} aria-label={s.tooltip}><i className={s.icon}></i></a>
-              ))}
+          </div>
+
+          {/* Scroll invitation */}
+          <div
+            className={`scroll-indicator ${scrollIndicatorVisible ? 'visible' : ''}`}
+            onClick={() => scrollToSection('about')}
+          >
+            <span className="scroll-label">SCROLL TO EXPLORE</span>
+            <div className="scroll-line">
+              <div className="scroll-dot"></div>
             </div>
           </div>
-          <div className="hero-3d" ref={heroCanvasRef}></div>
         </section>
+
+        <SectionDivider index={0} />
 
         {/* ===== ABOUT ===== */}
         <section id="about" className="about-section">
           <span className="section-label">// 01. WHO I AM</span>
-          <h2 className="section-heading" data-splitting>About <span className="accent">Me</span></h2>
+          <h2 className="section-heading" data-splitting>About Me</h2>
+          <div className="heading-accent-line"></div>
           <div className="about-grid">
             <div>
               <div className="about-avatar-wrap">
                 <div className="about-avatar">AC</div>
                 <div className="about-avatar-border"></div>
-                <div className="about-scan-line"></div>
               </div>
               <span className="about-badge">STUDENT DEVELOPER</span>
             </div>
@@ -725,10 +868,13 @@ export default function Index() {
           </div>
         </section>
 
+        <SectionDivider index={1} />
+
         {/* ===== SKILLS ===== */}
         <section id="skills" className="skills-section">
           <span className="section-label">// 02. TECH ARSENAL</span>
-          <h2 className="section-heading" data-splitting>My <span className="accent">Skills</span></h2>
+          <h2 className="section-heading" data-splitting>My Skills</h2>
+          <div className="heading-accent-line"></div>
           <div className="skills-grid">
             {SKILLS.map(skill => (
               <div className="skill-card" key={skill.name} onMouseMove={handleSkillMouseMove} onMouseLeave={handleSkillMouseLeave}>
@@ -736,16 +882,18 @@ export default function Index() {
                 <div className="skill-name">{skill.name}</div>
                 <div className="skill-category">{skill.category}</div>
                 <div className="skill-bar"><div className="skill-bar-fill" data-level={skill.level}></div></div>
-                <div className="skill-status">{skill.status}</div>
               </div>
             ))}
           </div>
         </section>
 
+        <SectionDivider index={2} />
+
         {/* ===== PROJECTS ===== */}
         <section className="projects-section">
           <span className="section-label">// 03. MISSION LOG</span>
-          <h2 className="section-heading">Featured <span className="accent">Projects</span></h2>
+          <h2 className="section-heading">Featured Projects</h2>
+          <div className="heading-accent-line" style={{ marginLeft: '5vw' }}></div>
           <div className="projects-track">
             {PROJECTS.map(p => (
               <div className="project-card" key={p.id}>
@@ -769,10 +917,13 @@ export default function Index() {
           </div>
         </section>
 
+        <SectionDivider index={3} />
+
         {/* ===== EDUCATION ===== */}
         <section id="education" className="education-section">
           <span className="section-label">// 04. KNOWLEDGE BASE</span>
           <h2 className="section-heading">Education</h2>
+          <div className="heading-accent-line"></div>
           <div className="education-timeline">
             <div className="education-line"></div>
             {EDUCATION.map((edu, i) => (
@@ -793,10 +944,13 @@ export default function Index() {
           </div>
         </section>
 
+        <SectionDivider index={4} />
+
         {/* ===== ACHIEVEMENTS ===== */}
         <section className="achievements-section">
           <span className="section-label">// 05. MILESTONES</span>
           <h2 className="section-heading">Achievements</h2>
+          <div className="heading-accent-line"></div>
           <div className="achievements-stats">
             {ACHIEVEMENTS_STATS.map((s, i) => (
               <div className="achievement-stat" key={i}>
@@ -823,10 +977,13 @@ export default function Index() {
           </div>
         </section>
 
+        <SectionDivider index={5} />
+
         {/* ===== EXPERIENCE ===== */}
         <section id="experience" className="experience-section">
           <span className="section-label">// 06. MISSION HISTORY</span>
           <h2 className="section-heading">Experience</h2>
+          <div className="heading-accent-line"></div>
           <div className="experience-timeline">
             <svg className="experience-svg-line" width="40" height="100%" preserveAspectRatio="none">
               <path className="exp-svg-path" d="M20,0 L20,2000" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="2" style={{ filter: 'drop-shadow(0 0 4px hsl(195,100%,50%,0.5))' }} />
@@ -847,71 +1004,85 @@ export default function Index() {
           </div>
         </section>
 
-        {/* ===== CONTACT ===== */}
+        <SectionDivider index={6} />
+
+        {/* ===== CONTACT — REDESIGNED ===== */}
         <section id="contact" className="contact-section">
-          <span className="section-label">// 07. ESTABLISH CONNECTION</span>
-          <h2 className="section-heading">Contact <span className="accent">Me</span></h2>
-          <div className="contact-grid">
-            <div>
-              <div className="radar-container">
-                <div className="radar-circle"></div>
-                <div className="radar-circle"></div>
-                <div className="radar-circle"></div>
-                <div className="radar-circle"></div>
-                <div className="radar-circle"></div>
-                <div className="radar-sweep"></div>
-                <div className="radar-blip" style={{ top: '30%', left: '60%', animationDelay: '0.5s' }}></div>
-                <div className="radar-blip" style={{ top: '65%', left: '35%', animationDelay: '1.2s' }}></div>
-                <div className="radar-blip" style={{ top: '45%', left: '72%', animationDelay: '2s' }}></div>
-              </div>
-              <div className="contact-links">
-                {[
-                  { icon: "fa-brands fa-github", text: "github.com/alexchen" },
-                  { icon: "fa-brands fa-linkedin", text: "linkedin.com/in/alexchen" },
-                  { icon: "fa-brands fa-x-twitter", text: "twitter.com/alexchendev" },
-                  { icon: "fa-brands fa-instagram", text: "instagram.com/alexchen" },
-                  { icon: "fa-solid fa-envelope", text: "alex@chendev.com" },
-                  { icon: "fa-solid fa-code", text: "leetcode.com/alexchen" },
-                  { icon: "fa-solid fa-globe", text: "alexchen.dev" },
-                ].map((l, i) => (
-                  <a className="contact-link-row" href="#" key={i}>
-                    <i className={l.icon}></i>
-                    <span className="separator">::</span>
-                    <span>{l.text}</span>
+          <div className="contact-grid-new">
+            {/* Left: Info block */}
+            <div className="contact-info">
+              <span className="section-label">// 07. GET IN TOUCH</span>
+              <h2 className="contact-heading">
+                <span>Let's Work</span>
+                <span className="gradient-text">Together</span>
+              </h2>
+              <p className="contact-desc">
+                Currently available for internships, freelance projects, and open-source collaboration. Let's build something meaningful.
+              </p>
+              <div className="contact-hr"></div>
+              <div className="contact-social-links">
+                {SOCIAL_LINKS.map((s, i) => (
+                  <a key={s.label} href={s.url} className={`contact-social-row ${i < SOCIAL_LINKS.length - 1 ? 'bordered' : ''}`}>
+                    <div className="contact-social-left">
+                      <i className={s.icon}></i>
+                      <span>{s.label}</span>
+                    </div>
+                    <i className="fa-solid fa-arrow-right"></i>
                   </a>
                 ))}
               </div>
             </div>
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <div className="form-field">
-                <span className="prefix">{">>"} YOUR NAME:</span>
-                <input type="text" required placeholder="John Doe" />
-              </div>
-              <div className="form-field">
-                <span className="prefix">{">>"} EMAIL:</span>
-                <input type="email" required placeholder="john@example.com" />
-              </div>
-              <div className="form-field">
-                <span className="prefix">{">>"} MESSAGE:</span>
-                <textarea required placeholder="Let's collaborate..." rows={4}></textarea>
-              </div>
-              <button type="submit" className={`btn-transmit ${formSent ? 'sent' : ''}`}>
-                {formSent ? '✓ SIGNAL TRANSMITTED' : '[[ TRANSMIT SIGNAL ]]'}
-              </button>
-            </form>
+
+            {/* Right: Form panel */}
+            <div className="contact-form-panel">
+              <div className="contact-form-title">Send a Message</div>
+              <form className="contact-form-new" onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label>YOUR NAME</label>
+                  <input type="text" required placeholder="John Doe" />
+                </div>
+                <div className="form-group">
+                  <label>EMAIL ADDRESS</label>
+                  <input type="email" required placeholder="john@example.com" />
+                </div>
+                <div className="form-group">
+                  <label>SUBJECT</label>
+                  <input type="text" required placeholder="Project inquiry" />
+                </div>
+                <div className="form-group">
+                  <label>MESSAGE</label>
+                  <textarea required placeholder="Tell me about your project..." rows={4}></textarea>
+                </div>
+                <button type="submit" className={`btn-submit ${formSending ? 'sending' : ''} ${formSent ? 'sent' : ''}`} disabled={formSending}>
+                  {formSending ? 'SENDING...' : formSent ? '✓ MESSAGE SENT' : 'SEND MESSAGE'}
+                </button>
+              </form>
+            </div>
           </div>
         </section>
 
-        {/* ===== FOOTER ===== */}
-        <footer className="footer">
-          <div className="footer-logo">ALEX CHEN</div>
-          <SocialIcons />
-          <div className="footer-status">[ ALL SYSTEMS NOMINAL ]</div>
+        {/* ===== FOOTER — SIMPLIFIED ===== */}
+        <footer className="footer-new">
+          <div className="footer-brand">
+            <svg width="28" height="28" viewBox="0 0 36 36">
+              <polygon points="18,2 34,18 18,34 2,18" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="2"/>
+              <polygon points="18,8 28,18 18,28 8,18" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="1.5" opacity="0.5"/>
+            </svg>
+            <span>ALEX CHEN</span>
+          </div>
+          <div className="footer-social">
+            {SOCIAL_LINKS.map(s => (
+              <a key={s.label} href={s.url} aria-label={s.label}><i className={s.icon}></i></a>
+            ))}
+          </div>
           <div className="footer-copy">© 2025 Alex Chen. Built with ♥ and code.</div>
+          <button className="footer-back-top" onClick={() => gsap.to(window, { scrollTo: { y: 0 }, duration: 1.5, ease: "power4.inOut" })}>
+            ↑ BACK TO TOP
+          </button>
         </footer>
       </div>
 
-      {/* BACK TO TOP */}
+      {/* BACK TO TOP (fixed) */}
       <button className={`back-to-top ${showBackTop ? 'visible' : ''}`} onClick={() => gsap.to(window, { scrollTo: { y: 0 }, duration: 1.5, ease: "power4.inOut" })} aria-label="Back to top">
         <i className="fa-solid fa-arrow-up"></i>
       </button>
