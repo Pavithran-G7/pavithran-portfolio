@@ -874,18 +874,6 @@ export default function Index() {
 
         {/* ===== FOOTER ===== */}
         <footer className="footer">
-          <div className="footer-brand">
-            <svg width="28" height="28" viewBox="0 0 36 36">
-              <polygon points="18,2 34,18 18,34 2,18" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="2"/>
-              <polygon points="18,8 28,18 18,28 8,18" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="1.5" opacity="0.5"/>
-            </svg>
-            <span>ALEX CHEN</span>
-          </div>
-          <div className="footer-socials">
-            {SOCIAL_ICONS.map(s => (
-              <a key={s.tooltip} href={s.url} aria-label={s.tooltip}><i className={s.icon}></i></a>
-            ))}
-          </div>
           <div className="footer-copy">© 2025 Alex Chen. All rights reserved.</div>
         </footer>
       </div>
