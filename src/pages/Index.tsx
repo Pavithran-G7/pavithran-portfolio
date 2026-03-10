@@ -901,50 +901,49 @@ export default function Index() {
 
         {/* ===== CONTACT ===== */}
         <section id="contact" className="contact-section">
-          <span className="section-label">// 07. ESTABLISH CONNECTION</span>
+          <span className="section-label">// 07. GET IN TOUCH</span>
           <h2 className="section-heading">Contact <span className="accent">Me</span></h2>
           <div className="contact-grid">
-            <div>
-              <div className="radar-container">
-                <div className="radar-circle"></div>
-                <div className="radar-circle"></div>
-                <div className="radar-circle"></div>
-                <div className="radar-circle"></div>
-                <div className="radar-circle"></div>
-                <div className="radar-sweep"></div>
-                <div className="radar-blip" style={{ top: '30%', left: '60%', animationDelay: '0.5s' }}></div>
-                <div className="radar-blip" style={{ top: '65%', left: '35%', animationDelay: '1.2s' }}></div>
-                <div className="radar-blip" style={{ top: '45%', left: '72%', animationDelay: '2s' }}></div>
-              </div>
+            <div className="contact-info">
+              <h3>Let's work together</h3>
+              <p className="contact-desc">
+                I'm currently open to freelance projects, internship opportunities, and exciting collaborations. Feel free to reach out — I'd love to hear from you.
+              </p>
               <div className="contact-links">
                 {[
-                  { icon: "fa-brands fa-github", text: "github.com/alexchen" },
-                  { icon: "fa-brands fa-linkedin", text: "linkedin.com/in/alexchen" },
-                  { icon: "fa-brands fa-x-twitter", text: "twitter.com/alexchendev" },
+                  { icon: "fa-brands fa-github", label: "GitHub", url: "github.com/alexchen" },
+                  { icon: "fa-brands fa-linkedin", label: "LinkedIn", url: "linkedin.com/in/alexchen" },
+                  { icon: "fa-brands fa-x-twitter", label: "Twitter / X", url: "twitter.com/alexchendev" },
                 ].map((l, i) => (
                   <a className="contact-link-row" href="#" key={i}>
                     <i className={l.icon}></i>
-                    <span className="separator">::</span>
-                    <span>{l.text}</span>
+                    <div>
+                      <span className="link-label">{l.label}</span>
+                      <span className="link-url">{l.url}</span>
+                    </div>
                   </a>
                 ))}
               </div>
             </div>
             <form className="contact-form" onSubmit={handleSubmit}>
-              <div className="form-field">
-                <span className="prefix">{">>"} YOUR NAME:</span>
+              <div className="form-group">
+                <label>Name</label>
                 <input type="text" required placeholder="John Doe" />
               </div>
-              <div className="form-field">
-                <span className="prefix">{">>"} EMAIL:</span>
+              <div className="form-group">
+                <label>Email</label>
                 <input type="email" required placeholder="john@example.com" />
               </div>
-              <div className="form-field">
-                <span className="prefix">{">>"} MESSAGE:</span>
-                <textarea required placeholder="Let's collaborate..." rows={4}></textarea>
+              <div className="form-group">
+                <label>Subject</label>
+                <input type="text" required placeholder="Project inquiry" />
               </div>
-              <button type="submit" className={`btn-transmit ${formSent ? 'sent' : ''}`}>
-                {formSent ? '✓ SIGNAL TRANSMITTED' : '[[ TRANSMIT SIGNAL ]]'}
+              <div className="form-group">
+                <label>Message</label>
+                <textarea required placeholder="Tell me about your project..." rows={4}></textarea>
+              </div>
+              <button type="submit" className={`btn-submit ${formSent ? 'sent' : ''}`}>
+                {formSent ? '✓ Message Sent' : 'Send Message'}
               </button>
             </form>
           </div>
@@ -952,10 +951,19 @@ export default function Index() {
 
         {/* ===== FOOTER ===== */}
         <footer className="footer">
-          <div className="footer-logo">ALEX CHEN</div>
-          <SocialIcons />
-          <div className="footer-status">[ ALL SYSTEMS NOMINAL ]</div>
-          <div className="footer-copy">© 2025 Alex Chen. Built with ♥ and code.</div>
+          <div className="footer-brand">
+            <svg width="28" height="28" viewBox="0 0 36 36">
+              <polygon points="18,2 34,18 18,34 2,18" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="2"/>
+              <polygon points="18,8 28,18 18,28 8,18" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="1.5" opacity="0.5"/>
+            </svg>
+            <span>ALEX CHEN</span>
+          </div>
+          <div className="footer-socials">
+            {SOCIAL_ICONS.map(s => (
+              <a key={s.tooltip} href={s.url} aria-label={s.tooltip}><i className={s.icon}></i></a>
+            ))}
+          </div>
+          <div className="footer-copy">© 2025 Alex Chen. All rights reserved.</div>
         </footer>
       </div>
 
