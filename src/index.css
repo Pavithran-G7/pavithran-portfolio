@@ -516,9 +516,6 @@ section { min-height: 100vh; padding: 120px 5vw 80px; position: relative; }
   border: 1px solid hsl(var(--border-line) / 0.5);
   border-radius: 12px; max-width: 580px; width: 100%;
   max-height: 90vh; overflow: hidden; position: relative;
-  animation: popupSlide 0.35s cubic-bezier(0.34,1.56,0.64,1);
-}
-  animation: popupSlide 0.35s cubic-bezier(0.34,1.56,0.64,1);
 }
 @keyframes popupSlide { from { transform: scale(0.9) translateY(20px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
 
