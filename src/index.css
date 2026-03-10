@@ -99,8 +99,9 @@ body {
 .cursor-dot {
   position: fixed; width: 6px; height: 6px; background: hsl(var(--accent-ice));
   border-radius: 50%; pointer-events: none; z-index: 10001; transform: translate(-50%, -50%);
+  will-change: left, top;
 }
-.cursor-dot.clicking { transform: translate(-50%, -50%) scale(2.5); }
+.cursor-dot.clicking { transform: translate(-50%, -50%) scale(2.5); transition: transform 0.1s ease; }
 
 @media (max-width: 768px) {
   .cursor-ring, .cursor-dot { display: none !important; }

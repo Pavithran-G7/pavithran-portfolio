@@ -73,6 +73,82 @@ const SOCIAL_ICONS = [
   { icon: "fa-brands fa-x-twitter", url: "#", tooltip: "Twitter/X" },
 ];
 
+const PROJECT_CARD_WIDTH = 400;
+const PROJECT_GAP = 32;
+
+function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: typeof PROJECTS; onProjectClick: (p: typeof PROJECTS[0]) => void }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  const totalDistance = (projects.length - 1) * (PROJECT_CARD_WIDTH + PROJECT_GAP);
+  const x = useTransform(scrollYProgress, [0, 1], [0, -totalDistance]);
+
+  return (
+    <section
+      id="projects"
+      ref={containerRef}
+      style={{ height: `${projects.length * 100}vh`, position: 'relative' }}
+    >
+      <div
+        style={{
+          position: 'sticky',
+          top: 0,
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          overflow: 'hidden',
+          padding: '0 5vw',
+        }}
+      >
+        <span className="section-label" style={{ marginBottom: 12 }}>// 03. MISSION LOG</span>
+        <h2 className="section-heading" style={{ marginBottom: 40 }}>Featured <span className="accent">Projects</span></h2>
+        <motion.div
+          style={{
+            x,
+            display: 'flex',
+            gap: `${PROJECT_GAP}px`,
+          }}
+        >
+          {projects.map((p, i) => (
+            <motion.div
+              className="project-card"
+              key={p.id}
+              style={{ flex: `0 0 ${PROJECT_CARD_WIDTH}px` }}
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              viewport={{ once: true }}
+            >
+              <div className="project-visual" onClick={() => onProjectClick(p)} style={{ cursor: 'pointer' }}>
+                <img src={p.image} alt={p.title} className="project-image" loading="lazy" />
+                <div className="project-image-overlay">
+                  <i className="fa-solid fa-expand"></i>
+                </div>
+                <div className="project-mission">MISSION-{p.id}</div>
+              </div>
+              <div className="project-content">
+                <div className="project-title">{p.title}</div>
+                <div className="project-desc">{p.desc}</div>
+                <div className="project-tech">
+                  {p.tech.map(t => <span key={t}>{t}</span>)}
+                </div>
+                <div className="project-links">
+                  <a href="#">↗ LIVE DEMO</a>
+                  <a href="#">{"</>"} SOURCE CODE</a>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 export default function Index() {
   const [loaded, setLoaded] = useState(false);
   const [navScrolled, setNavScrolled] = useState(false);
