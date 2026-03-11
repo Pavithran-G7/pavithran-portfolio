@@ -471,7 +471,7 @@ section {
 .skill-status { font-family: var(--font-mono); font-size: 10px; color: hsl(var(--accent-mint)); letter-spacing: 0.1em; }
 
 /* ===== PROJECTS ===== */
-.projects-section { padding: 0; overflow: visible; }
+.projects-section { padding: 0; overflow: hidden; }
 
 .project-card {
   min-height: auto;

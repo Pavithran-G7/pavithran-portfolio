@@ -709,8 +709,8 @@ export default function Index() {
             <div className="hero-role" ref={heroRoleRef}>&nbsp;</div>
             <div className="hero-tagline" ref={heroTaglineRef}>&nbsp;</div>
             <div className="hero-buttons">
-              <button className="btn-primary" onClick={() => scrollToSection('projects')}>VIEW PROJECTS</button>
-              <button className="btn-secondary" onClick={() => scrollToSection('contact')}>CONTACT ME</button>
+              <a href="#projects" className="btn-primary" onClick={(e) => { e.preventDefault(); scrollToSection('projects'); }}>VIEW PROJECTS</a>
+              <a href="#contact" className="btn-secondary" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>CONTACT ME</a>
               <a href="#" className="btn-resume" download>
                 <i className="fa-solid fa-download"></i> DOWNLOAD RESUME
               </a>
