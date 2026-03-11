@@ -573,16 +573,30 @@ export default function Index() {
     e.currentTarget.style.transform = '';
   }, []);
 
-  const scrollToSection = useCallback((id: string) => {
+  const scrollToSection = useCallback((id: string, smooth = true) => {
     const section = document.getElementById(id);
     if (!section) return;
 
     const offset = id === "home" ? 0 : NAVBAR_HEIGHT;
     const top = Math.max(section.getBoundingClientRect().top + window.scrollY - offset, 0);
     window.history.replaceState(null, "", id === "home" ? window.location.pathname : `#${id}`);
-    window.scrollTo({ top, behavior: "smooth" });
+    window.scrollTo({ top, behavior: smooth ? "smooth" : "auto" });
     setMobileMenuOpen(false);
   }, []);
+
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (!hash) return;
+
+    const alignToHash = () => scrollToSection(hash, false);
+    window.addEventListener("load", alignToHash);
+    const timeout = window.setTimeout(alignToHash, 0);
+
+    return () => {
+      window.removeEventListener("load", alignToHash);
+      window.clearTimeout(timeout);
+    };
+  }, [scrollToSection]);
 
 
   const handleSubmit = (e: React.FormEvent) => {
