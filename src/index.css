@@ -42,7 +42,11 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { overflow: auto; }
+html {
+  overflow: auto;
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
 
 body {
   background: hsl(var(--bg-void));
