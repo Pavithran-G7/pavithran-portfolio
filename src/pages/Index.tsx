@@ -99,7 +99,7 @@ function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: type
     <section
       id="projects"
       ref={containerRef}
-      style={{ height: `${projects.length * 100}vh`, position: 'relative' }}
+      style={{ height: `${(projects.length + 1) * 80}vh`, position: 'relative' }}
     >
       <div
         style={{
@@ -471,13 +471,15 @@ export default function Index() {
 
       // ---- SKILLS ----
       const skillCards = document.querySelectorAll('.skill-card');
-      gsap.from(skillCards, {
-        rotateX: 90, opacity: 0, y: 40,
-        transformOrigin: "top center",
-        stagger: { each: 0.07, from: "center" },
-        duration: 0.9, ease: "back.out(1.5)",
-        scrollTrigger: { trigger: ".skills-section", start: "top 60%", toggleActions: "play none none reverse" }
-      });
+      if (skillCards.length) {
+        gsap.set(skillCards, { opacity: 1, rotateX: 0, y: 0 });
+        gsap.from(skillCards, {
+          opacity: 0, y: 30,
+          stagger: { each: 0.05, from: "start" },
+          duration: 0.6, ease: "power2.out",
+          scrollTrigger: { trigger: ".skills-section", start: "top 80%", toggleActions: "play none none none" }
+        });
+      }
 
       const skillChars = document.querySelectorAll('.skills-section .section-heading .char');
       if (skillChars.length) {
