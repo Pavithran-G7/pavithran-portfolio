@@ -374,57 +374,8 @@ export default function Index() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // ===== CURSOR-SPEED-BASED MOMENTUM SCROLL =====
-  useEffect(() => {
-    if (window.innerWidth <= 768) return;
+  // Native browser scrolling keeps section transitions precise and stable.
 
-    let currentY = window.scrollY;
-    let targetY = currentY;
-    let prevMouseY = 0;
-    let mouseSpeed = 0;
-    let lastMoveTime = 0;
-    const maxScroll = () => document.documentElement.scrollHeight - window.innerHeight;
-
-    const onWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      const speedMultiplier = Math.min(4, 1 + mouseSpeed * 0.015);
-      targetY = Math.max(0, Math.min(targetY + e.deltaY * speedMultiplier, maxScroll()));
-    };
-
-    const onMouseMove = (e: MouseEvent) => {
-      const now = performance.now();
-      const dt = now - lastMoveTime;
-      if (dt > 0 && lastMoveTime > 0) {
-        const dy = Math.abs(e.clientY - prevMouseY);
-        const dx = Math.abs(e.clientX - (mousePos.current?.x || 0));
-        mouseSpeed = Math.sqrt(dx * dx + dy * dy) / dt * 16;
-      }
-      prevMouseY = e.clientY;
-      lastMoveTime = now;
-    };
-
-    const decayInterval = setInterval(() => { mouseSpeed *= 0.9; }, 50);
-
-    const ease = 0.075;
-    let rafId: number;
-    const smoothLoop = () => {
-      currentY += (targetY - currentY) * ease;
-      window.scrollTo(0, currentY);
-      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update();
-      rafId = requestAnimationFrame(smoothLoop);
-    };
-    rafId = requestAnimationFrame(smoothLoop);
-
-    window.addEventListener('wheel', onWheel, { passive: false });
-    window.addEventListener('mousemove', onMouseMove, { passive: true });
-
-    return () => {
-      window.removeEventListener('wheel', onWheel);
-      window.removeEventListener('mousemove', onMouseMove);
-      cancelAnimationFrame(rafId);
-      clearInterval(decayInterval);
-    };
-  }, []);
 
   // ===== GSAP ANIMATIONS =====
   useEffect(() => {
