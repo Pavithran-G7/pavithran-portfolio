@@ -292,6 +292,7 @@ section {
 .hero-section {
   display: flex; align-items: center; justify-content: center;
   min-height: 100vh !important; padding-top: 0; padding-bottom: 0; gap: 40px;
+  scroll-margin-top: 0;
 }
 .hero-text { flex: 1; max-width: 600px; }
 
