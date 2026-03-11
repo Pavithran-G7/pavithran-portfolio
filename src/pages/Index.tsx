@@ -99,7 +99,7 @@ function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: type
     <section
       id="projects"
       ref={containerRef}
-      style={{ height: `${projects.length * 100}vh`, position: 'relative' }}
+      style={{ height: `${(projects.length + 1) * 80}vh`, position: 'relative' }}
     >
       <div
         style={{
