@@ -637,7 +637,18 @@ export default function Index() {
         <div className="navbar-inner">
           <ul className="nav-links">
             {NAV_LINKS.map(id => (
-              <li key={id}><a className={activeNav === id ? 'active' : ''} onClick={() => scrollToSection(id)}>{id}</a></li>
+              <li key={id}>
+                <a
+                  href={`#${id}`}
+                  className={activeNav === id ? 'active' : ''}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(id);
+                  }}
+                >
+                  {id}
+                </a>
+              </li>
             ))}
           </ul>
           <div className={`hamburger ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
@@ -652,7 +663,16 @@ export default function Index() {
       {/* MOBILE MENU */}
       <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
         {NAV_LINKS.map(id => (
-          <a key={id} onClick={() => scrollToSection(id)}>{id}</a>
+          <a
+            key={id}
+            href={`#${id}`}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection(id);
+            }}
+          >
+            {id}
+          </a>
         ))}
         <SocialIcons />
       </div>
