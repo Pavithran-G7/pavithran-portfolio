@@ -87,55 +87,33 @@ const NAVBAR_HEIGHT = 72;
 
 function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: typeof PROJECTS; onProjectClick: (p: typeof PROJECTS[0]) => void }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [layout, setLayout] = useState({
-    cardWidth: PROJECT_CARD_WIDTH,
-    sectionHeight: typeof window !== "undefined" ? window.innerHeight : 1200,
-    translateDistance: 0,
-  });
 
-  useEffect(() => {
-    const updateLayout = () => {
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-      const cardWidth = viewportWidth <= 768
-        ? Math.min(320, Math.max(viewportWidth - 48, 260))
-        : PROJECT_CARD_WIDTH;
-      const horizontalPadding = viewportWidth * 0.1;
-      const visibleTrackWidth = Math.max(viewportWidth - horizontalPadding, cardWidth);
-      const totalTrackWidth = projects.length * cardWidth + Math.max(projects.length - 1, 0) * PROJECT_GAP;
-      const translateDistance = Math.max(totalTrackWidth - visibleTrackWidth, 0);
-
-      setLayout({
-        cardWidth,
-        sectionHeight: viewportHeight + translateDistance,
-        translateDistance,
-      });
-    };
-
-    updateLayout();
-    window.addEventListener("resize", updateLayout);
-    return () => window.removeEventListener("resize", updateLayout);
-  }, [projects.length]);
+  // Calculate total horizontal distance: move from first card to last card
+  const totalDistance = (projects.length - 1) * (PROJECT_CARD_WIDTH + PROJECT_GAP);
+  // Section height = 1 viewport for the sticky + the scroll distance needed
+  const sectionHeight = typeof window !== "undefined"
+    ? window.innerHeight + totalDistance
+    : 2400;
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], [0, -layout.translateDistance]);
+  const x = useTransform(scrollYProgress, [0, 1], [0, -totalDistance]);
 
   return (
     <section
       id="projects"
       ref={containerRef}
       className="projects-section"
-      style={{ height: `${Math.ceil(layout.sectionHeight)}px`, position: "relative" }}
+      style={{ height: `${sectionHeight}px`, position: "relative" }}
     >
       <div
         style={{
           position: "sticky",
-          top: `${NAVBAR_HEIGHT}px`,
-          height: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
+          top: 0,
+          height: "100vh",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -150,15 +128,16 @@ function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: type
             x,
             display: "flex",
             gap: `${PROJECT_GAP}px`,
+            willChange: "transform",
           }}
         >
           {projects.map((p, i) => (
             <motion.div
               className="project-card"
               key={p.id}
-              style={{ flex: `0 0 ${layout.cardWidth}px` }}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              style={{ flex: `0 0 ${PROJECT_CARD_WIDTH}px` }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
               viewport={{ once: true }}
             >
