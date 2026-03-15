@@ -87,31 +87,48 @@ const NAVBAR_HEIGHT = 72;
 
 function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: typeof PROJECTS; onProjectClick: (p: typeof PROJECTS[0]) => void }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [scrollMetrics, setScrollMetrics] = useState({
+    translateDistance: 0,
+    sectionHeight: 1600,
+  });
 
-  // Total track width of all cards laid out horizontally
-  const trackWidth = projects.length * PROJECT_CARD_WIDTH + (projects.length - 1) * PROJECT_GAP;
-  // How far we need to translate so the last card is fully visible (accounting for viewport & padding)
-  const viewportWidth = typeof window !== "undefined" ? window.innerWidth : 1400;
-  const horizontalPadding = viewportWidth * 0.1; // 5vw on each side
-  const translateDistance = Math.max(0, trackWidth - viewportWidth + horizontalPadding);
-  // Section height = viewport height + scroll distance needed for full horizontal travel
-  const sectionHeight = typeof window !== "undefined"
-    ? window.innerHeight + translateDistance
-    : 2400;
+  useEffect(() => {
+    const recalc = () => {
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+
+      // Track width and visible viewport width (section has horizontal 5vw + 5vw padding)
+      const trackWidth = projects.length * PROJECT_CARD_WIDTH + (projects.length - 1) * PROJECT_GAP;
+      const horizontalPadding = viewportWidth * 0.1;
+      const visibleWidth = viewportWidth - horizontalPadding;
+
+      // Exact horizontal travel required to reveal the full last card
+      const translateDistance = Math.max(0, trackWidth - visibleWidth);
+      // Keep section pinned until horizontal travel is fully completed
+      const sectionHeight = Math.ceil(viewportHeight + translateDistance);
+
+      setScrollMetrics({ translateDistance, sectionHeight });
+    };
+
+    recalc();
+    window.addEventListener("resize", recalc);
+    return () => window.removeEventListener("resize", recalc);
+  }, [projects.length]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], [0, -translateDistance]);
+  const rawX = useTransform(scrollYProgress, [0, 1], [0, -scrollMetrics.translateDistance]);
+  const x = useSpring(rawX, { stiffness: 160, damping: 28, mass: 0.35 });
 
   return (
     <section
       id="projects"
       ref={containerRef}
       className="projects-section"
-      style={{ height: `${sectionHeight}px`, position: "relative" }}
+      style={{ height: `${scrollMetrics.sectionHeight}px`, position: "relative" }}
     >
       <div
         style={{
