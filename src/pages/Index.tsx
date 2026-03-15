@@ -88,11 +88,15 @@ const NAVBAR_HEIGHT = 72;
 function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: typeof PROJECTS; onProjectClick: (p: typeof PROJECTS[0]) => void }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Calculate total horizontal distance: move from first card to last card
-  const totalDistance = (projects.length - 1) * (PROJECT_CARD_WIDTH + PROJECT_GAP);
-  // Section height = 1 viewport for the sticky + the scroll distance needed
+  // Total track width of all cards laid out horizontally
+  const trackWidth = projects.length * PROJECT_CARD_WIDTH + (projects.length - 1) * PROJECT_GAP;
+  // How far we need to translate so the last card is fully visible (accounting for viewport & padding)
+  const viewportWidth = typeof window !== "undefined" ? window.innerWidth : 1400;
+  const horizontalPadding = viewportWidth * 0.1; // 5vw on each side
+  const translateDistance = Math.max(0, trackWidth - viewportWidth + horizontalPadding);
+  // Section height = viewport height + scroll distance needed for full horizontal travel
   const sectionHeight = typeof window !== "undefined"
-    ? window.innerHeight + totalDistance
+    ? window.innerHeight + translateDistance
     : 2400;
 
   const { scrollYProgress } = useScroll({
@@ -100,7 +104,7 @@ function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: type
     offset: ["start start", "end end"],
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], [0, -totalDistance]);
+  const x = useTransform(scrollYProgress, [0, 1], [0, -translateDistance]);
 
   return (
     <section
