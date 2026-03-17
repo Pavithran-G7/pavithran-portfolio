@@ -291,8 +291,9 @@ section {
 /* ===== HERO ===== */
 .hero-section {
   display: flex; align-items: center; justify-content: center;
-  min-height: 100vh !important; padding: 0 5vw !important; gap: 40px;
+  height: 100vh !important; padding: 0 5vw !important; gap: 40px;
   scroll-margin-top: 0;
+  box-sizing: border-box;
 }
 .hero-text { max-width: 600px; }
 
