@@ -332,10 +332,10 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
   display: flex; align-items: center; justify-content: space-between;
   height: 100vh !important; padding: 0 8vw !important; gap: 40px;
   scroll-margin-top: 0 !important;
-  margin-top: -20px !important;
+  margin-top: -40px !important;
   box-sizing: border-box;
   padding-top: 0 !important;
-  padding-bottom: 40px !important;
+  padding-bottom: 60px !important;
 }
 .hero-text { max-width: 600px; }
 
