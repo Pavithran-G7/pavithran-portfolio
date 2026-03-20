@@ -278,6 +278,45 @@ section {
   scroll-margin-top: 72px;
 }
 
+/* ===== SMOOTH SECTION TRANSITIONS ===== */
+section:not(.hero-section)::before {
+  content: '';
+  position: absolute;
+  top: -60px; left: 0; right: 0; height: 120px;
+  background: linear-gradient(to bottom, transparent, hsl(var(--bg-void) / 0.6) 40%, hsl(var(--bg-void) / 0.6) 60%, transparent);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.about-section,
+.skills-section,
+.education-section,
+.achievements-section,
+.experience-section,
+.contact-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.about-section.in-view,
+.skills-section.in-view,
+.education-section.in-view,
+.achievements-section.in-view,
+.experience-section.in-view,
+.contact-section.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Decorative divider between sections */
+section:not(.hero-section):not(.projects-section) + section:not(.projects-section)::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 60px; height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(var(--accent-ice) / 0.4), transparent);
+}
+
 .section-heading {
   font-family: var(--font-display); font-size: clamp(28px, 4vw, 48px);
   font-weight: 900; margin-bottom: 60px; text-transform: uppercase; letter-spacing: 0.08em;
