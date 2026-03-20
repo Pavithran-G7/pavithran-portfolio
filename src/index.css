@@ -290,8 +290,8 @@ section {
 
 /* ===== HERO ===== */
 .hero-section {
-  display: flex; align-items: center; justify-content: center;
-  height: 100vh !important; padding: 0 5vw !important; gap: 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 100vh !important; padding: 0 8vw !important; gap: 40px;
   scroll-margin-top: 0;
   box-sizing: border-box;
 }
