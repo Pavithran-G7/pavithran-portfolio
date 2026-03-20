@@ -292,7 +292,8 @@ section {
 .hero-section {
   display: flex; align-items: center; justify-content: space-between;
   height: 100vh !important; padding: 0 8vw !important; gap: 40px;
-  scroll-margin-top: 0;
+  scroll-margin-top: 0 !important;
+  margin-top: 0 !important;
   box-sizing: border-box;
 }
 .hero-text { max-width: 600px; }
