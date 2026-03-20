@@ -330,7 +330,20 @@ export default function Index() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Native browser scrolling keeps section transitions precise and stable.
+  // ===== SMOOTH SECTION REVEAL VIA INTERSECTION OBSERVER =====
+  useEffect(() => {
+    if (!loaded) return;
+    const sections = document.querySelectorAll('.about-section, .skills-section, .education-section, .achievements-section, .experience-section, .contact-section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+    sections.forEach(s => observer.observe(s));
+    return () => observer.disconnect();
+  }, [loaded]);
 
 
   // ===== GSAP ANIMATIONS =====
