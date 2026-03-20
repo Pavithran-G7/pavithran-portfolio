@@ -293,8 +293,10 @@ section {
   display: flex; align-items: center; justify-content: space-between;
   height: 100vh !important; padding: 0 8vw !important; gap: 40px;
   scroll-margin-top: 0 !important;
-  margin-top: 0 !important;
+  margin-top: -20px !important;
   box-sizing: border-box;
+  padding-top: 0 !important;
+  padding-bottom: 40px !important;
 }
 .hero-text { max-width: 600px; }
 
