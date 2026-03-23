@@ -23,6 +23,12 @@ const SKILL_ICONS: Record<string, React.ComponentType<any>> = {
   "Git": GitBranch, "GitHub": Github, "Docker": Container, "Figma": Figma,
 };
 
+const CATEGORY_ICONS: Record<string, React.ComponentType<any>> = {
+  "FRONTEND": Layout, "BACKEND": Layers, "DATABASE": HardDrive, "TOOLS": Wrench,
+};
+
+const CATEGORY_ORDER = ["FRONTEND", "BACKEND", "DATABASE", "TOOLS"];
+
 const SKILLS = [
   { name: "HTML5", category: "FRONTEND", level: 90, status: "OPERATIONAL" },
   { name: "CSS3", category: "FRONTEND", level: 85, status: "OPERATIONAL" },
@@ -40,6 +46,11 @@ const SKILLS = [
   { name: "Docker", category: "TOOLS", level: 55, status: "LEARNING" },
   { name: "Figma", category: "TOOLS", level: 70, status: "ADVANCED" },
 ];
+
+const SKILLS_BY_CATEGORY = CATEGORY_ORDER.map(cat => ({
+  category: cat,
+  skills: SKILLS.filter(s => s.category === cat),
+}));
 
 const PROJECTS = [
   { id: "001", title: "Personal Portfolio Website", desc: "A fully interactive portfolio with Three.js 3D scenes, GSAP scroll animations, and responsive design.", longDesc: "Built from scratch using React, Three.js for immersive 3D particle backgrounds, GSAP ScrollTrigger for cinematic section transitions, and custom CSS animations. Features a custom cursor system, momentum-based scrolling, and a cinematic loader sequence. Fully responsive across all devices.", tech: ["React","Three.js","GSAP","CSS3"], image: project001 },
