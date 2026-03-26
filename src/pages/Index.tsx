@@ -7,7 +7,7 @@ import project003 from "@/assets/project-003.jpg";
 import project004 from "@/assets/project-004.jpg";
 import project005 from "@/assets/project-005.jpg";
 
-declare const THREE: any;
+
 declare const gsap: any;
 declare const ScrollTrigger: any;
 declare const ScrollToPlugin: any;
