@@ -322,8 +322,7 @@ export default function Index() {
       const heroTl = gsap.timeline({
         scrollTrigger: { trigger: "#home", start: "top top", end: "+=80%", scrub: 0.5, pin: true, pinSpacing: true }
       });
-      heroTl.to(".hero-text", { x: -200, opacity: 0, duration: 1 }, 0);
-      heroTl.to(".hero-3d", { x: 200, opacity: 0, scale: 0.7, duration: 1 }, 0);
+      heroTl.to(".hero-text", { y: -60, opacity: 0, duration: 1 }, 0);
 
       // ---- ABOUT ----
       const aboutWords = document.querySelectorAll('.about-section [data-splitting] .word');
