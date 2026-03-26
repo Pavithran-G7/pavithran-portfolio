@@ -329,15 +329,15 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 
 /* ===== HERO ===== */
 .hero-section {
-  display: flex; align-items: center; justify-content: space-between;
-  height: 100vh !important; padding: 0 8vw !important; gap: 40px;
+  display: flex; align-items: center; justify-content: center;
+  height: 100vh !important; padding: 0 8vw !important;
   scroll-margin-top: 0 !important;
   margin-top: -40px !important;
   box-sizing: border-box;
   padding-top: 0 !important;
   padding-bottom: 60px !important;
 }
-.hero-text { max-width: 600px; }
+.hero-text { max-width: 680px; text-align: center; }
 
 .hero-status {
   display: inline-flex; align-items: center; gap: 8px;
@@ -367,7 +367,7 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
   color: hsl(var(--text-muted)); margin-bottom: 32px; min-height: 22px;
 }
 
-.hero-buttons { display: flex; gap: 14px; margin-bottom: 28px; flex-wrap: wrap; }
+.hero-buttons { display: flex; gap: 14px; margin-bottom: 28px; flex-wrap: wrap; justify-content: center; }
 
 .btn-primary {
   font-family: var(--font-ui); font-weight: 700; text-transform: uppercase;
@@ -402,24 +402,16 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
   box-shadow: 0 0 20px hsl(var(--accent-mint) / 0.4);
 }
 
-.hero-social { display: flex; gap: 18px; }
+.hero-social { display: flex; gap: 18px; justify-content: center; }
 .hero-social a {
   color: hsl(var(--text-muted)); font-size: 22px; text-decoration: none;
   transition: color 0.2s, transform 0.2s;
 }
 .hero-social a:hover { color: hsl(var(--accent-ice)); transform: translateY(-3px); }
 
-.hero-3d {
-  display: flex; align-items: center; justify-content: center; max-width: 480px; width: 480px;
-}
-.hero-3d canvas { width: 100% !important; height: auto !important; max-width: 480px; aspect-ratio: 1; }
-
 @media (max-width: 768px) {
-  .hero-section { flex-direction: column-reverse; text-align: center; }
+  .hero-section { text-align: center; }
   .hero-text { max-width: 100%; }
-  .hero-buttons { justify-content: center; }
-  .hero-social { justify-content: center; }
-  .hero-3d { max-width: 280px; }
 }
 
 /* ===== ABOUT ===== */
