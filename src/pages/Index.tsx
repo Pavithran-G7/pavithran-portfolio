@@ -662,7 +662,6 @@ export default function Index() {
               ))}
             </div>
           </div>
-          <div className="hero-3d" ref={heroCanvasRef}></div>
         </section>
 
         {/* ===== ABOUT ===== */}
