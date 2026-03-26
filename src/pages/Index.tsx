@@ -168,7 +168,6 @@ export default function Index() {
   const [popupProject, setPopupProject] = useState<typeof PROJECTS[0] | null>(null);
 
   // bgCanvasRef removed — no particle background
-  const heroCanvasRef = useRef<HTMLDivElement>(null);
   const cursorRingRef = useRef<HTMLDivElement>(null);
   const cursorDotRef = useRef<HTMLDivElement>(null);
   const loaderBarRef = useRef<HTMLDivElement>(null);
