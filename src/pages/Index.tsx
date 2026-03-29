@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { motion } from "motion/react";
 import { Code2, FileCode, Braces, Atom, Wind, Server, Terminal, Database, CircuitBoard, Flame, GitBranch, Github, Container, Figma, Palette, Layout, Layers, HardDrive, Wrench } from "lucide-react";
 import project001 from "@/assets/project-001.jpg";
 import project002 from "@/assets/project-002.jpg";
@@ -167,13 +166,10 @@ export default function Index() {
   const [formSent, setFormSent] = useState(false);
   const [popupProject, setPopupProject] = useState<typeof PROJECTS[0] | null>(null);
 
-  // bgCanvasRef removed — no particle background
   const cursorRingRef = useRef<HTMLDivElement>(null);
   const cursorDotRef = useRef<HTMLDivElement>(null);
   const loaderBarRef = useRef<HTMLDivElement>(null);
   const loaderTextRef = useRef<HTMLSpanElement>(null);
-  const heroRoleRef = useRef<HTMLDivElement>(null);
-  const heroTaglineRef = useRef<HTMLDivElement>(null);
 
   const mousePos = useRef({ x: 0, y: 0 });
   const ringPos = useRef({ x: 0, y: 0 });
@@ -289,36 +285,7 @@ export default function Index() {
     requestAnimationFrame(() => {
       Splitting({ target: '[data-splitting]', by: 'words' });
 
-      // ---- HERO ----
-      const roleEl = heroRoleRef.current;
-      if (roleEl) {
-        const finalText = "Full-Stack Developer & Creative Coder";
-        let iter = 0;
-        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%";
-        const scrambleInterval = setInterval(() => {
-          roleEl.textContent = finalText.split("").map((c, i) => i < iter ? c : chars[Math.floor(Math.random()*chars.length)]).join("");
-          iter += 1/2;
-          if (iter >= finalText.length) { clearInterval(scrambleInterval); roleEl.textContent = finalText; }
-        }, 40);
-      }
-
-      const taglineEl = heroTaglineRef.current;
-      if (taglineEl) {
-        const phrases = ["Building the future, one commit at a time.", "Turning caffeine into clean code.", "Passionate about pixels and performance."];
-        let pIdx = 0;
-        const cyclePhrase = () => {
-          gsap.to(taglineEl, { duration: 1.5, text: phrases[pIdx], ease: "none", onComplete: () => {
-            gsap.delayedCall(2, () => {
-              gsap.to(taglineEl, { duration: 0.5, text: "", ease: "none", onComplete: () => {
-                pIdx = (pIdx + 1) % phrases.length;
-                cyclePhrase();
-              }});
-            });
-          }});
-        };
-        gsap.delayedCall(1, cyclePhrase);
-      }
-
+      // ---- HERO (static, no animations) ----
       const heroTl = gsap.timeline({
         scrollTrigger: { trigger: "#home", start: "top top", end: "+=80%", scrub: 0.5, pin: true, pinSpacing: true }
       });
@@ -573,28 +540,26 @@ export default function Index() {
         <div className="fog-blob"></div>
       </div>
 
-      {/* NAVBAR */}
+      {/* NAVBAR — minimal text links */}
       <nav className={`navbar ${navScrolled ? 'scrolled' : ''}`}>
-        <div className="navbar-inner">
-          <ul className="nav-links">
-            {NAV_LINKS.map(id => (
-              <li key={id}>
-                <a
-                  href={`#${id}`}
-                  className={activeNav === id ? 'active' : ''}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(id);
-                  }}
-                >
-                  {id}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <div className={`hamburger ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            <span/><span/><span/>
-          </div>
+        <ul className="nav-links-minimal">
+          {NAV_LINKS.map(id => (
+            <li key={id}>
+              <a
+                href={`#${id}`}
+                className={activeNav === id ? 'active' : ''}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(id);
+                }}
+              >
+                {id}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div className={`hamburger ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <span/><span/><span/>
         </div>
       </nav>
 
@@ -642,24 +607,34 @@ export default function Index() {
       )}
 
       <div className="content-wrapper">
-        {/* ===== HERO ===== */}
+        {/* ===== HERO — minimal, static, left-aligned ===== */}
         <section id="home" className="hero-section">
           <div className="hero-text">
-            <div className="hero-status"><span className="dot"></span> SYSTEM ONLINE</div>
-            <h1 className="hero-name">ALEX CHEN</h1>
-            <div className="hero-role" ref={heroRoleRef}>&nbsp;</div>
-            <div className="hero-tagline" ref={heroTaglineRef}>&nbsp;</div>
-            <div className="hero-buttons">
-              <a href="#projects" className="btn-primary" onClick={(e) => { e.preventDefault(); scrollToSection('projects'); }}>VIEW PROJECTS</a>
-              <a href="#contact" className="btn-secondary" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>CONTACT ME</a>
-              <a href="#" className="btn-resume" download>
-                <i className="fa-solid fa-download"></i> DOWNLOAD RESUME
-              </a>
+            <div className="hero-status">
+              <span className="status-dot"></span>
+              AVAILABLE FOR WORK
             </div>
-            <div className="hero-social">
-              {SOCIAL_ICONS.map(s => (
-                <a key={s.tooltip} href={s.url} aria-label={s.tooltip}><i className={s.icon}></i></a>
-              ))}
+            <h1 className="hero-name">ALEX CHEN</h1>
+            <div className="hero-role">Full-Stack Developer &amp; Creative Technologist</div>
+            <div className="hero-tagline">Building the future, one commit at a time.</div>
+            <div className="hero-buttons">
+              <a href="#projects" className="hero-btn hero-btn--projects" onClick={(e) => { e.preventDefault(); scrollToSection('projects'); }}>VIEW PROJECTS</a>
+              <a href="#contact" className="hero-btn hero-btn--contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>CONTACT ME</a>
+              <a href="#" className="hero-btn hero-btn--resume" download>DOWNLOAD RESUME</a>
+            </div>
+            <div className="hero-social-icons">
+              {/* GitHub */}
+              <a href="#" aria-label="GitHub">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              </a>
+              {/* LinkedIn */}
+              <a href="#" aria-label="LinkedIn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </a>
+              {/* X / Twitter */}
+              <a href="#" aria-label="X">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
             </div>
           </div>
         </section>
