@@ -285,36 +285,7 @@ export default function Index() {
     requestAnimationFrame(() => {
       Splitting({ target: '[data-splitting]', by: 'words' });
 
-      // ---- HERO ----
-      const roleEl = heroRoleRef.current;
-      if (roleEl) {
-        const finalText = "Full-Stack Developer & Creative Coder";
-        let iter = 0;
-        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%";
-        const scrambleInterval = setInterval(() => {
-          roleEl.textContent = finalText.split("").map((c, i) => i < iter ? c : chars[Math.floor(Math.random()*chars.length)]).join("");
-          iter += 1/2;
-          if (iter >= finalText.length) { clearInterval(scrambleInterval); roleEl.textContent = finalText; }
-        }, 40);
-      }
-
-      const taglineEl = heroTaglineRef.current;
-      if (taglineEl) {
-        const phrases = ["Building the future, one commit at a time.", "Turning caffeine into clean code.", "Passionate about pixels and performance."];
-        let pIdx = 0;
-        const cyclePhrase = () => {
-          gsap.to(taglineEl, { duration: 1.5, text: phrases[pIdx], ease: "none", onComplete: () => {
-            gsap.delayedCall(2, () => {
-              gsap.to(taglineEl, { duration: 0.5, text: "", ease: "none", onComplete: () => {
-                pIdx = (pIdx + 1) % phrases.length;
-                cyclePhrase();
-              }});
-            });
-          }});
-        };
-        gsap.delayedCall(1, cyclePhrase);
-      }
-
+      // ---- HERO (static, no animations) ----
       const heroTl = gsap.timeline({
         scrollTrigger: { trigger: "#home", start: "top top", end: "+=80%", scrub: 0.5, pin: true, pinSpacing: true }
       });
