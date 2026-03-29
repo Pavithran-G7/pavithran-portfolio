@@ -540,28 +540,26 @@ export default function Index() {
         <div className="fog-blob"></div>
       </div>
 
-      {/* NAVBAR */}
+      {/* NAVBAR — minimal text links */}
       <nav className={`navbar ${navScrolled ? 'scrolled' : ''}`}>
-        <div className="navbar-inner">
-          <ul className="nav-links">
-            {NAV_LINKS.map(id => (
-              <li key={id}>
-                <a
-                  href={`#${id}`}
-                  className={activeNav === id ? 'active' : ''}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(id);
-                  }}
-                >
-                  {id}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <div className={`hamburger ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            <span/><span/><span/>
-          </div>
+        <ul className="nav-links-minimal">
+          {NAV_LINKS.map(id => (
+            <li key={id}>
+              <a
+                href={`#${id}`}
+                className={activeNav === id ? 'active' : ''}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(id);
+                }}
+              >
+                {id}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div className={`hamburger ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <span/><span/><span/>
         </div>
       </nav>
 
