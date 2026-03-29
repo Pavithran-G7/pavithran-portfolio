@@ -137,56 +137,38 @@ body {
 }
 @media (min-width: 769px) { body { cursor: none; } }
 
-/* ===== NAVBAR — CENTERED GLASSMORPHISM PILL ===== */
+/* ===== NAVBAR — minimal plain text ===== */
 .navbar {
   position: fixed; top: 0; left: 0; right: 0; height: 72px;
   z-index: 1000; display: flex; align-items: center; justify-content: center;
   padding: 0 24px;
-  transition: background 0.35s cubic-bezier(0.4,0,0.2,1), backdrop-filter 0.35s;
+  background: transparent;
+  transition: background 0.35s;
+}
+.navbar.scrolled {
+  background: rgba(10, 15, 15, 0.85);
+  backdrop-filter: blur(12px);
 }
 
-.navbar-inner {
-  display: flex; align-items: center; gap: 0;
-  background: hsl(var(--bg-deep) / 0.6);
-  backdrop-filter: blur(20px);
-  border: 1px solid hsl(var(--border-line) / 0.25);
-  border-radius: 999px;
-  padding: 6px 8px;
-  transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
-}
-.navbar.scrolled .navbar-inner {
-  background: hsl(var(--bg-deep) / 0.85);
-  border-color: hsl(var(--border-line) / 0.4);
-  box-shadow: 0 4px 30px hsl(var(--bg-void) / 0.5);
-}
-
-/* nav-logo removed */
-
-.nav-links {
+.nav-links-minimal {
   display: flex; gap: 0; list-style: none;
-  font-family: var(--font-ui); text-transform: uppercase;
-  letter-spacing: 0.12em; font-size: 12px; font-weight: 600;
+  font-family: monospace; text-transform: uppercase;
+  letter-spacing: 0.2em; font-size: 11px;
 }
-.nav-links li { display: flex; }
-.nav-links a {
-  color: hsl(var(--text-muted)); text-decoration: none;
-  padding: 8px 16px; border-radius: 999px;
-  transition: color 0.2s, background 0.2s;
+.nav-links-minimal li { display: flex; }
+.nav-links-minimal a {
+  color: #4a6060; text-decoration: none;
+  padding: 8px 18px;
   cursor: pointer; white-space: nowrap;
 }
-.nav-links a:hover {
-  color: hsl(var(--text-primary));
-  background: hsl(var(--accent-ice) / 0.08);
-}
-.nav-links a.active {
-  color: hsl(var(--accent-ice));
-  background: hsl(var(--accent-ice) / 0.12);
+.nav-links-minimal a.active {
+  color: #00e5ff;
 }
 
 .scroll-progress {
   position: fixed; top: 72px; left: 0; height: 2px;
-  background: hsl(var(--accent-ice));
-  box-shadow: 0 0 8px hsl(var(--accent-ice)); z-index: 999;
+  background: #00e5ff;
+  z-index: 999;
   transition: width 0.05s linear;
 }
 
