@@ -166,13 +166,10 @@ export default function Index() {
   const [formSent, setFormSent] = useState(false);
   const [popupProject, setPopupProject] = useState<typeof PROJECTS[0] | null>(null);
 
-  // bgCanvasRef removed — no particle background
   const cursorRingRef = useRef<HTMLDivElement>(null);
   const cursorDotRef = useRef<HTMLDivElement>(null);
   const loaderBarRef = useRef<HTMLDivElement>(null);
   const loaderTextRef = useRef<HTMLSpanElement>(null);
-  const heroRoleRef = useRef<HTMLDivElement>(null);
-  const heroTaglineRef = useRef<HTMLDivElement>(null);
 
   const mousePos = useRef({ x: 0, y: 0 });
   const ringPos = useRef({ x: 0, y: 0 });
