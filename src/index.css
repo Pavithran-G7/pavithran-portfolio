@@ -201,7 +201,7 @@ body {
 .mobile-menu a:hover { color: hsl(var(--accent-ice)); }
 
 @media (max-width: 768px) {
-  .nav-links { display: none; }
+  .nav-links-minimal { display: none; }
   .hamburger { display: flex; }
 }
 
