@@ -415,7 +415,27 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
   .hero-name { font-size: clamp(40px, 12vw, 70px); }
 }
 
-/* ===== ABOUT ===== */
+/* ===== GENERIC BUTTONS (used in popups etc.) ===== */
+.btn-primary {
+  font-family: var(--font-ui); font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; font-size: 14px; padding: 14px 32px;
+  border: 2px solid hsl(var(--accent-ice)); background: hsl(var(--accent-ice) / 0.1);
+  color: hsl(var(--accent-ice)); cursor: pointer; transition: all 0.25s;
+  text-decoration: none; display: inline-block;
+}
+.btn-primary:hover {
+  background: hsl(var(--accent-ice)); color: hsl(var(--bg-void));
+}
+.btn-secondary {
+  font-family: var(--font-ui); font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; font-size: 14px; padding: 14px 32px;
+  border: 1px solid hsl(var(--border-line)); background: transparent;
+  color: hsl(var(--text-primary)); cursor: pointer; transition: all 0.25s;
+  text-decoration: none; display: inline-block;
+}
+.btn-secondary:hover { border-color: hsl(var(--accent-mint)); color: hsl(var(--accent-mint)); }
+
+
 .about-section {
   background-image: radial-gradient(circle, hsl(var(--text-muted) / 0.08) 1px, transparent 1px);
   background-size: 24px 24px;
