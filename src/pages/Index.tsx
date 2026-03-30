@@ -345,10 +345,11 @@ export default function Index() {
         });
       });
 
-      // ---- PROJECTS HORIZONTAL SCROLL ----
+      // ---- PROJECTS HORIZONTAL SCROLL (desktop only) ----
+      const isMobile = window.innerWidth <= 768;
       const projectsTrack = document.querySelector('.projects-track') as HTMLElement;
       const projectsSection = document.getElementById('projects');
-      if (projectsTrack && projectsSection) {
+      if (projectsTrack && projectsSection && !isMobile) {
         const trackWidth = projectsTrack.scrollWidth;
         const viewportWidth = window.innerWidth;
         const translateDistance = trackWidth - viewportWidth + viewportWidth * 0.1;
@@ -367,11 +368,17 @@ export default function Index() {
           },
         });
 
-        // Animate cards appearing
         gsap.from('.project-card', {
           opacity: 0, scale: 0.9,
           stagger: 0.08, duration: 0.5, ease: "power2.out",
           scrollTrigger: { trigger: projectsSection, start: "top 80%", toggleActions: "play none none none" }
+        });
+      } else if (isMobile && projectsSection) {
+        // Mobile: simple staggered fade-up for project cards
+        gsap.from('.project-card', {
+          opacity: 0, y: 30,
+          stagger: 0.12, duration: 0.5, ease: "power2.out",
+          scrollTrigger: { trigger: projectsSection, start: "top 85%", toggleActions: "play none none none" }
         });
       }
 
