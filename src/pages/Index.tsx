@@ -614,8 +614,8 @@ export default function Index() {
               <span className="status-dot"></span>
               AVAILABLE FOR WORK
             </div>
-            <h1 className="hero-name">ALEX CHEN</h1>
-            <div className="hero-role">Full-Stack Developer &amp; Creative Technologist</div>
+            <h1 className="hero-name">PAVITHRAN G</h1>
+            <div className="hero-role">AI &amp; ML Developer</div>
             <div className="hero-tagline">Building the future, one commit at a time.</div>
             <div className="hero-buttons">
               <a href="#projects" className="hero-btn hero-btn--projects" onClick={(e) => { e.preventDefault(); scrollToSection('projects'); }}>VIEW PROJECTS</a>
