@@ -321,7 +321,7 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
   background: radial-gradient(ellipse at 30% 50%, #071a1a 0%, #0a0f0f 70%);
 }
 .hero-text {
-  max-width: 640px;
+  max-width: 900px;
   text-align: left;
 }
 
