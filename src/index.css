@@ -854,8 +854,13 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 .achievement-card-desc { font-family: var(--font-mono); font-size: 12px; color: hsl(var(--text-muted)); line-height: 1.5; }
 
 @media (max-width: 768px) {
-  .achievements-stats { grid-template-columns: repeat(2, 1fr); }
+  .achievements-stats { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .achievement-cards { grid-template-columns: 1fr; }
+  .achievement-stat-number { font-size: clamp(28px, 8vw, 40px); }
+  .achievement-card { padding: 16px; gap: 12px; }
+  .achievement-card i { font-size: 20px; }
+  .achievement-card-title { font-size: 14px; }
+  .achievement-card-desc { font-size: 11px; }
 }
 
 /* ===== EXPERIENCE ===== */
