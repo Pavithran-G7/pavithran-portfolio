@@ -614,8 +614,8 @@ export default function Index() {
               <span className="status-dot"></span>
               AVAILABLE FOR WORK
             </div>
-            <h1 className="hero-name">ALEX CHEN</h1>
-            <div className="hero-role">Full-Stack Developer &amp; Creative Technologist</div>
+            <h1 className="hero-name">PAVITHRAN G</h1>
+            <div className="hero-role">AI &amp; ML Developer</div>
             <div className="hero-tagline">Building the future, one commit at a time.</div>
             <div className="hero-buttons">
               <a href="#projects" className="hero-btn hero-btn--projects" onClick={(e) => { e.preventDefault(); scrollToSection('projects'); }}>VIEW PROJECTS</a>
@@ -648,17 +648,17 @@ export default function Index() {
               <div className="profile-card-glow"></div>
               <div className="profile-card-inner">
                 <div className="profile-avatar-ring">
-                  <div className="profile-avatar-core">AC</div>
+                  <div className="profile-avatar-core">PG</div>
                   <svg className="profile-ring-svg" viewBox="0 0 160 160">
                     <circle className="ring-track" cx="80" cy="80" r="74" fill="none" stroke="hsl(var(--border-line))" strokeWidth="1.5" opacity="0.3" />
                     <circle className="ring-progress" cx="80" cy="80" r="74" fill="none" stroke="hsl(var(--accent-ice))" strokeWidth="2" strokeLinecap="round" strokeDasharray="465" strokeDashoffset="93" />
                   </svg>
                 </div>
-                <div className="profile-name-tag">ALEX CHEN</div>
+                <div className="profile-name-tag">PAVITHRAN G</div>
                 <span className="profile-role-badge">STUDENT DEVELOPER</span>
                 <div className="profile-meta-row">
-                  <span className="profile-meta-item"><i className="fa-solid fa-location-dot"></i> Mumbai, IN</span>
-                  <span className="profile-meta-item"><i className="fa-solid fa-graduation-cap"></i> B.Tech CS</span>
+                  <span className="profile-meta-item"><i className="fa-solid fa-location-dot"></i> KSRCT, Tiruchengode</span>
+                  <span className="profile-meta-item"><i className="fa-solid fa-graduation-cap"></i> AI &amp; ML</span>
                 </div>
                 <div className="profile-status-row">
                   <span className="profile-status-dot"></span>
@@ -667,7 +667,7 @@ export default function Index() {
               </div>
             </div>
             <div className="about-text">
-              <p data-splitting>I'm a third-year Computer Science student at Mumbai Institute of Technology with a deep passion for building beautiful, functional web experiences. My journey started with a simple HTML page in high school and has evolved into a full-stack skill set spanning React, Node.js, Python, and cloud technologies.</p>
+              <p data-splitting>I'm a student at K.S.Rangasamy College of Technology, specializing in Artificial Intelligence &amp; Machine Learning. My journey started with curiosity about how machines learn and has evolved into a skill set spanning deep learning, computer vision, NLP, and full-stack development.</p>
               <p data-splitting>When I'm not coding, you'll find me contributing to open-source projects, participating in hackathons, or mentoring junior developers at our college tech club. I believe great software is born from the intersection of clean code, thoughtful design, and relentless curiosity.</p>
               <p data-splitting>I'm currently seeking internship opportunities where I can apply my skills to real-world problems and continue growing as a developer. Let's build something amazing together.</p>
               <div className="about-stats">
@@ -854,7 +854,7 @@ export default function Index() {
 
         {/* ===== FOOTER ===== */}
         <footer className="footer">
-          <div className="footer-copy">© 2025 Alex Chen. All rights reserved.</div>
+          <div className="footer-copy">© 2025 Pavithran G. All rights reserved.</div>
         </footer>
       </div>
 
