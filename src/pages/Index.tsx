@@ -667,7 +667,7 @@ export default function Index() {
               </div>
             </div>
             <div className="about-text">
-              <p data-splitting>I'm a third-year Computer Science student at Mumbai Institute of Technology with a deep passion for building beautiful, functional web experiences. My journey started with a simple HTML page in high school and has evolved into a full-stack skill set spanning React, Node.js, Python, and cloud technologies.</p>
+              <p data-splitting>I'm a student at K.S.Rangasamy College of Technology, specializing in Artificial Intelligence &amp; Machine Learning. My journey started with curiosity about how machines learn and has evolved into a skill set spanning deep learning, computer vision, NLP, and full-stack development.</p>
               <p data-splitting>When I'm not coding, you'll find me contributing to open-source projects, participating in hackathons, or mentoring junior developers at our college tech club. I believe great software is born from the intersection of clean code, thoughtful design, and relentless curiosity.</p>
               <p data-splitting>I'm currently seeking internship opportunities where I can apply my skills to real-world problems and continue growing as a developer. Let's build something amazing together.</p>
               <div className="about-stats">
