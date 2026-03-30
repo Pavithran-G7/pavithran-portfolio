@@ -413,7 +413,13 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 @media (max-width: 768px) {
   .hero-section { padding: 0 6vw !important; }
   .hero-text { max-width: 100%; }
-  .hero-name { font-size: clamp(40px, 12vw, 70px); }
+  .hero-name { font-size: clamp(32px, 10vw, 56px); white-space: normal; }
+  .hero-role { font-size: 14px; }
+  .hero-tagline { font-size: 12px; margin-bottom: 28px; }
+  .hero-buttons { flex-direction: column; gap: 10px; }
+  .hero-btn { width: 100%; text-align: center; padding: 14px 20px; font-size: 11px; }
+  .hero-social-icons { justify-content: flex-start; margin-top: 8px; }
+  .hero-status { font-size: 10px; }
 }
 
 /* ===== GENERIC BUTTONS (used in popups etc.) ===== */
@@ -550,8 +556,15 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 }
 
 @media (max-width: 768px) {
-  .about-grid { grid-template-columns: 1fr; text-align: center; }
-  .about-stats { grid-template-columns: repeat(2, 1fr); }
+  .about-grid { grid-template-columns: 1fr; text-align: center; gap: 32px; }
+  .about-stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .stat-card { padding: 16px 12px; }
+  .stat-number { font-size: 24px; }
+  .about-text p { font-size: 13px; line-height: 1.7; }
+  .profile-card-inner { padding: 24px 20px; }
+  .profile-avatar-ring { width: 90px; height: 90px; }
+  .profile-avatar-core { font-size: 28px; }
+  .profile-name-tag { font-size: 16px; }
 }
 
 /* ===== SKILLS ===== */
@@ -691,7 +704,24 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 .project-links a:hover { background: hsl(var(--accent-ice) / 0.1); }
 
 @media (max-width: 768px) {
-  .project-card { flex: 0 0 300px; height: auto; }
+  .projects-section { padding: 80px 5vw 60px !important; overflow: visible; }
+  .projects-pin-wrapper {
+    height: auto !important;
+    padding: 0 !important;
+  }
+  .projects-track {
+    flex-direction: column !important;
+    gap: 20px !important;
+    transform: none !important;
+  }
+  .project-card { flex: none !important; width: 100% !important; }
+  .project-visual { height: 180px; }
+  .project-content { padding: 16px; }
+  .project-title { font-size: 16px; }
+  .project-desc { font-size: 12px; }
+  .project-tech span { font-size: 10px; }
+  .project-links { flex-wrap: wrap; }
+  .project-links a { font-size: 11px; padding: 6px 12px; }
 }
 
 /* ===== PROJECT POPUP ===== */
@@ -824,8 +854,13 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 .achievement-card-desc { font-family: var(--font-mono); font-size: 12px; color: hsl(var(--text-muted)); line-height: 1.5; }
 
 @media (max-width: 768px) {
-  .achievements-stats { grid-template-columns: repeat(2, 1fr); }
+  .achievements-stats { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .achievement-cards { grid-template-columns: 1fr; }
+  .achievement-stat-number { font-size: clamp(28px, 8vw, 40px); }
+  .achievement-card { padding: 16px; gap: 12px; }
+  .achievement-card i { font-size: 20px; }
+  .achievement-card-title { font-size: 14px; }
+  .achievement-card-desc { font-size: 11px; }
 }
 
 /* ===== EXPERIENCE ===== */
@@ -936,8 +971,13 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 .btn-submit.sent { background: hsl(var(--accent-mint)); color: hsl(var(--bg-void)); }
 
 @media (max-width: 768px) {
-  .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-  .contact-form { padding: 24px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+  .contact-form { padding: 20px; }
+  .contact-info h3 { font-size: 22px; }
+  .contact-info .contact-desc { font-size: 13px; }
+  .contact-link-row { padding: 10px 14px; font-size: 13px; }
+  .contact-link-row i { font-size: 18px; }
+  .btn-submit { width: 100%; text-align: center; }
 }
 
 /* ===== FOOTER ===== */
@@ -962,3 +1002,82 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 
 /* Splitting overrides */
 [data-splitting] .word { overflow: hidden; display: inline-block; vertical-align: top; }
+
+/* ===== COMPREHENSIVE MOBILE OPTIMIZATIONS ===== */
+@media (max-width: 768px) {
+  /* Global mobile spacing */
+  section { padding: 60px 5vw 40px; }
+  .section-heading { font-size: clamp(22px, 6vw, 32px); margin-bottom: 32px; }
+  .section-label { font-size: 10px; margin-bottom: 8px; }
+
+  /* Skills */
+  .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .skill-card { padding: 16px 12px; border-radius: 10px; }
+  .skill-icon { width: 40px; height: 40px; margin-bottom: 10px; }
+  .skill-name { font-size: 13px; margin-bottom: 6px; }
+  .skill-bar { margin-bottom: 4px; }
+  .skill-level { font-size: 11px; }
+  .skill-status { font-size: 8px; }
+  .skill-category-header { margin-bottom: 14px; padding-bottom: 8px; }
+  .skill-category-icon { width: 30px; height: 30px; border-radius: 8px; }
+  .skill-category-title { font-size: 12px; }
+
+  /* Education */
+  .education-card { margin-left: 40px; margin-bottom: 28px; padding: 20px; }
+  .education-card::before { left: -30px; width: 10px; height: 10px; top: 22px; }
+  .education-line { left: 14px; }
+  .edu-initial { width: 40px; height: 40px; font-size: 16px; }
+  .edu-degree { font-size: 15px; }
+  .edu-institution { font-size: 13px; }
+  .edu-tags span { font-size: 9px; }
+
+  /* Experience */
+  .experience-entry { margin-left: 44px; margin-bottom: 28px; }
+  .exp-card { padding: 20px; }
+  .exp-card::before { left: -38px; width: 10px; height: 10px; }
+  .exp-role { font-size: 15px; }
+  .exp-company { font-size: 13px; }
+  .exp-bullets li { font-size: 12px; line-height: 1.6; }
+  .experience-svg-line { left: 14px; }
+
+  /* Project popup — full width on mobile */
+  .project-popup-overlay { padding: 12px; align-items: flex-end; }
+  .project-popup { max-width: 100%; max-height: 85vh; border-radius: 16px 16px 0 0; }
+  .popup-image { height: 180px; }
+  .popup-body { padding: 20px; }
+  .popup-title { font-size: 18px; }
+  .popup-desc { font-size: 12px; line-height: 1.7; }
+  .popup-links { flex-direction: column; }
+  .popup-links .btn-primary,
+  .popup-links .btn-secondary { text-align: center; font-size: 12px; padding: 12px 20px; }
+
+  /* Footer */
+  .footer { padding: 24px 5vw; }
+  .footer-copy { font-size: 11px; }
+
+  /* Back to top */
+  .back-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 14px; }
+
+  /* Mobile menu enhancements */
+  .mobile-menu a { font-size: 20px; letter-spacing: 0.2em; }
+
+  /* Disable 3D tilt on skill cards for mobile */
+  .skill-card { perspective: none; transform-style: flat; }
+  .skill-card:hover { transform: none; }
+  .stat-card:hover { transform: none; }
+
+  /* Touch-friendly tap states */
+  .hero-btn:active { opacity: 0.7; transform: scale(0.97); }
+  .project-card:active { transform: scale(0.98); }
+  .btn-primary:active, .btn-secondary:active { opacity: 0.7; }
+  .contact-link-row:active { background: hsl(var(--bg-surface) / 0.8); }
+  .btn-submit:active { transform: scale(0.98); }
+  .back-to-top:active { transform: scale(0.9); }
+
+  /* Smooth mobile section reveal */
+  .about-section, .skills-section, .education-section,
+  .achievements-section, .experience-section, .contact-section {
+    transform: translateY(24px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+}
