@@ -654,7 +654,7 @@ export default function Index() {
                     <circle className="ring-progress" cx="80" cy="80" r="74" fill="none" stroke="hsl(var(--accent-ice))" strokeWidth="2" strokeLinecap="round" strokeDasharray="465" strokeDashoffset="93" />
                   </svg>
                 </div>
-                <div className="profile-name-tag">ALEX CHEN</div>
+                <div className="profile-name-tag">PAVITHRAN G</div>
                 <span className="profile-role-badge">STUDENT DEVELOPER</span>
                 <div className="profile-meta-row">
                   <span className="profile-meta-item"><i className="fa-solid fa-location-dot"></i> Mumbai, IN</span>
