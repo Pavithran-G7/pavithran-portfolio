@@ -556,8 +556,15 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 }
 
 @media (max-width: 768px) {
-  .about-grid { grid-template-columns: 1fr; text-align: center; }
-  .about-stats { grid-template-columns: repeat(2, 1fr); }
+  .about-grid { grid-template-columns: 1fr; text-align: center; gap: 32px; }
+  .about-stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .stat-card { padding: 16px 12px; }
+  .stat-number { font-size: 24px; }
+  .about-text p { font-size: 13px; line-height: 1.7; }
+  .profile-card-inner { padding: 24px 20px; }
+  .profile-avatar-ring { width: 90px; height: 90px; }
+  .profile-avatar-core { font-size: 28px; }
+  .profile-name-tag { font-size: 16px; }
 }
 
 /* ===== SKILLS ===== */
