@@ -648,7 +648,7 @@ export default function Index() {
               <div className="profile-card-glow"></div>
               <div className="profile-card-inner">
                 <div className="profile-avatar-ring">
-                  <div className="profile-avatar-core">AC</div>
+                  <div className="profile-avatar-core">PG</div>
                   <svg className="profile-ring-svg" viewBox="0 0 160 160">
                     <circle className="ring-track" cx="80" cy="80" r="74" fill="none" stroke="hsl(var(--border-line))" strokeWidth="1.5" opacity="0.3" />
                     <circle className="ring-progress" cx="80" cy="80" r="74" fill="none" stroke="hsl(var(--accent-ice))" strokeWidth="2" strokeLinecap="round" strokeDasharray="465" strokeDashoffset="93" />
