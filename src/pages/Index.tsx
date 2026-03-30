@@ -854,7 +854,7 @@ export default function Index() {
 
         {/* ===== FOOTER ===== */}
         <footer className="footer">
-          <div className="footer-copy">© 2025 Alex Chen. All rights reserved.</div>
+          <div className="footer-copy">© 2025 Pavithran G. All rights reserved.</div>
         </footer>
       </div>
 
