@@ -657,8 +657,8 @@ export default function Index() {
                 <div className="profile-name-tag">PAVITHRAN G</div>
                 <span className="profile-role-badge">STUDENT DEVELOPER</span>
                 <div className="profile-meta-row">
-                  <span className="profile-meta-item"><i className="fa-solid fa-location-dot"></i> Mumbai, IN</span>
-                  <span className="profile-meta-item"><i className="fa-solid fa-graduation-cap"></i> B.Tech CS</span>
+                  <span className="profile-meta-item"><i className="fa-solid fa-location-dot"></i> KSRCT, Tiruchengode</span>
+                  <span className="profile-meta-item"><i className="fa-solid fa-graduation-cap"></i> AI &amp; ML</span>
                 </div>
                 <div className="profile-status-row">
                   <span className="profile-status-dot"></span>
