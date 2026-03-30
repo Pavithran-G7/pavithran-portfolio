@@ -971,8 +971,13 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 .btn-submit.sent { background: hsl(var(--accent-mint)); color: hsl(var(--bg-void)); }
 
 @media (max-width: 768px) {
-  .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-  .contact-form { padding: 24px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+  .contact-form { padding: 20px; }
+  .contact-info h3 { font-size: 22px; }
+  .contact-info .contact-desc { font-size: 13px; }
+  .contact-link-row { padding: 10px 14px; font-size: 13px; }
+  .contact-link-row i { font-size: 18px; }
+  .btn-submit { width: 100%; text-align: center; }
 }
 
 /* ===== FOOTER ===== */
