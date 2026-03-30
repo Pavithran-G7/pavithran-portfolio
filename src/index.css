@@ -704,7 +704,24 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 .project-links a:hover { background: hsl(var(--accent-ice) / 0.1); }
 
 @media (max-width: 768px) {
-  .project-card { flex: 0 0 300px; height: auto; }
+  .projects-section { padding: 80px 5vw 60px !important; overflow: visible; }
+  .projects-pin-wrapper {
+    height: auto !important;
+    padding: 0 !important;
+  }
+  .projects-track {
+    flex-direction: column !important;
+    gap: 20px !important;
+    transform: none !important;
+  }
+  .project-card { flex: none !important; width: 100% !important; }
+  .project-visual { height: 180px; }
+  .project-content { padding: 16px; }
+  .project-title { font-size: 16px; }
+  .project-desc { font-size: 12px; }
+  .project-tech span { font-size: 10px; }
+  .project-links { flex-wrap: wrap; }
+  .project-links a { font-size: 11px; padding: 6px 12px; }
 }
 
 /* ===== PROJECT POPUP ===== */
