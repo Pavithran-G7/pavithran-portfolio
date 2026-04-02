@@ -6,14 +6,13 @@ import project003 from "@/assets/project-003.jpg";
 import project004 from "@/assets/project-004.jpg";
 import project005 from "@/assets/project-005.jpg";
 
-
 declare const gsap: any;
 declare const ScrollTrigger: any;
 declare const ScrollToPlugin: any;
 declare const TextPlugin: any;
 declare const Splitting: any;
 
-const NAV_LINKS = ["home","about","skills","projects","experience","contact"];
+const NAV_LINKS = ["home", "about", "skills", "projects", "experience", "contact"];
 
 const SKILL_ICONS: Record<string, React.ComponentType<any>> = {
   "HTML5": Code2, "CSS3": Palette, "JavaScript": Braces, "React": Atom, "Tailwind CSS": Wind,
@@ -51,17 +50,23 @@ const SKILLS_BY_CATEGORY = CATEGORY_ORDER.map(cat => ({
   skills: SKILLS.filter(s => s.category === cat),
 }));
 
+const ABOUT_SKILLS = [
+  "Python", "TensorFlow", "PyTorch", "OpenCV", "NLP", "Deep Learning",
+  "React", "Node.js", "MongoDB", "Docker", "Git", "Figma",
+  "Computer Vision", "Neural Networks", "Data Science",
+];
+
 const PROJECTS = [
-  { id: "001", title: "Personal Portfolio Website", desc: "A fully interactive portfolio with Three.js 3D scenes, GSAP scroll animations, and responsive design.", longDesc: "Built from scratch using React, Three.js for immersive 3D particle backgrounds, GSAP ScrollTrigger for cinematic section transitions, and custom CSS animations. Features a custom cursor system, momentum-based scrolling, and a cinematic loader sequence. Fully responsive across all devices.", tech: ["React","Three.js","GSAP","CSS3"], image: project001 },
-  { id: "002", title: "Weather Dashboard App", desc: "Real-time weather app with location search, 7-day forecasts, and interactive radar maps using OpenWeather API.", longDesc: "A comprehensive weather dashboard that fetches real-time data from the OpenWeather API. Features include location-based search with autocomplete, 7-day extended forecasts with hourly breakdowns, interactive radar maps powered by Chart.js, and customizable temperature units. Built with a responsive glassmorphism UI.", tech: ["React","OpenWeather API","Chart.js","Tailwind"], image: project002 },
-  { id: "003", title: "Task Management System", desc: "Full-stack Kanban board with drag-and-drop, user auth, real-time collaboration, and project analytics.", longDesc: "A full-stack project management tool featuring a Kanban-style drag-and-drop interface. Includes user authentication with JWT, real-time collaboration via Socket.io, project analytics dashboards, team member assignment, due date tracking, and priority labeling. Backend powered by Node.js and MongoDB.", tech: ["React","Node.js","MongoDB","Socket.io"], image: project003 },
-  { id: "004", title: "E-Commerce Frontend Clone", desc: "Pixel-perfect Shopify-style storefront with cart functionality, product filtering, and Stripe checkout integration.", longDesc: "A pixel-perfect e-commerce storefront inspired by Shopify's design language. Features a fully functional shopping cart with quantity management, advanced product filtering and search, category navigation, wishlist functionality, and a complete Stripe checkout integration. State managed with Redux Toolkit.", tech: ["React","Redux","Stripe","Firebase"], image: project004 },
-  { id: "005", title: "Chat Application", desc: "Real-time messaging app with private rooms, typing indicators, file sharing, and message reactions.", longDesc: "A real-time chat application supporting private and group messaging rooms. Built with Socket.io for instant message delivery, features include typing indicators, read receipts, file and image sharing with drag-and-drop, emoji reactions, message search, and user presence status. Backend uses Express with MongoDB for message persistence.", tech: ["React","Socket.io","Express","MongoDB"], image: project005 },
+  { id: "001", title: "Personal Portfolio Website", desc: "A fully interactive portfolio with Three.js 3D scenes, GSAP scroll animations, and responsive design.", longDesc: "Built from scratch using React, Three.js for immersive 3D particle backgrounds, GSAP ScrollTrigger for cinematic section transitions, and custom CSS animations. Features a custom cursor system, momentum-based scrolling, and a cinematic loader sequence. Fully responsive across all devices.", tech: ["React", "Three.js", "GSAP", "CSS3"], image: project001 },
+  { id: "002", title: "Weather Dashboard App", desc: "Real-time weather app with location search, 7-day forecasts, and interactive radar maps using OpenWeather API.", longDesc: "A comprehensive weather dashboard that fetches real-time data from the OpenWeather API. Features include location-based search with autocomplete, 7-day extended forecasts with hourly breakdowns, interactive radar maps powered by Chart.js, and customizable temperature units. Built with a responsive glassmorphism UI.", tech: ["React", "OpenWeather API", "Chart.js", "Tailwind"], image: project002 },
+  { id: "003", title: "Task Management System", desc: "Full-stack Kanban board with drag-and-drop, user auth, real-time collaboration, and project analytics.", longDesc: "A full-stack project management tool featuring a Kanban-style drag-and-drop interface. Includes user authentication with JWT, real-time collaboration via Socket.io, project analytics dashboards, team member assignment, due date tracking, and priority labeling. Backend powered by Node.js and MongoDB.", tech: ["React", "Node.js", "MongoDB", "Socket.io"], image: project003 },
+  { id: "004", title: "E-Commerce Frontend Clone", desc: "Pixel-perfect Shopify-style storefront with cart functionality, product filtering, and Stripe checkout integration.", longDesc: "A pixel-perfect e-commerce storefront inspired by Shopify's design language. Features a fully functional shopping cart with quantity management, advanced product filtering and search, category navigation, wishlist functionality, and a complete Stripe checkout integration. State managed with Redux Toolkit.", tech: ["React", "Redux", "Stripe", "Firebase"], image: project004 },
+  { id: "005", title: "Chat Application", desc: "Real-time messaging app with private rooms, typing indicators, file sharing, and message reactions.", longDesc: "A real-time chat application supporting private and group messaging rooms. Built with Socket.io for instant message delivery, features include typing indicators, read receipts, file and image sharing with drag-and-drop, emoji reactions, message search, and user presence status. Backend uses Express with MongoDB for message persistence.", tech: ["React", "Socket.io", "Express", "MongoDB"], image: project005 },
 ];
 
 const EDUCATION = [
-  { initial: "M", degree: "B.Tech in Computer Science", institution: "Mumbai Institute of Technology", year: "2022 – 2026", gpa: "GPA: 8.7/10", tags: ["Data Structures","Algorithms","Web Dev","DBMS","OS"], status: "pursuing" },
-  { initial: "S", degree: "Higher Secondary (Science)", institution: "St. Xavier's High School", year: "2020 – 2022", gpa: "94.6%", tags: ["Physics","Chemistry","Mathematics","Computer Science"], status: "completed" },
+  { initial: "K", degree: "B.Tech in AI & Machine Learning", institution: "K.S.Rangasamy College of Technology", year: "2022 – 2026", gpa: "GPA: 8.7/10", tags: ["Deep Learning", "Computer Vision", "NLP", "Data Science"], status: "pursuing" },
+  { initial: "S", degree: "Higher Secondary (Science)", institution: "St. Xavier's High School", year: "2020 – 2022", gpa: "94.6%", tags: ["Physics", "Chemistry", "Mathematics", "Computer Science"], status: "completed" },
 ];
 
 const ACHIEVEMENTS_STATS = [
@@ -79,10 +84,10 @@ const ACHIEVEMENT_CARDS = [
 ];
 
 const EXPERIENCE = [
-  { date: "Jun 2024 – Aug 2024", role: "Frontend Developer Intern", company: "TechFlow Solutions", bullets: ["Developed responsive UI components using React and Tailwind CSS for the company's SaaS platform","Optimized page load performance by 40% through code splitting and lazy loading strategies","Collaborated with the design team to implement pixel-perfect interfaces from Figma mockups"], status: "completed-status", statusText: "COMPLETED" },
-  { date: "Jan 2023 – Present", role: "Open Source Contributor", company: "GitHub Community", bullets: ["Contributed to 8+ open source projects including documentation and bug fixes","Maintained a personal library of reusable React components with 120+ GitHub stars","Reviewed pull requests and provided constructive feedback to fellow contributors"], status: "active", statusText: "ACTIVE" },
-  { date: "Sep 2023 – May 2024", role: "Tech Club Lead", company: "MIT Tech Society", bullets: ["Organized 12+ workshops on web development, Python, and competitive programming","Mentored 30+ junior students in their coding journey and project development","Led the team to win the inter-college hackathon with a smart campus navigation app"], status: "completed-status", statusText: "COMPLETED" },
-  { date: "Mar 2023 – Present", role: "Freelance Web Developer", company: "Self-Employed", bullets: ["Delivered 8+ client projects including landing pages, portfolios, and small business websites","Built custom WordPress themes and headless CMS solutions for content-driven sites","Maintained a 5-star rating on Fiverr with 100% client satisfaction rate"], status: "active", statusText: "ACTIVE" },
+  { date: "Jun 2024 – Aug 2024", role: "Frontend Developer Intern", company: "TechFlow Solutions", bullets: ["Developed responsive UI components using React and Tailwind CSS for the company's SaaS platform", "Optimized page load performance by 40% through code splitting and lazy loading strategies", "Collaborated with the design team to implement pixel-perfect interfaces from Figma mockups"], status: "completed-status", statusText: "COMPLETED" },
+  { date: "Jan 2023 – Present", role: "Open Source Contributor", company: "GitHub Community", bullets: ["Contributed to 8+ open source projects including documentation and bug fixes", "Maintained a personal library of reusable React components with 120+ GitHub stars", "Reviewed pull requests and provided constructive feedback to fellow contributors"], status: "active", statusText: "ACTIVE" },
+  { date: "Sep 2023 – May 2024", role: "Tech Club Lead", company: "MIT Tech Society", bullets: ["Organized 12+ workshops on web development, Python, and competitive programming", "Mentored 30+ junior students in their coding journey and project development", "Led the team to win the inter-college hackathon with a smart campus navigation app"], status: "completed-status", statusText: "COMPLETED" },
+  { date: "Mar 2023 – Present", role: "Freelance Web Developer", company: "Self-Employed", bullets: ["Delivered 8+ client projects including landing pages, portfolios, and small business websites", "Built custom WordPress themes and headless CMS solutions for content-driven sites", "Maintained a 5-star rating on Fiverr with 100% client satisfaction rate"], status: "active", statusText: "ACTIVE" },
 ];
 
 const SOCIAL_ICONS = [
@@ -91,68 +96,30 @@ const SOCIAL_ICONS = [
   { icon: "fa-brands fa-x-twitter", url: "#", tooltip: "Twitter/X" },
 ];
 
-const PROJECT_CARD_WIDTH = 480;
-const PROJECT_GAP = 32;
-const NAVBAR_HEIGHT = 72;
+const NAVBAR_HEIGHT = 60;
 
-function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: typeof PROJECTS; onProjectClick: (p: typeof PROJECTS[0]) => void }) {
-  return (
-    <section
-      id="projects"
-      className="projects-section"
-    >
-      <div
-        className="projects-pin-wrapper"
-        style={{
-          height: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          overflow: "hidden",
-          padding: "0 5vw",
-        }}
-      >
-        <span className="section-label" style={{ marginBottom: 12 }}>// 03. MISSION LOG</span>
-        <h2 className="section-heading" style={{ marginBottom: 32 }}>Featured <span className="accent">Projects</span></h2>
-        <div
-          className="projects-track"
-          style={{
-            display: "flex",
-            gap: `${PROJECT_GAP}px`,
-            willChange: "transform",
-          }}
-        >
-          {projects.map((p) => (
-            <div
-              className="project-card"
-              key={p.id}
-              style={{ flex: `0 0 ${PROJECT_CARD_WIDTH}px` }}
-            >
-              <div className="project-visual" onClick={() => onProjectClick(p)} style={{ cursor: "pointer" }}>
-                <img src={p.image} alt={p.title} className="project-image" loading="lazy" />
-                <div className="project-image-overlay">
-                  <i className="fa-solid fa-expand"></i>
-                </div>
-                <div className="project-mission">MISSION-{p.id}</div>
-              </div>
-              <div className="project-content">
-                <div className="project-title">{p.title}</div>
-                <div className="project-desc">{p.desc}</div>
-                <div className="project-tech">
-                  {p.tech.map(t => <span key={t}>{t}</span>)}
-                </div>
-                <div className="project-links">
-                  <a href="#">↗ LIVE DEMO</a>
-                  <a href="#">{"</>"} SOURCE CODE</a>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+const ASCII_ART = `
+    ╔══════════════════════╗
+    ║  ░░▓▓██ NEURAL ██▓▓░░ ║
+    ║                        ║
+    ║   ┌──┐  ┌──┐  ┌──┐    ║
+    ║   │▓▓│──│▓▓│──│▓▓│    ║
+    ║   └──┘  └──┘  └──┘    ║
+    ║     \\    |    /        ║
+    ║      \\   |   /         ║
+    ║   ┌──┐  ┌──┐  ┌──┐    ║
+    ║   │░░│──│██│──│░░│    ║
+    ║   └──┘  └──┘  └──┘    ║
+    ║     \\    |    /        ║
+    ║      \\   |   /         ║
+    ║   ┌──┐  ┌──┐  ┌──┐    ║
+    ║   │██│──│░░│──│██│    ║
+    ║   └──┘  └──┘  └──┘    ║
+    ║                        ║
+    ║  BUILDING MACHINES     ║
+    ║  THAT THINK.           ║
+    ╚══════════════════════╝
+`;
 
 export default function Index() {
   const [loaded, setLoaded] = useState(false);
@@ -174,23 +141,19 @@ export default function Index() {
   const mousePos = useRef({ x: 0, y: 0 });
   const ringPos = useRef({ x: 0, y: 0 });
 
-  // ===== LOADER SEQUENCE =====
+  // ===== LOADER =====
   useEffect(() => {
     const tl = gsap.timeline();
     tl.to({}, { duration: 0.7 })
-      .to(loaderTextRef.current, { duration: 1.0, text: "INITIALIZING PORTFOLIO SYSTEMS...", ease: "none" }, 0.9)
+      .to(loaderTextRef.current, { duration: 1.0, text: "INITIALIZING SYSTEMS...", ease: "none" }, 0.9)
       .call(() => { if (loaderBarRef.current) loaderBarRef.current.style.width = "100%"; }, [], 1.9)
       .to("#loader > *", { opacity: 0, duration: 0.4 }, 2.7)
       .call(() => {
         setLoaded(true);
-        // Start door open animation after loader hides
         setTimeout(() => setDoorOpen(true), 100);
-        // Remove door panels after animation completes
         setTimeout(() => setDoorsGone(true), 1200);
       }, [], 3.1);
   }, []);
-
-  // ===== BACKGROUND REMOVED FOR SIMPLICITY =====
 
   // ===== CUSTOM CURSOR =====
   useEffect(() => {
@@ -208,8 +171,8 @@ export default function Index() {
     const up = () => { ring.classList.remove('clicking'); dot.classList.remove('clicking'); };
 
     const lerpLoop = () => {
-      ringPos.current.x += (mousePos.current.x - ringPos.current.x) * 0.18;
-      ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.18;
+      ringPos.current.x += (mousePos.current.x - ringPos.current.x) * 0.15;
+      ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.15;
       ring.style.left = ringPos.current.x + 'px';
       ring.style.top = ringPos.current.y + 'px';
       requestAnimationFrame(lerpLoop);
@@ -217,7 +180,7 @@ export default function Index() {
     lerpLoop();
 
     const addHover = () => {
-      document.querySelectorAll('a, button, .btn-primary, .btn-secondary, .btn-transmit, .skill-card, .project-card').forEach(el => {
+      document.querySelectorAll('a, button, .hero-btn, .project-row, .skill-card').forEach(el => {
         el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
         el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
       });
@@ -260,48 +223,54 @@ export default function Index() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // ===== SMOOTH SECTION REVEAL VIA INTERSECTION OBSERVER =====
+  // ===== SECTION REVEAL =====
   useEffect(() => {
     if (!loaded) return;
     const sections = document.querySelectorAll('.about-section, .skills-section, .education-section, .achievements-section, .experience-section, .contact-section');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('in-view');
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
     sections.forEach(s => observer.observe(s));
     return () => observer.disconnect();
   }, [loaded]);
 
-
   // ===== GSAP ANIMATIONS =====
   useEffect(() => {
     if (!loaded) return;
-
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin);
 
     requestAnimationFrame(() => {
       Splitting({ target: '[data-splitting]', by: 'words' });
 
-      // ---- HERO (static, no animations) ----
+      // Hero parallax
       const heroTl = gsap.timeline({
         scrollTrigger: { trigger: "#home", start: "top top", end: "+=80%", scrub: 0.5, pin: true, pinSpacing: true }
       });
-      heroTl.to(".hero-text", { y: -60, opacity: 0, duration: 1 }, 0);
+      heroTl.to(".hero-text", { y: -80, opacity: 0, duration: 1 }, 0);
+      heroTl.to(".hero-visual", { y: -40, opacity: 0, duration: 1 }, 0);
 
-      // ---- ABOUT ----
+      // Staggered hero text reveal
+      gsap.from(".hero-status", { x: -40, opacity: 0, duration: 0.8, delay: 0.2 });
+      gsap.from(".hero-name", { x: -60, opacity: 0, duration: 1, delay: 0.4 });
+      gsap.from(".hero-role", { x: -40, opacity: 0, duration: 0.8, delay: 0.6 });
+      gsap.from(".hero-tagline", { x: -40, opacity: 0, duration: 0.8, delay: 0.8 });
+      gsap.from(".hero-buttons", { y: 20, opacity: 0, duration: 0.8, delay: 1.0 });
+      gsap.from(".hero-social-icons", { y: 20, opacity: 0, duration: 0.8, delay: 1.2 });
+      gsap.from(".ascii-art", { opacity: 0, duration: 1.5, delay: 0.8 });
+
+      // About word reveal
       const aboutWords = document.querySelectorAll('.about-section [data-splitting] .word');
       if (aboutWords.length) {
         gsap.from(aboutWords, {
-          y: "100%", opacity: 0, rotationX: -80,
-          stagger: { each: 0.02, from: "start" },
+          y: "100%", opacity: 0, stagger: { each: 0.02 },
           ease: "power4.out",
           scrollTrigger: { trigger: ".about-section", start: "top 70%", end: "top 20%", scrub: 0.8 }
         });
       }
 
+      // Stats counter
       document.querySelectorAll('.stat-number[data-target]').forEach(el => {
         const target = parseInt((el as HTMLElement).dataset.target || "0");
         const suffix = (el as HTMLElement).dataset.suffix || "";
@@ -316,24 +285,13 @@ export default function Index() {
         });
       });
 
-      // ---- SKILLS ----
+      // Skills
       const skillCards = document.querySelectorAll('.skill-card');
       if (skillCards.length) {
-        gsap.set(skillCards, { opacity: 1, rotateX: 0, y: 0 });
         gsap.from(skillCards, {
-          opacity: 0, y: 30,
-          stagger: { each: 0.05, from: "start" },
+          opacity: 0, y: 30, stagger: { each: 0.04 },
           duration: 0.6, ease: "power2.out",
           scrollTrigger: { trigger: ".skills-section", start: "top 80%", toggleActions: "play none none none" }
-        });
-      }
-
-      const skillChars = document.querySelectorAll('.skills-section .section-heading .char');
-      if (skillChars.length) {
-        gsap.from(skillChars, {
-          opacity: 0, y: 80, rotation: -15,
-          stagger: 0.04, ease: "expo.out",
-          scrollTrigger: { trigger: ".skills-section", start: "top 70%", toggleActions: "play none none reverse" }
         });
       }
 
@@ -345,51 +303,18 @@ export default function Index() {
         });
       });
 
-      // ---- PROJECTS HORIZONTAL SCROLL (desktop only) ----
-      const isMobile = window.innerWidth <= 768;
-      const projectsTrack = document.querySelector('.projects-track') as HTMLElement;
-      const projectsSection = document.getElementById('projects');
-      if (projectsTrack && projectsSection && !isMobile) {
-        const trackWidth = projectsTrack.scrollWidth;
-        const viewportWidth = window.innerWidth;
-        const translateDistance = trackWidth - viewportWidth + viewportWidth * 0.1;
+      // Projects
+      gsap.from('.project-row', {
+        x: -40, opacity: 0, stagger: 0.1, duration: 0.7, ease: "power3.out",
+        scrollTrigger: { trigger: '#projects', start: "top 80%", toggleActions: "play none none none" }
+      });
 
-        gsap.to(projectsTrack, {
-          x: -translateDistance,
-          ease: "none",
-          scrollTrigger: {
-            trigger: projectsSection,
-            start: "top top",
-            end: () => `+=${translateDistance}`,
-            scrub: 0.8,
-            pin: true,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          },
-        });
-
-        gsap.from('.project-card', {
-          opacity: 0, scale: 0.9,
-          stagger: 0.08, duration: 0.5, ease: "power2.out",
-          scrollTrigger: { trigger: projectsSection, start: "top 80%", toggleActions: "play none none none" }
-        });
-      } else if (isMobile && projectsSection) {
-        // Mobile: simple staggered fade-up for project cards
-        gsap.from('.project-card', {
-          opacity: 0, y: 30,
-          stagger: 0.12, duration: 0.5, ease: "power2.out",
-          scrollTrigger: { trigger: projectsSection, start: "top 85%", toggleActions: "play none none none" }
-        });
-      }
-
-      // ---- EDUCATION ----
+      // Education
       document.querySelectorAll('.education-card').forEach(card => {
-        gsap.fromTo(card,
-          { clipPath: "polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%)", opacity: 0 },
-          { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", opacity: 1, duration: 1.1, ease: "power3.out",
-            scrollTrigger: { trigger: card, start: "top 80%", toggleActions: "play none none reverse" }
-          }
-        );
+        gsap.from(card, {
+          x: -40, opacity: 0, duration: 0.8, ease: "power3.out",
+          scrollTrigger: { trigger: card, start: "top 80%", toggleActions: "play none none reverse" }
+        });
       });
 
       const eduLine = document.querySelector('.education-line') as HTMLElement;
@@ -400,7 +325,7 @@ export default function Index() {
         });
       }
 
-      // ---- ACHIEVEMENTS ----
+      // Achievements
       document.querySelectorAll('.achievement-stat-number[data-target]').forEach(el => {
         const target = parseInt((el as HTMLElement).dataset.target || "0");
         const suffix = (el as HTMLElement).dataset.suffix || "";
@@ -411,20 +336,16 @@ export default function Index() {
             gsap.to(obj, { val: target, duration: 1.5, ease: "power2.out", onUpdate: () => {
               (el as HTMLElement).textContent = Math.floor(obj.val) + suffix;
             }});
-            const burst = (el as HTMLElement).parentElement?.querySelector('.radial-burst');
-            if (burst) {
-              gsap.fromTo(burst.children, { scale: 0, opacity: 1 }, { scale: 1, opacity: 0, duration: 0.8, stagger: 0.03, ease: "power2.out" });
-            }
           }
         });
       });
 
       gsap.from('.achievement-card', {
-        x: 60, opacity: 0, stagger: 0.1, duration: 0.8, ease: "power3.out",
+        x: 40, opacity: 0, stagger: 0.1, duration: 0.7, ease: "power3.out",
         scrollTrigger: { trigger: '.achievement-cards', start: "top 80%", toggleActions: "play none none reverse" }
       });
 
-      // ---- EXPERIENCE ----
+      // Experience
       const svgLine = document.querySelector('.exp-svg-path') as SVGPathElement;
       if (svgLine) {
         const length = svgLine.getTotalLength();
@@ -438,46 +359,28 @@ export default function Index() {
 
       document.querySelectorAll('.exp-card').forEach(card => {
         gsap.from(card, {
-          rotationX: 90, opacity: 0, transformOrigin: "top center", duration: 1.0, ease: "power4.out",
+          x: -40, opacity: 0, duration: 0.8, ease: "power3.out",
           scrollTrigger: { trigger: card, start: "top 80%", toggleActions: "play none none reverse" }
         });
       });
 
-      // ---- CONTACT ----
+      // Contact
       gsap.from('.contact-info', {
-        x: -60, opacity: 0, duration: 0.9, ease: "power3.out",
+        x: -40, opacity: 0, duration: 0.8, ease: "power3.out",
         scrollTrigger: { trigger: ".contact-section", start: "top 70%", toggleActions: "play none none reverse" }
       });
       gsap.from('.contact-form', {
-        x: 60, opacity: 0, duration: 0.9, delay: 0.15, ease: "power3.out",
+        x: 40, opacity: 0, duration: 0.8, delay: 0.1, ease: "power3.out",
         scrollTrigger: { trigger: ".contact-section", start: "top 70%", toggleActions: "play none none reverse" }
-      });
-      gsap.from('.contact-link-row', {
-        y: 20, opacity: 0, stagger: 0.08, duration: 0.6, delay: 0.3, ease: "power3.out",
-        scrollTrigger: { trigger: ".contact-links", start: "top 85%", toggleActions: "play none none reverse" }
       });
     });
 
     return () => { ScrollTrigger.getAll().forEach((t: any) => t.kill()); };
   }, [loaded]);
 
-  // ===== SKILL CARD TILT =====
-  const handleSkillMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (window.innerWidth <= 768) return;
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    card.style.transform = `rotateY(${x*15}deg) rotateX(${-y*15}deg)`;
-  }, []);
-  const handleSkillMouseLeave = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    e.currentTarget.style.transform = '';
-  }, []);
-
   const scrollToSection = useCallback((id: string, smooth = true) => {
     const section = document.getElementById(id);
     if (!section) return;
-
     const offset = id === "home" ? 0 : NAVBAR_HEIGHT;
     const top = Math.max(section.getBoundingClientRect().top + window.scrollY - offset, 0);
     window.history.replaceState(null, "", id === "home" ? window.location.pathname : `#${id}`);
@@ -488,17 +391,14 @@ export default function Index() {
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
     if (!hash) return;
-
     const alignToHash = () => scrollToSection(hash, false);
     window.addEventListener("load", alignToHash);
     const timeout = window.setTimeout(alignToHash, 0);
-
     return () => {
       window.removeEventListener("load", alignToHash);
       window.clearTimeout(timeout);
     };
   }, [scrollToSection]);
-
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -518,12 +418,15 @@ export default function Index() {
 
   return (
     <>
+      {/* NOISE GRAIN */}
+      <div className="noise-overlay" />
+
       {/* LOADER */}
       <div id="loader" className={loaded ? "hidden" : ""}>
         <div className="loader-scanline" />
         <svg className="loader-logo" viewBox="0 0 60 60">
-          <polygon points="30,2 58,30 30,58 2,30" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="2"/>
-          <polygon points="30,12 48,30 30,48 12,30" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="1.5" opacity="0.5"/>
+          <rect x="5" y="5" width="50" height="50" fill="none" stroke="#00FFB2" strokeWidth="1.5" />
+          <rect x="15" y="15" width="30" height="30" fill="none" stroke="#00FFB2" strokeWidth="1" opacity="0.4" />
         </svg>
         <div className="loader-text"><span ref={loaderTextRef}></span></div>
         <div className="loader-progress"><div className="loader-progress-bar" ref={loaderBarRef}></div></div>
@@ -541,13 +444,7 @@ export default function Index() {
       <div className="cursor-ring" ref={cursorRingRef}></div>
       <div className="cursor-dot" ref={cursorDotRef}></div>
 
-      {/* FOG — subtle gradient only */}
-      <div className="fog-overlay">
-        <div className="fog-blob"></div>
-        <div className="fog-blob"></div>
-      </div>
-
-      {/* NAVBAR — minimal text links */}
+      {/* NAVBAR */}
       <nav className={`navbar ${navScrolled ? 'scrolled' : ''}`}>
         <ul className="nav-links-minimal">
           {NAV_LINKS.map(id => (
@@ -555,10 +452,7 @@ export default function Index() {
               <a
                 href={`#${id}`}
                 className={activeNav === id ? 'active' : ''}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(id);
-                }}
+                onClick={(e) => { e.preventDefault(); scrollToSection(id); }}
               >
                 {id}
               </a>
@@ -566,7 +460,7 @@ export default function Index() {
           ))}
         </ul>
         <div className={`hamburger ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-          <span/><span/><span/>
+          <span /><span /><span />
         </div>
       </nav>
 
@@ -576,21 +470,14 @@ export default function Index() {
       {/* MOBILE MENU */}
       <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
         {NAV_LINKS.map(id => (
-          <a
-            key={id}
-            href={`#${id}`}
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection(id);
-            }}
-          >
+          <a key={id} href={`#${id}`} onClick={(e) => { e.preventDefault(); scrollToSection(id); }}>
             {id}
           </a>
         ))}
         <SocialIcons />
       </div>
 
-      {/* PROJECT POPUP — clean minimal */}
+      {/* PROJECT POPUP */}
       {popupProject && (
         <div className="project-popup-overlay" onClick={() => setPopupProject(null)}>
           <div className="project-popup" onClick={e => e.stopPropagation()}>
@@ -614,69 +501,71 @@ export default function Index() {
       )}
 
       <div className="content-wrapper">
-        {/* ===== HERO — minimal, static, left-aligned ===== */}
+        {/* ===== HERO ===== */}
         <section id="home" className="hero-section">
           <div className="hero-text">
             <div className="hero-status">
               <span className="status-dot"></span>
               AVAILABLE FOR WORK
             </div>
-            <h1 className="hero-name">PAVITHRAN G</h1>
-            <div className="hero-role">AI &amp; ML Developer</div>
-            <div className="hero-tagline">Building the future, one commit at a time.</div>
+            <h1 className="hero-name">
+              PAVITHRAN
+              <br />
+              G<span className="hero-cursor-blink"></span>
+            </h1>
+            <div className="hero-role">AI & ML Developer</div>
+            <div className="hero-tagline">Building machines that think.</div>
             <div className="hero-buttons">
               <a href="#projects" className="hero-btn hero-btn--projects" onClick={(e) => { e.preventDefault(); scrollToSection('projects'); }}>VIEW PROJECTS</a>
               <a href="#contact" className="hero-btn hero-btn--contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>CONTACT ME</a>
-              <a href="#" className="hero-btn hero-btn--resume" download>DOWNLOAD RESUME</a>
+              <a href="#" className="hero-btn hero-btn--resume" download>DOWNLOAD CV</a>
             </div>
             <div className="hero-social-icons">
-              {/* GitHub */}
               <a href="#" aria-label="GitHub">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" /></svg>
               </a>
-              {/* LinkedIn */}
               <a href="#" aria-label="LinkedIn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
               </a>
-              {/* X / Twitter */}
               <a href="#" aria-label="X">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
               </a>
             </div>
+          </div>
+          <div className="hero-visual">
+            <pre className="ascii-art">{ASCII_ART}</pre>
           </div>
         </section>
 
         {/* ===== ABOUT ===== */}
-        <section id="about" className="about-section">
+        <section id="about" className="about-section" style={{ position: 'relative' }}>
+          <div className="section-watermark">ABOUT</div>
           <span className="section-label">// 01. WHO I AM</span>
-          <h2 className="section-heading" data-splitting>About <span className="accent">Me</span></h2>
+          <h2 className="section-heading">About <span className="accent">Me</span></h2>
           <div className="about-grid">
-            <div className="about-profile-card">
-              <div className="profile-card-glow"></div>
-              <div className="profile-card-inner">
-                <div className="profile-avatar-ring">
-                  <div className="profile-avatar-core">PG</div>
-                  <svg className="profile-ring-svg" viewBox="0 0 160 160">
-                    <circle className="ring-track" cx="80" cy="80" r="74" fill="none" stroke="hsl(var(--border-line))" strokeWidth="1.5" opacity="0.3" />
-                    <circle className="ring-progress" cx="80" cy="80" r="74" fill="none" stroke="hsl(var(--accent-ice))" strokeWidth="2" strokeLinecap="round" strokeDasharray="465" strokeDashoffset="93" />
-                  </svg>
-                </div>
-                <div className="profile-name-tag">PAVITHRAN G</div>
-                <span className="profile-role-badge">STUDENT DEVELOPER</span>
-                <div className="profile-meta-row">
-                  <span className="profile-meta-item"><i className="fa-solid fa-location-dot"></i> KSRCT, Tiruchengode</span>
-                  <span className="profile-meta-item"><i className="fa-solid fa-graduation-cap"></i> AI &amp; ML</span>
-                </div>
-                <div className="profile-status-row">
-                  <span className="profile-status-dot"></span>
-                  Available for opportunities
-                </div>
+            <div className="about-profile">
+              <div className="profile-avatar-core">PG</div>
+              <div className="profile-name-tag">PAVITHRAN G</div>
+              <span className="profile-role-badge">AI & ML DEVELOPER</span>
+              <div className="profile-meta-row">
+                <span className="profile-meta-item"><i className="fa-solid fa-location-dot"></i> KSRCT, Tiruchengode</span>
+                <span className="profile-meta-item"><i className="fa-solid fa-graduation-cap"></i> AI & ML</span>
+              </div>
+              <div className="profile-status-row">
+                <span className="profile-status-dot"></span>
+                Available for opportunities
               </div>
             </div>
             <div className="about-text">
-              <p data-splitting>I'm a student at K.S.Rangasamy College of Technology, specializing in Artificial Intelligence &amp; Machine Learning. My journey started with curiosity about how machines learn and has evolved into a skill set spanning deep learning, computer vision, NLP, and full-stack development.</p>
+              <p data-splitting>I'm a student at K.S.Rangasamy College of Technology, specializing in Artificial Intelligence & Machine Learning. My journey started with curiosity about how machines learn and has evolved into a skill set spanning deep learning, computer vision, NLP, and full-stack development.</p>
               <p data-splitting>When I'm not coding, you'll find me contributing to open-source projects, participating in hackathons, or mentoring junior developers at our college tech club. I believe great software is born from the intersection of clean code, thoughtful design, and relentless curiosity.</p>
-              <p data-splitting>I'm currently seeking internship opportunities where I can apply my skills to real-world problems and continue growing as a developer. Let's build something amazing together.</p>
+
+              <div className="skills-cloud">
+                {ABOUT_SKILLS.map(s => (
+                  <span className="skill-pill" key={s}>{s}</span>
+                ))}
+              </div>
+
               <div className="about-stats">
                 {[
                   { val: 2, suffix: "+", label: "Years Coding" },
@@ -695,16 +584,17 @@ export default function Index() {
         </section>
 
         {/* ===== SKILLS ===== */}
-        <section id="skills" className="skills-section">
+        <section id="skills" className="skills-section" style={{ position: 'relative' }}>
+          <div className="section-watermark">SKILLS</div>
           <span className="section-label">// 02. TECH ARSENAL</span>
-          <h2 className="section-heading" data-splitting>My <span className="accent">Skills</span></h2>
+          <h2 className="section-heading">My <span className="accent">Skills</span></h2>
           <div className="skills-categories">
             {SKILLS_BY_CATEGORY.map(({ category, skills }) => {
               const CatIcon = CATEGORY_ICONS[category] || Code2;
               return (
                 <div className="skill-category-group" key={category}>
                   <div className="skill-category-header">
-                    <div className="skill-category-icon"><CatIcon size={20} /></div>
+                    <div className="skill-category-icon"><CatIcon size={18} /></div>
                     <h3 className="skill-category-title">{category}</h3>
                     <span className="skill-category-count">{skills.length} skills</span>
                   </div>
@@ -712,8 +602,8 @@ export default function Index() {
                     {skills.map(skill => {
                       const IconComp = SKILL_ICONS[skill.name] || Code2;
                       return (
-                        <div className="skill-card" key={skill.name} onMouseMove={handleSkillMouseMove} onMouseLeave={handleSkillMouseLeave}>
-                          <div className="skill-icon"><IconComp size={24} strokeWidth={1.5} /></div>
+                        <div className="skill-card" key={skill.name}>
+                          <div className="skill-icon"><IconComp size={22} strokeWidth={1.5} /></div>
                           <div className="skill-name">{skill.name}</div>
                           <div className="skill-bar"><div className="skill-bar-fill" data-level={skill.level}></div></div>
                           <div className="skill-level">{skill.level}%</div>
@@ -728,11 +618,30 @@ export default function Index() {
           </div>
         </section>
 
-        {/* ===== PROJECTS ===== */}
-        <ProjectsHorizontalScroll projects={PROJECTS} onProjectClick={setPopupProject} />
+        {/* ===== PROJECTS — Brutalist numbered list ===== */}
+        <section id="projects" className="projects-section" style={{ position: 'relative' }}>
+          <div className="section-watermark">WORK</div>
+          <span className="section-label">// 03. SELECTED WORK</span>
+          <h2 className="section-heading">Featured <span className="accent">Projects</span></h2>
+          <div className="projects-list">
+            {PROJECTS.map((p) => (
+              <div className="project-row" key={p.id} onClick={() => setPopupProject(p)}>
+                <div className="project-number">{p.id}</div>
+                <div className="project-row-content">
+                  <div className="project-row-title">{p.title}</div>
+                  <div className="project-row-tech">
+                    {p.tech.map(t => <span key={t}>{t}</span>)}
+                  </div>
+                </div>
+                <div className="project-arrow">→</div>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* ===== EDUCATION ===== */}
-        <section id="education" className="education-section">
+        <section id="education" className="education-section" style={{ position: 'relative' }}>
+          <div className="section-watermark">EDU</div>
           <span className="section-label">// 04. KNOWLEDGE BASE</span>
           <h2 className="section-heading">Education</h2>
           <div className="education-timeline">
@@ -756,7 +665,8 @@ export default function Index() {
         </section>
 
         {/* ===== ACHIEVEMENTS ===== */}
-        <section className="achievements-section">
+        <section className="achievements-section" style={{ position: 'relative' }}>
+          <div className="section-watermark">WINS</div>
           <span className="section-label">// 05. MILESTONES</span>
           <h2 className="section-heading">Achievements</h2>
           <div className="achievements-stats">
@@ -764,11 +674,6 @@ export default function Index() {
               <div className="achievement-stat" key={i}>
                 <div className="achievement-stat-number" data-target={s.value} data-suffix={s.suffix}>0</div>
                 <div className="achievement-stat-label">{s.label}</div>
-                <div className="radial-burst">
-                  {Array.from({length: 8}).map((_, j) => (
-                    <span key={j} style={{ transform: `rotate(${j*45}deg) translateY(-30px)` }}></span>
-                  ))}
-                </div>
               </div>
             ))}
           </div>
@@ -786,12 +691,13 @@ export default function Index() {
         </section>
 
         {/* ===== EXPERIENCE ===== */}
-        <section id="experience" className="experience-section">
+        <section id="experience" className="experience-section" style={{ position: 'relative' }}>
+          <div className="section-watermark">EXP</div>
           <span className="section-label">// 06. MISSION HISTORY</span>
           <h2 className="section-heading">Experience</h2>
           <div className="experience-timeline">
             <svg className="experience-svg-line" width="40" height="100%" preserveAspectRatio="none">
-              <path className="exp-svg-path" d="M20,0 L20,2000" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="2" style={{ filter: 'drop-shadow(0 0 4px hsl(195,100%,50%,0.5))' }} />
+              <path className="exp-svg-path" d="M20,0 L20,2000" fill="none" stroke="#00FFB2" strokeWidth="1" style={{ filter: 'drop-shadow(0 0 4px rgba(0,255,178,0.4))' }} />
             </svg>
             {EXPERIENCE.map((exp, i) => (
               <div className="experience-entry" key={i}>
@@ -810,20 +716,21 @@ export default function Index() {
         </section>
 
         {/* ===== CONTACT ===== */}
-        <section id="contact" className="contact-section">
+        <section id="contact" className="contact-section" style={{ position: 'relative' }}>
+          <div className="section-watermark">TALK</div>
           <span className="section-label">// 07. GET IN TOUCH</span>
-          <h2 className="section-heading">Contact <span className="accent">Me</span></h2>
+          <h2 className="section-heading">Let's <span className="accent">Talk</span></h2>
           <div className="contact-grid">
             <div className="contact-info">
-              <h3>Let's work together</h3>
+              <h3>LET'S BUILD<br />SOMETHING.</h3>
               <p className="contact-desc">
                 I'm currently open to freelance projects, internship opportunities, and exciting collaborations. Feel free to reach out — I'd love to hear from you.
               </p>
               <div className="contact-links">
                 {[
-                  { icon: "fa-brands fa-github", label: "GitHub", url: "github.com/alexchen" },
-                  { icon: "fa-brands fa-linkedin", label: "LinkedIn", url: "linkedin.com/in/alexchen" },
-                  { icon: "fa-brands fa-x-twitter", label: "Twitter / X", url: "twitter.com/alexchendev" },
+                  { icon: "fa-brands fa-github", label: "GitHub", url: "github.com/pavithrang" },
+                  { icon: "fa-brands fa-linkedin", label: "LinkedIn", url: "linkedin.com/in/pavithrang" },
+                  { icon: "fa-brands fa-x-twitter", label: "Twitter / X", url: "twitter.com/pavithrang" },
                 ].map((l, i) => (
                   <a className="contact-link-row" href="#" key={i}>
                     <i className={l.icon}></i>
@@ -838,11 +745,11 @@ export default function Index() {
             <form className="contact-form" onSubmit={handleSubmit}>
               <div className="form-group">
                 <label>Name</label>
-                <input type="text" required placeholder="John Doe" />
+                <input type="text" required placeholder="Your name" />
               </div>
               <div className="form-group">
                 <label>Email</label>
-                <input type="email" required placeholder="john@example.com" />
+                <input type="email" required placeholder="your@email.com" />
               </div>
               <div className="form-group">
                 <label>Subject</label>
@@ -853,15 +760,15 @@ export default function Index() {
                 <textarea required placeholder="Tell me about your project..." rows={4}></textarea>
               </div>
               <button type="submit" className={`btn-submit ${formSent ? 'sent' : ''}`}>
-                {formSent ? '✓ Message Sent' : 'Send Message'}
+                {formSent ? '✓ SENT' : 'SEND MESSAGE →'}
               </button>
             </form>
           </div>
         </section>
 
-        {/* ===== FOOTER ===== */}
+        {/* FOOTER */}
         <footer className="footer">
-          <div className="footer-copy">© 2025 Pavithran G. All rights reserved.</div>
+          <div className="footer-copy">© 2025 PAVITHRAN G — ALL RIGHTS RESERVED</div>
         </footer>
       </div>
 
