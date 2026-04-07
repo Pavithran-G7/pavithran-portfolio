@@ -270,7 +270,7 @@ export default function Index() {
           entry.target.classList.add('in-view');
         }
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+    }, { threshold: 0.01, rootMargin: '200px 0px 0px 0px' });
     sections.forEach(s => observer.observe(s));
     return () => observer.disconnect();
   }, [loaded]);
