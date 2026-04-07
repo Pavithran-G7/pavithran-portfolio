@@ -450,46 +450,27 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 }
 
 .hero-text {
-  max-width: 800px;
+  max-width: 900px;
   text-align: center;
   position: relative;
   z-index: 2;
 }
 
-/* Eyebrow */
-.hero-eyebrow {
-  display: flex; align-items: center; justify-content: center; gap: 16px;
-  margin-bottom: 32px;
-}
-.hero-eyebrow-line {
-  width: 40px; height: 1px;
-  background: linear-gradient(90deg, transparent, hsl(var(--accent-ice) / 0.5));
-}
-.hero-eyebrow-line:last-child {
-  background: linear-gradient(90deg, hsl(var(--accent-ice) / 0.5), transparent);
-}
-.hero-eyebrow-text {
-  font-family: var(--font-mono); font-size: 12px;
-  letter-spacing: 0.3em; color: hsl(var(--accent-ice));
-  font-weight: 500;
-}
-
-/* Name */
+/* Name — single line */
 .hero-name {
   font-family: 'Syne', var(--font-display), sans-serif;
   font-weight: 800;
   line-height: 1.0;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  white-space: nowrap;
 }
 .hero-name-first {
-  display: block;
-  font-size: clamp(52px, 7vw, 100px);
+  font-size: clamp(48px, 7vw, 100px);
   color: hsl(var(--text-primary));
   letter-spacing: 0.04em;
 }
 .hero-name-last {
-  display: block;
-  font-size: clamp(52px, 7vw, 100px);
+  font-size: clamp(48px, 7vw, 100px);
   background: linear-gradient(135deg, hsl(var(--accent-ice)), hsl(var(--accent-mint)));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -498,6 +479,24 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 }
 .hero-name-dot {
   -webkit-text-fill-color: hsl(var(--accent-mint));
+}
+
+/* Role tag — positioned below name */
+.hero-role-tag {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  margin-bottom: 28px;
+}
+.hero-role-line {
+  width: 40px; height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(var(--accent-ice) / 0.4));
+}
+.hero-role-line:last-child {
+  background: linear-gradient(90deg, hsl(var(--accent-ice) / 0.4), transparent);
+}
+.hero-role-label {
+  font-family: var(--font-mono); font-size: 13px;
+  letter-spacing: 0.35em; color: hsl(var(--accent-ice) / 0.7);
+  font-weight: 500;
 }
 
 /* Subtitle row */
@@ -614,8 +613,9 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 @media (max-width: 768px) {
   .hero-section { padding: 0 6vw !important; }
   .hero-text { max-width: 100%; }
-  .hero-name-first,
-  .hero-name-last { font-size: clamp(36px, 12vw, 60px); }
+  .hero-name { white-space: normal; }
+  .hero-name-first { font-size: clamp(36px, 12vw, 60px); display: block; }
+  .hero-name-last { font-size: clamp(36px, 12vw, 60px); display: block; }
   .hero-description { font-size: 13px; margin-bottom: 32px; }
   .hero-buttons { flex-direction: column; gap: 12px; }
   .hero-btn { width: 100%; justify-content: center; padding: 14px 24px; }
@@ -625,7 +625,8 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
   .hero-corner-frame { display: none; }
   .hero-grid-pattern { display: none; }
   .hero-glow-orb { opacity: 0.2; }
-  .hero-eyebrow-line { width: 24px; }
+  .hero-role-line { width: 24px; }
+  .hero-role-label { font-size: 11px; letter-spacing: 0.2em; }
   .hero-subtitle-row { gap: 8px; }
   .hero-subtitle-separator { display: none; }
   .hero-subtitle-text { font-size: 11px; }
