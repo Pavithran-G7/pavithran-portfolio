@@ -16,34 +16,35 @@ declare const Splitting: any;
 const NAV_LINKS = ["home","about","skills","projects","experience","contact"];
 
 const SKILL_ICONS: Record<string, React.ComponentType<any>> = {
-  "HTML5": Code2, "CSS3": Palette, "JavaScript": Braces, "React": Atom, "Tailwind CSS": Wind,
-  "Node.js": Terminal, "Python": FileCode, "Express.js": Server,
-  "MongoDB": Database, "MySQL": CircuitBoard, "Firebase": Flame,
-  "Git": GitBranch, "GitHub": Github, "Docker": Container, "Figma": Figma,
+  "Python": FileCode, "C": Terminal, "Java": Braces, "SQL (MySQL)": CircuitBoard,
+  "TensorFlow": Atom, "MediaPipe": Flame, "NumPy": Database, "Pandas": Server,
+  "Machine Learning": Code2, "Computer Vision": Palette,
+  "UiPath": Container, "n8n": Wind,
+  "Git": GitBranch, "GitHub": Github, "Google Colab": Layout,
 };
 
 const CATEGORY_ICONS: Record<string, React.ComponentType<any>> = {
-  "FRONTEND": Layout, "BACKEND": Layers, "DATABASE": HardDrive, "TOOLS": Wrench,
+  "LANGUAGES": Terminal, "AI & ML": Atom, "AUTOMATION": Wind, "TOOLS": Wrench,
 };
 
-const CATEGORY_ORDER = ["FRONTEND", "BACKEND", "DATABASE", "TOOLS"];
+const CATEGORY_ORDER = ["LANGUAGES", "AI & ML", "AUTOMATION", "TOOLS"];
 
 const SKILLS = [
-  { name: "HTML5", category: "FRONTEND", level: 90, status: "OPERATIONAL" },
-  { name: "CSS3", category: "FRONTEND", level: 85, status: "OPERATIONAL" },
-  { name: "JavaScript", category: "FRONTEND", level: 88, status: "OPERATIONAL" },
-  { name: "React", category: "FRONTEND", level: 82, status: "ADVANCED" },
-  { name: "Tailwind CSS", category: "FRONTEND", level: 78, status: "OPERATIONAL" },
-  { name: "Node.js", category: "BACKEND", level: 75, status: "ADVANCED" },
-  { name: "Python", category: "BACKEND", level: 80, status: "OPERATIONAL" },
-  { name: "Express.js", category: "BACKEND", level: 70, status: "ADVANCED" },
-  { name: "MongoDB", category: "DATABASE", level: 72, status: "ADVANCED" },
-  { name: "MySQL", category: "DATABASE", level: 68, status: "ADVANCED" },
-  { name: "Firebase", category: "DATABASE", level: 65, status: "LEARNING" },
+  { name: "Python", category: "LANGUAGES", level: 90, status: "OPERATIONAL" },
+  { name: "C", category: "LANGUAGES", level: 80, status: "OPERATIONAL" },
+  { name: "Java", category: "LANGUAGES", level: 78, status: "ADVANCED" },
+  { name: "SQL (MySQL)", category: "LANGUAGES", level: 75, status: "ADVANCED" },
+  { name: "Machine Learning", category: "AI & ML", level: 88, status: "OPERATIONAL" },
+  { name: "Computer Vision", category: "AI & ML", level: 82, status: "ADVANCED" },
+  { name: "TensorFlow", category: "AI & ML", level: 80, status: "OPERATIONAL" },
+  { name: "MediaPipe", category: "AI & ML", level: 75, status: "ADVANCED" },
+  { name: "NumPy", category: "AI & ML", level: 85, status: "OPERATIONAL" },
+  { name: "Pandas", category: "AI & ML", level: 83, status: "OPERATIONAL" },
+  { name: "UiPath", category: "AUTOMATION", level: 78, status: "ADVANCED" },
+  { name: "n8n", category: "AUTOMATION", level: 72, status: "ADVANCED" },
   { name: "Git", category: "TOOLS", level: 85, status: "OPERATIONAL" },
   { name: "GitHub", category: "TOOLS", level: 88, status: "OPERATIONAL" },
-  { name: "Docker", category: "TOOLS", level: 55, status: "LEARNING" },
-  { name: "Figma", category: "TOOLS", level: 70, status: "ADVANCED" },
+  { name: "Google Colab", category: "TOOLS", level: 80, status: "OPERATIONAL" },
 ];
 
 const SKILLS_BY_CATEGORY = CATEGORY_ORDER.map(cat => ({
@@ -52,42 +53,41 @@ const SKILLS_BY_CATEGORY = CATEGORY_ORDER.map(cat => ({
 }));
 
 const PROJECTS = [
-  { id: "001", title: "Personal Portfolio Website", desc: "A fully interactive portfolio with Three.js 3D scenes, GSAP scroll animations, and responsive design.", longDesc: "Built from scratch using React, Three.js for immersive 3D particle backgrounds, GSAP ScrollTrigger for cinematic section transitions, and custom CSS animations. Features a custom cursor system, momentum-based scrolling, and a cinematic loader sequence. Fully responsive across all devices.", tech: ["React","Three.js","GSAP","CSS3"], image: project001 },
-  { id: "002", title: "Weather Dashboard App", desc: "Real-time weather app with location search, 7-day forecasts, and interactive radar maps using OpenWeather API.", longDesc: "A comprehensive weather dashboard that fetches real-time data from the OpenWeather API. Features include location-based search with autocomplete, 7-day extended forecasts with hourly breakdowns, interactive radar maps powered by Chart.js, and customizable temperature units. Built with a responsive glassmorphism UI.", tech: ["React","OpenWeather API","Chart.js","Tailwind"], image: project002 },
-  { id: "003", title: "Task Management System", desc: "Full-stack Kanban board with drag-and-drop, user auth, real-time collaboration, and project analytics.", longDesc: "A full-stack project management tool featuring a Kanban-style drag-and-drop interface. Includes user authentication with JWT, real-time collaboration via Socket.io, project analytics dashboards, team member assignment, due date tracking, and priority labeling. Backend powered by Node.js and MongoDB.", tech: ["React","Node.js","MongoDB","Socket.io"], image: project003 },
-  { id: "004", title: "E-Commerce Frontend Clone", desc: "Pixel-perfect Shopify-style storefront with cart functionality, product filtering, and Stripe checkout integration.", longDesc: "A pixel-perfect e-commerce storefront inspired by Shopify's design language. Features a fully functional shopping cart with quantity management, advanced product filtering and search, category navigation, wishlist functionality, and a complete Stripe checkout integration. State managed with Redux Toolkit.", tech: ["React","Redux","Stripe","Firebase"], image: project004 },
-  { id: "005", title: "Chat Application", desc: "Real-time messaging app with private rooms, typing indicators, file sharing, and message reactions.", longDesc: "A real-time chat application supporting private and group messaging rooms. Built with Socket.io for instant message delivery, features include typing indicators, read receipts, file and image sharing with drag-and-drop, emoji reactions, message search, and user presence status. Backend uses Express with MongoDB for message persistence.", tech: ["React","Socket.io","Express","MongoDB"], image: project005 },
+  { id: "001", title: "Fee Concession Automation", desc: "RPA solution using UiPath to automate fee concession approval process, reducing manual processing time.", longDesc: "Designed and implemented an RPA solution using UiPath to automate the fee concession approval process. Reduced manual processing time significantly and improved operational efficiency for the organization. The bot handles form validation, data extraction, and approval routing automatically.", tech: ["UiPath", "RPA", "Automation"], image: project001 },
+  { id: "002", title: "Farm Assist — AI Chatbot", desc: "Bilingual (Tamil/English) AI-powered chatbot using React.js and n8n for real-time farmer assistance.", longDesc: "Developed a bilingual (Tamil/English) AI-powered chatbot using React.js and n8n. Integrated APIs and webhook-based workflows for real-time farmer assistance. Improved accessibility and user engagement through conversational AI, helping farmers get instant answers about crop management, weather, and market prices.", tech: ["React.js", "n8n", "APIs", "AI"], image: project002 },
+  { id: "003", title: "Motion Capture System", desc: "Real-time human motion recognition using OpenCV, MediaPipe and Unity for 3D visualization.", longDesc: "Built a real-time human motion recognition system using OpenCV and MediaPipe. Integrated Python-based pose detection with Unity for 3D visualization. Enabled real-time movement tracking and interaction, creating an immersive experience for motion analysis and gaming applications.", tech: ["Python", "MediaPipe", "OpenCV", "Unity"], image: project003 },
 ];
 
 const EDUCATION = [
-  { initial: "M", degree: "B.Tech in Computer Science", institution: "Mumbai Institute of Technology", year: "2022 – 2026", gpa: "GPA: 8.7/10", tags: ["Data Structures","Algorithms","Web Dev","DBMS","OS"], status: "pursuing" },
-  { initial: "S", degree: "Higher Secondary (Science)", institution: "St. Xavier's High School", year: "2020 – 2022", gpa: "94.6%", tags: ["Physics","Chemistry","Mathematics","Computer Science"], status: "completed" },
+  { initial: "K", degree: "B.E. in AI & Machine Learning", institution: "K.S. Rangasamy College of Technology, Tiruchengode", year: "2023 – 2027", gpa: "CGPA: 8.94 (upto 5th sem)", tags: ["Machine Learning", "Deep Learning", "Computer Vision", "NLP"], status: "pursuing" },
+  { initial: "S", degree: "HSC (Higher Secondary)", institution: "Sengunthar Matriculation Hr. Sec. School, Tharamangalam", year: "2021 – 2023", gpa: "90%", tags: ["Physics", "Chemistry", "Mathematics", "Computer Science"], status: "completed" },
+  { initial: "S", degree: "SSLC (Secondary)", institution: "Sengunthar Matriculation Hr. Sec. School, Tharamangalam", year: "2021", gpa: "100%", tags: ["Science", "Mathematics", "English", "Tamil"], status: "completed" },
 ];
 
 const ACHIEVEMENTS_STATS = [
-  { value: 500, suffix: "+", label: "Hours Coded" },
-  { value: 3, suffix: "", label: "Hackathons" },
-  { value: 15, suffix: "+", label: "Open Source Contributions" },
+  { value: 80, suffix: "+", label: "LeetCode Problems" },
   { value: 2, suffix: "", label: "Internships" },
+  { value: 3, suffix: "+", label: "Certifications" },
+  { value: 3, suffix: "", label: "Projects Built" },
 ];
 
 const ACHIEVEMENT_CARDS = [
-  { icon: "fa-solid fa-trophy", title: "HackMIT 2024 — Top 10 Finalist", desc: "Built an AI-powered study assistant in 36 hours. Ranked in the top 10 out of 300+ teams." },
-  { icon: "fa-solid fa-certificate", title: "AWS Cloud Practitioner Certified", desc: "Earned the AWS Certified Cloud Practitioner certification, demonstrating cloud fluency." },
-  { icon: "fa-solid fa-code-branch", title: "Open Source Contributor — React", desc: "Contributed bug fixes and documentation improvements to the React ecosystem on GitHub." },
-  { icon: "fa-solid fa-medal", title: "Dean's List — Academic Excellence", desc: "Recognized on the Dean's List for maintaining a GPA above 8.5 for 4 consecutive semesters." },
+  { icon: "fa-solid fa-certificate", title: "Oracle AI Foundation Associate", desc: "Earned the Oracle Certified AI Foundation Associate — a globally recognized certification in AI fundamentals." },
+  { icon: "fa-solid fa-trophy", title: "NPTEL Elite — Joy of Computing", desc: "Certified from NPTEL Online Course 'The Joy of Computing using Python' with Elite grade." },
+  { icon: "fa-solid fa-medal", title: "NPTEL Elite+Silver — Entrepreneurship", desc: "Certified from NPTEL 'Understanding Incubation and Entrepreneurship' with Elite+Silver grade." },
+  { icon: "fa-solid fa-code", title: "HackerRank Java & Python Badge", desc: "Earned Java and Python badges on HackerRank, demonstrating strong programming fundamentals." },
+  { icon: "fa-solid fa-book", title: "Published Author — Hope's Tapestry", desc: "Contributed a story in the anthology 'Hope's Tapestry', published by Let's Write Publication." },
+  { icon: "fa-solid fa-users", title: "Hackathon Participant", desc: "Participated in Hackathons conducted by Bhumi-Skilled and ICT Academy." },
 ];
 
 const EXPERIENCE = [
-  { date: "Jun 2024 – Aug 2024", role: "Frontend Developer Intern", company: "TechFlow Solutions", bullets: ["Developed responsive UI components using React and Tailwind CSS for the company's SaaS platform","Optimized page load performance by 40% through code splitting and lazy loading strategies","Collaborated with the design team to implement pixel-perfect interfaces from Figma mockups"], status: "completed-status", statusText: "COMPLETED" },
-  { date: "Jan 2023 – Present", role: "Open Source Contributor", company: "GitHub Community", bullets: ["Contributed to 8+ open source projects including documentation and bug fixes","Maintained a personal library of reusable React components with 120+ GitHub stars","Reviewed pull requests and provided constructive feedback to fellow contributors"], status: "active", statusText: "ACTIVE" },
-  { date: "Sep 2023 – May 2024", role: "Tech Club Lead", company: "MIT Tech Society", bullets: ["Organized 12+ workshops on web development, Python, and competitive programming","Mentored 30+ junior students in their coding journey and project development","Led the team to win the inter-college hackathon with a smart campus navigation app"], status: "completed-status", statusText: "COMPLETED" },
-  { date: "Mar 2023 – Present", role: "Freelance Web Developer", company: "Self-Employed", bullets: ["Delivered 8+ client projects including landing pages, portfolios, and small business websites","Built custom WordPress themes and headless CMS solutions for content-driven sites","Maintained a 5-star rating on Fiverr with 100% client satisfaction rate"], status: "active", statusText: "ACTIVE" },
+  { date: "Aug 2025 – Sep 2025", role: "AI Engineer Intern", company: "ResDev Global Solution, Certainti.ai", bullets: ["Completed hands-on training in Artificial Intelligence and Machine Learning concepts", "Built and evaluated machine learning models using Python, TensorFlow, and Scikit-learn", "Performed data preprocessing, model training, and performance evaluation on real datasets"], status: "completed-status", statusText: "COMPLETED" },
+  { date: "Apr 2025 – Jun 2025", role: "AIML Virtual Intern", company: "Eduskill & Google for Developer", bullets: ["Developed an AI-based interview automation system for organizational use", "Worked on backend development, API integration, and AI workflow design", "Collaborated on building a full-stack AI application following industry practices"], status: "completed-status", statusText: "COMPLETED" },
 ];
 
 const SOCIAL_ICONS = [
-  { icon: "fa-brands fa-github", url: "#", tooltip: "GitHub" },
-  { icon: "fa-brands fa-linkedin", url: "#", tooltip: "LinkedIn" },
+  { icon: "fa-brands fa-github", url: "https://github.com/Pavithran030", tooltip: "GitHub" },
+  { icon: "fa-brands fa-linkedin", url: "https://www.linkedin.com/in/pavithran030", tooltip: "LinkedIn" },
   { icon: "fa-brands fa-x-twitter", url: "#", tooltip: "Twitter/X" },
 ];
 
