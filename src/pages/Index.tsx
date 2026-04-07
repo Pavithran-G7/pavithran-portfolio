@@ -285,11 +285,14 @@ export default function Index() {
     requestAnimationFrame(() => {
       Splitting({ target: '[data-splitting]', by: 'words' });
 
-      // ---- HERO (static, no animations) ----
+      // ---- HERO — smooth parallax fade-out ----
       const heroTl = gsap.timeline({
-        scrollTrigger: { trigger: "#home", start: "top top", end: "+=80%", scrub: 0.5, pin: true, pinSpacing: true }
+        scrollTrigger: { trigger: "#home", start: "top top", end: "+=60%", scrub: 0.3, pin: true, pinSpacing: true }
       });
-      heroTl.to(".hero-text", { y: -60, opacity: 0, duration: 1 }, 0);
+      heroTl.to(".hero-text", { y: -80, opacity: 0, scale: 0.97, duration: 1, ease: "power2.in" }, 0);
+      heroTl.to(".hero-glow-orb", { opacity: 0, scale: 1.3, duration: 1 }, 0);
+      heroTl.to(".hero-grid-pattern", { opacity: 0, duration: 0.8 }, 0);
+      heroTl.to(".hero-corner-frame", { opacity: 0, duration: 0.6 }, 0);
 
       // ---- ABOUT ----
       const aboutWords = document.querySelectorAll('.about-section [data-splitting] .word');
@@ -636,16 +639,16 @@ export default function Index() {
           <div className="hero-corner-frame hero-corner-frame--br"></div>
 
           <div className="hero-text">
-            <div className="hero-eyebrow">
-              <span className="hero-eyebrow-line"></span>
-              <span className="hero-eyebrow-text">AI & ML DEVELOPER</span>
-              <span className="hero-eyebrow-line"></span>
-            </div>
-
             <h1 className="hero-name">
               <span className="hero-name-first">PAVITHRAN</span>
-              <span className="hero-name-last">G<span className="hero-name-dot">.</span></span>
+              <span className="hero-name-last"> G<span className="hero-name-dot">.</span></span>
             </h1>
+
+            <div className="hero-role-tag">
+              <span className="hero-role-line"></span>
+              <span className="hero-role-label">AI & ML DEVELOPER</span>
+              <span className="hero-role-line"></span>
+            </div>
 
             <div className="hero-subtitle-row">
               <span className="hero-subtitle-badge">
