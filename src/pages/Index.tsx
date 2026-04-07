@@ -660,8 +660,8 @@ export default function Index() {
             </div>
 
             <p className="hero-description">
-              Crafting intelligent solutions at the intersection of machine learning, 
-              deep learning & full-stack development. Turning data into impact.
+              Building AI-driven applications, automation workflows & computer vision systems.
+              Turning data into real-world impact with Python, TensorFlow & full-stack AI development.
             </p>
 
             <div className="hero-buttons">
