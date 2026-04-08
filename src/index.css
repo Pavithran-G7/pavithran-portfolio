@@ -557,7 +557,7 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 /* Role tag — positioned below name */
 .hero-role-tag {
   display: flex; align-items: center; justify-content: center; gap: 16px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 .hero-role-line {
   width: 40px; height: 1px;
