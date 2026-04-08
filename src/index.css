@@ -1682,8 +1682,6 @@ section:not(.hero-section):not(.projects-section)+section:not(.projects-section)
   gap: 40px;
 }
 
-.skill-category-group {}
-
 .skill-category-header {
   display: flex;
   align-items: center;
@@ -2980,9 +2978,4 @@ section:not(.hero-section):not(.projects-section)+section:not(.projects-section)
     transform: translateY(24px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
-}
-
-transition: opacity 0.6s ease-out,
-transform 0.6s ease-out;
-}
 }
