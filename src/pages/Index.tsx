@@ -587,25 +587,35 @@ export default function Index() {
       {/* MOBILE MENU */}
       <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
         <div className="mobile-menu-inner">
-          {NAV_LINKS.map((id, i) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              className={activeNav === id ? 'active' : ''}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection(id);
-              }}
-            >
-              <span className="mobile-link-num">0{i + 1}.</span> {id}
+          <div className="mobile-menu-nav-list">
+            {NAV_LINKS.map((id, i) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className={`mobile-menu-link ${activeNav === id ? 'active' : ''}`}
+                style={{ transitionDelay: mobileMenuOpen ? `${i * 0.06 + 0.15}s` : '0s' }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(id);
+                }}
+              >
+                <span className="mobile-link-num">0{i + 1}.</span>
+                <span className="mobile-link-text">{id}</span>
+              </a>
+            ))}
+          </div>
+          <div className="mobile-menu-footer">
+            <div className="mobile-menu-divider"></div>
+            <a href="#contact" className="mobile-menu-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>
+              Let's Talk
             </a>
-          ))}
-          <div className="mobile-menu-divider"></div>
-          <a href="#contact" className="mobile-menu-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>
-            Let's Talk
-          </a>
-          <div style={{ marginTop: 20 }}>
-            <SocialIcons />
+            <div className="mobile-menu-socials">
+              {SOCIAL_ICONS.map(s => (
+                <a key={s.tooltip} href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.tooltip} className="mobile-social-icon">
+                  <i className={s.icon}></i>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>
