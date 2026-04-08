@@ -462,18 +462,12 @@ export default function Index() {
     return () => { ScrollTrigger.getAll().forEach((t: any) => t.kill()); };
   }, [loaded]);
 
-  // Prevent background scrolling while mobile navigation is open.
+  // Close mobile dropdown on scroll
   useEffect(() => {
-    const originalOverflow = document.body.style.overflow;
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-
-    return () => {
-      document.body.style.overflow = originalOverflow;
-    };
+    if (!mobileMenuOpen) return;
+    const onScroll = () => setMobileMenuOpen(false);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, [mobileMenuOpen]);
 
   useEffect(() => {
@@ -602,64 +596,45 @@ export default function Index() {
           <a href="#contact" className="nav-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>
             Let's Talk
           </a>
-          <div
+          <button
             className={`hamburger ${mobileMenuOpen ? 'open' : ''}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            role="button"
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileMenuOpen}
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                setMobileMenuOpen(!mobileMenuOpen);
-              }
-            }}
+            type="button"
           >
             <span/><span/><span/>
-          </div>
+          </button>
+        </div>
+        {/* Mobile dropdown menu — Flowbite style */}
+        <div className={`mobile-dropdown ${mobileMenuOpen ? 'open' : ''}`}>
+          <ul className="mobile-dropdown-list">
+            {NAV_LINKS.map((id, i) => (
+              <li key={id}>
+                <a
+                  href={`#${id}`}
+                  className={`mobile-dropdown-link ${activeNav === id ? 'active' : ''}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(id);
+                  }}
+                >
+                  <span className="mobile-link-num">0{i + 1}.</span>
+                  <span>{id}</span>
+                </a>
+              </li>
+            ))}
+            <li className="mobile-dropdown-cta-item">
+              <a href="#contact" className="mobile-dropdown-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>
+                Let's Talk
+              </a>
+            </li>
+          </ul>
         </div>
       </nav>
 
       {/* SCROLL PROGRESS */}
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }}></div>
-
-      {/* MOBILE MENU */}
-      <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(false)}>
-        <div className="mobile-menu-inner" onClick={(e) => e.stopPropagation()}>
-          <div className="mobile-menu-nav-list" role="menu" aria-label="Mobile navigation">
-            {NAV_LINKS.map((id, i) => (
-              <a
-                key={id}
-                href={`#${id}`}
-                className={`mobile-menu-link ${activeNav === id ? 'active' : ''}`}
-                role="menuitem"
-                style={{ transitionDelay: mobileMenuOpen ? `${i * 0.06 + 0.15}s` : '0s' }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(id);
-                }}
-              >
-                <span className="mobile-link-num">0{i + 1}.</span>
-                <span className="mobile-link-text">{id}</span>
-              </a>
-            ))}
-          </div>
-          <div className="mobile-menu-footer">
-            <div className="mobile-menu-divider"></div>
-            <a href="#contact" className="mobile-menu-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>
-              Let's Talk
-            </a>
-            <div className="mobile-menu-socials">
-              {SOCIAL_ICONS.map(s => (
-                <a key={s.tooltip} href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.tooltip} className="mobile-social-icon">
-                  <i className={s.icon}></i>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* PROJECT POPUP — clean minimal */}
       {popupProject && (
