@@ -704,22 +704,31 @@ export default function Index() {
             <div className="about-profile-card">
               <div className="profile-card-glow"></div>
               <div className="profile-card-inner">
-                <div className="profile-avatar-ring">
-                  <div className="profile-avatar-core">PG</div>
-                  <svg className="profile-ring-svg" viewBox="0 0 160 160">
-                    <circle className="ring-track" cx="80" cy="80" r="74" fill="none" stroke="hsl(var(--border-line))" strokeWidth="1.5" opacity="0.3" />
-                    <circle className="ring-progress" cx="80" cy="80" r="74" fill="none" stroke="hsl(var(--accent-ice))" strokeWidth="2" strokeLinecap="round" strokeDasharray="465" strokeDashoffset="93" />
-                  </svg>
+                <div className="profile-photo-wrapper">
+                  <div className="profile-photo-placeholder">PG</div>
+                  <div className="profile-photo-ring"></div>
+                  <div className="profile-photo-dot"></div>
                 </div>
                 <div className="profile-name-tag">PAVITHRAN G</div>
                 <span className="profile-role-badge">AI & ML DEVELOPER</span>
                 <div className="profile-meta-row">
-                  <span className="profile-meta-item"><i className="fa-solid fa-location-dot"></i> KSRCT, Tiruchengode</span>
-                  <span className="profile-meta-item"><i className="fa-solid fa-graduation-cap"></i> AI &amp; ML</span>
+                  <span className="profile-meta-item"><i className="fa-solid fa-location-dot"></i> Tiruchengode, TN</span>
+                  <span className="profile-meta-item"><i className="fa-solid fa-graduation-cap"></i> B.E. AI &amp; ML</span>
                 </div>
                 <div className="profile-status-row">
                   <span className="profile-status-dot"></span>
-                  Available for opportunities
+                  Open for opportunities
+                </div>
+                <div className="profile-social-links">
+                  <a href="https://github.com/Pavithran030" target="_blank" rel="noopener noreferrer" className="profile-social-btn" aria-label="GitHub">
+                    <i className="fa-brands fa-github"></i>
+                  </a>
+                  <a href="https://www.linkedin.com/in/pavithran030" target="_blank" rel="noopener noreferrer" className="profile-social-btn" aria-label="LinkedIn">
+                    <i className="fa-brands fa-linkedin"></i>
+                  </a>
+                  <a href="mailto:techpavithran18@gmail.com" className="profile-social-btn" aria-label="Email">
+                    <i className="fa-solid fa-envelope"></i>
+                  </a>
                 </div>
               </div>
             </div>
