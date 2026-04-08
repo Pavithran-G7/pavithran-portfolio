@@ -156,8 +156,8 @@ function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: type
 
 export default function Index() {
   const [loaded, setLoaded] = useState(false);
-  const [doorOpen, setDoorOpen] = useState(false);
-  const [doorsGone, setDoorsGone] = useState(false);
+  const [diamondOpen, setDiamondOpen] = useState(false);
+  const [revealGone, setRevealGone] = useState(false);
   const [navScrolled, setNavScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -183,10 +183,8 @@ export default function Index() {
       .to("#loader > *", { opacity: 0, duration: 0.4 }, 2.7)
       .call(() => {
         setLoaded(true);
-        // Start door open animation after loader hides
-        setTimeout(() => setDoorOpen(true), 100);
-        // Remove door panels after animation completes
-        setTimeout(() => setDoorsGone(true), 1200);
+        setTimeout(() => setDiamondOpen(true), 100);
+        setTimeout(() => setRevealGone(true), 1400);
       }, [], 3.1);
   }, []);
 
@@ -532,11 +530,10 @@ export default function Index() {
         <div className="loader-progress"><div className="loader-progress-bar" ref={loaderBarRef}></div></div>
       </div>
 
-      {/* DOOR REVEAL */}
-      {!doorsGone && (
-        <div className="door-overlay">
-          <div className={`door-panel door-left ${doorOpen ? 'open' : ''}`}></div>
-          <div className={`door-panel door-right ${doorOpen ? 'open' : ''}`}></div>
+      {/* DIAMOND REVEAL */}
+      {!revealGone && (
+        <div className={`diamond-overlay ${diamondOpen ? 'open' : ''}`}>
+          <div className="diamond-glow"></div>
         </div>
       )}
 
