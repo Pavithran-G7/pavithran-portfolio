@@ -450,7 +450,7 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
   justify-content: center;
   height: 100vh !important;
   min-height: 100vh;
-  padding: 48px 5vw 16px !important;
+  padding: 0 5vw 16px !important;
   margin-top: 0 !important;
   scroll-margin-top: 0 !important;
   box-sizing: border-box;
