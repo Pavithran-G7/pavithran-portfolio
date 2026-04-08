@@ -5,6 +5,7 @@ import project002 from "@/assets/project-002.jpg";
 import project003 from "@/assets/project-003.jpg";
 import project004 from "@/assets/project-004.jpg";
 import project005 from "@/assets/project-005.jpg";
+import { SEO } from "@/components/SEO";
 
 
 declare const gsap: any;
@@ -551,6 +552,13 @@ export default function Index() {
 
   return (
     <>
+      <SEO
+        title="Pavithran G | AI & ML Developer Portfolio"
+        description="Portfolio of Pavithran G, an AI and ML developer building machine learning, computer vision, and automation projects with Python, TensorFlow, and modern web tools."
+        path="/"
+        type="website"
+      />
+
       {/* LOADER */}
       <div id="loader" className={loaded ? "hidden" : ""}>
         <div className="loader-scanline" />
