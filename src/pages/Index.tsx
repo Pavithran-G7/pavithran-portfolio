@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Code2, FileCode, Braces, Atom, Wind, Server, Terminal, Database, CircuitBoard, Flame, GitBranch, Github, Container, Figma, Palette, Layout, Layers, HardDrive, Wrench } from "lucide-react";
+import Lenis from 'lenis';
 import project001 from "@/assets/project-001.jpg";
 import project002 from "@/assets/project-002.jpg";
 import project003 from "@/assets/project-003.jpg";
@@ -12,6 +13,18 @@ declare const ScrollTrigger: any;
 declare const ScrollToPlugin: any;
 declare const TextPlugin: any;
 declare const Splitting: any;
+
+// Section background colors for scroll-driven transitions
+const SECTION_BG_COLORS = [
+  { section: '#home', color: 'hsl(210, 80%, 3%)' },
+  { section: '#about', color: 'hsl(220, 60%, 5%)' },
+  { section: '#skills', color: 'hsl(215, 50%, 4%)' },
+  { section: '#projects', color: 'hsl(210, 70%, 3%)' },
+  { section: '#education', color: 'hsl(225, 55%, 5%)' },
+  { section: '.achievements-section', color: 'hsl(200, 60%, 4%)' },
+  { section: '#experience', color: 'hsl(218, 65%, 4%)' },
+  { section: '#contact', color: 'hsl(195, 50%, 5%)' },
+];
 
 const NAV_LINKS = ["home", "about", "skills", "projects", "experience", "contact"];
 
@@ -170,9 +183,31 @@ export default function Index() {
   const cursorDotRef = useRef<HTMLDivElement>(null);
   const loaderBarRef = useRef<HTMLDivElement>(null);
   const loaderTextRef = useRef<HTMLSpanElement>(null);
+  const lenisRef = useRef<Lenis | null>(null);
+  const audioCtxRef = useRef<AudioContext | null>(null);
 
   const mousePos = useRef({ x: 0, y: 0 });
   const ringPos = useRef({ x: 0, y: 0 });
+
+  // ===== CLICK AUDIO FEEDBACK =====
+  const playClickSound = useCallback(() => {
+    try {
+      if (!audioCtxRef.current) {
+        audioCtxRef.current = new AudioContext();
+      }
+      const ctx = audioCtxRef.current;
+      const oscillator = ctx.createOscillator();
+      const gain = ctx.createGain();
+      oscillator.connect(gain);
+      gain.connect(ctx.destination);
+      oscillator.frequency.setValueAtTime(800, ctx.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.12, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+      oscillator.start(ctx.currentTime);
+      oscillator.stop(ctx.currentTime + 0.1);
+    } catch {}
+  }, []);
 
   // ===== LOADER SEQUENCE =====
   useEffect(() => {
@@ -187,6 +222,33 @@ export default function Index() {
         setTimeout(() => setRevealGone(true), 1400);
       }, [], 3.1);
   }, []);
+
+  // ===== LENIS SMOOTH SCROLL =====
+  useEffect(() => {
+    if (!loaded) return;
+
+    const lenis = new Lenis({
+      lerp: 0.08,
+      smoothWheel: true,
+      wheelMultiplier: 0.8,
+    });
+    lenisRef.current = lenis;
+
+    lenis.on('scroll', () => {
+      ScrollTrigger?.update?.();
+    });
+
+    const raf = (time: number) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+      lenisRef.current = null;
+    };
+  }, [loaded]);
 
   // ===== BACKGROUND REMOVED FOR SIMPLICITY =====
 
@@ -462,10 +524,91 @@ export default function Index() {
         y: 20, opacity: 0, stagger: 0.08, duration: 0.6, delay: 0.3, ease: "power3.out",
         scrollTrigger: { trigger: ".contact-links", start: "top 85%", toggleActions: "play none none reverse" }
       });
+
+      // ---- BACKGROUND COLOR TRANSITIONS ----
+      const bgLayer = document.querySelector('.bg-transition-layer') as HTMLElement;
+      if (bgLayer) {
+        SECTION_BG_COLORS.forEach(({ section, color }) => {
+          const el = document.querySelector(section);
+          if (el) {
+            ScrollTrigger.create({
+              trigger: el,
+              start: 'top 60%',
+              end: 'bottom 40%',
+              onEnter: () => gsap.to(bgLayer, { backgroundColor: color, duration: 1.2, ease: 'power2.inOut' }),
+              onEnterBack: () => gsap.to(bgLayer, { backgroundColor: color, duration: 1.2, ease: 'power2.inOut' }),
+            });
+          }
+        });
+      }
+
+      // ---- ENHANCED CHARACTER SPLITS for section headings ----
+      document.querySelectorAll('.section-heading[data-splitting]').forEach(heading => {
+        const chars = heading.querySelectorAll('.char');
+        if (chars.length) {
+          gsap.from(chars, {
+            opacity: 0, y: 60, rotateX: -90, filter: 'blur(8px)',
+            stagger: 0.02, duration: 0.8, ease: 'power4.out',
+            scrollTrigger: { trigger: heading, start: 'top 80%', toggleActions: 'play none none reverse' }
+          });
+        }
+      });
+
+      // ---- STAGGERED BUILD-ON REVEALS ----
+      document.querySelectorAll('.achievement-card, .education-card, .exp-card').forEach(card => {
+        gsap.from(card, {
+          opacity: 0, y: 40, scale: 0.95,
+          duration: 0.7, ease: 'power3.out',
+          scrollTrigger: { trigger: card, start: 'top 85%', toggleActions: 'play none none reverse' }
+        });
+      });
     });
 
     return () => { ScrollTrigger.getAll().forEach((t: any) => t.kill()); };
   }, [loaded]);
+
+  // ===== MAGNETIC HOVER EFFECT (desktop only) =====
+  useEffect(() => {
+    if (!loaded || window.innerWidth <= 768) return;
+
+    const magneticEls = document.querySelectorAll('.hero-btn, .nav-cta, .hero-social-link, .btn-submit');
+    const handlers: Array<{ el: Element; move: (e: MouseEvent) => void; leave: () => void }> = [];
+
+    magneticEls.forEach(el => {
+      const move = (e: MouseEvent) => {
+        const rect = (el as HTMLElement).getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        gsap.to(el, { x: x * 0.25, y: y * 0.25, duration: 0.3, ease: 'power2.out' });
+      };
+      const leave = () => {
+        gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.3)' });
+      };
+      (el as HTMLElement).addEventListener('mousemove', move as any);
+      (el as HTMLElement).addEventListener('mouseleave', leave);
+      handlers.push({ el, move, leave });
+    });
+
+    return () => {
+      handlers.forEach(({ el, move, leave }) => {
+        (el as HTMLElement).removeEventListener('mousemove', move as any);
+        (el as HTMLElement).removeEventListener('mouseleave', leave);
+      });
+    };
+  }, [loaded]);
+
+  // ===== CLICK AUDIO ON BUTTONS =====
+  useEffect(() => {
+    if (!loaded) return;
+    const handler = (e: Event) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('a, button, .btn-primary, .btn-secondary, .hero-btn, .nav-cta')) {
+        playClickSound();
+      }
+    };
+    document.addEventListener('click', handler);
+    return () => document.removeEventListener('click', handler);
+  }, [loaded, playClickSound]);
 
   // Prevent background scrolling while mobile navigation is open.
   useEffect(() => {
@@ -514,7 +657,11 @@ export default function Index() {
     const offset = id === "home" ? 0 : NAVBAR_HEIGHT;
     const top = Math.max(section.getBoundingClientRect().top + window.scrollY - offset, 0);
     window.history.replaceState(null, "", id === "home" ? window.location.pathname : `#${id}`);
-    window.scrollTo({ top, behavior: smooth ? "smooth" : "auto" });
+    if (lenisRef.current && smooth) {
+      lenisRef.current.scrollTo(top, { duration: 1.5 });
+    } else {
+      window.scrollTo({ top, behavior: smooth ? "smooth" : "auto" });
+    }
     setMobileMenuOpen(false);
   }, []);
 
@@ -572,6 +719,9 @@ export default function Index() {
       {/* CURSORS */}
       <div className="cursor-ring" ref={cursorRingRef}></div>
       <div className="cursor-dot" ref={cursorDotRef}></div>
+
+      {/* BACKGROUND TRANSITION LAYER */}
+      <div className="bg-transition-layer"></div>
 
       {/* FOG — subtle gradient only */}
       <div className="fog-overlay">
@@ -847,7 +997,7 @@ export default function Index() {
         {/* ===== EDUCATION ===== */}
         <section id="education" className="education-section">
           <span className="section-label">// 04. KNOWLEDGE BASE</span>
-          <h2 className="section-heading">Education</h2>
+          <h2 className="section-heading" data-splitting>Education</h2>
           <div className="education-timeline">
             <div className="education-line"></div>
             {EDUCATION.map((edu, i) => (
@@ -871,7 +1021,7 @@ export default function Index() {
         {/* ===== ACHIEVEMENTS ===== */}
         <section className="achievements-section">
           <span className="section-label">// 05. MILESTONES</span>
-          <h2 className="section-heading">Achievements</h2>
+          <h2 className="section-heading" data-splitting>Achievements</h2>
           <div className="achievements-stats">
             {ACHIEVEMENTS_STATS.map((s, i) => (
               <div className="achievement-stat" key={i}>
@@ -901,7 +1051,7 @@ export default function Index() {
         {/* ===== EXPERIENCE ===== */}
         <section id="experience" className="experience-section">
           <span className="section-label">// 06. MISSION HISTORY</span>
-          <h2 className="section-heading">Experience</h2>
+          <h2 className="section-heading" data-splitting>Experience</h2>
           <div className="experience-timeline">
             <svg className="experience-svg-line" width="40" height="100%" preserveAspectRatio="none">
               <path className="exp-svg-path" d="M20,0 L20,2000" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="2" style={{ filter: 'drop-shadow(0 0 4px hsl(195,100%,50%,0.5))' }} />
