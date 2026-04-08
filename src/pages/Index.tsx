@@ -720,6 +720,9 @@ export default function Index() {
       <div className="cursor-ring" ref={cursorRingRef}></div>
       <div className="cursor-dot" ref={cursorDotRef}></div>
 
+      {/* BACKGROUND TRANSITION LAYER */}
+      <div className="bg-transition-layer"></div>
+
       {/* FOG — subtle gradient only */}
       <div className="fog-overlay">
         <div className="fog-blob"></div>
