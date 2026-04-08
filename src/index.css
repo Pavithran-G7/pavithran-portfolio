@@ -613,7 +613,7 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
   font-family: var(--font-mono); font-size: 15px;
   color: hsl(var(--text-muted));
   line-height: 1.8; max-width: 560px;
-  margin: 0 auto 24px;
+  margin: 0 auto 20px;
 }
 
 /* Buttons */
