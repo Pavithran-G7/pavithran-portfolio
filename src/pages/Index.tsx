@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Code2, FileCode, Braces, Atom, Wind, Server, Terminal, Database, CircuitBoard, Flame, GitBranch, Github, Container, Figma, Palette, Layout, Layers, HardDrive, Wrench } from "lucide-react";
+import Lenis from 'lenis';
 import project001 from "@/assets/project-001.jpg";
 import project002 from "@/assets/project-002.jpg";
 import project003 from "@/assets/project-003.jpg";
@@ -12,6 +13,18 @@ declare const ScrollTrigger: any;
 declare const ScrollToPlugin: any;
 declare const TextPlugin: any;
 declare const Splitting: any;
+
+// Section background colors for scroll-driven transitions
+const SECTION_BG_COLORS = [
+  { section: '#home', color: 'hsl(210, 80%, 3%)' },
+  { section: '#about', color: 'hsl(220, 60%, 5%)' },
+  { section: '#skills', color: 'hsl(215, 50%, 4%)' },
+  { section: '#projects', color: 'hsl(210, 70%, 3%)' },
+  { section: '#education', color: 'hsl(225, 55%, 5%)' },
+  { section: '.achievements-section', color: 'hsl(200, 60%, 4%)' },
+  { section: '#experience', color: 'hsl(218, 65%, 4%)' },
+  { section: '#contact', color: 'hsl(195, 50%, 5%)' },
+];
 
 const NAV_LINKS = ["home", "about", "skills", "projects", "experience", "contact"];
 
