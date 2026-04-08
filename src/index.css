@@ -281,7 +281,7 @@ body {
 
 .mobile-menu {
   position: fixed; inset: 0;
-  background: hsl(var(--bg-void) / 0.95);
+  background: linear-gradient(180deg, hsl(var(--bg-void) / 0.98), hsl(var(--bg-deep) / 0.97));
   backdrop-filter: blur(40px) saturate(1.6);
   z-index: 1001; display: flex; flex-direction: column;
   align-items: center; justify-content: center;
@@ -292,21 +292,23 @@ body {
 .mobile-menu-inner {
   display: flex; flex-direction: column; align-items: center;
   justify-content: space-between;
-  width: 100%; max-width: 360px;
-  height: 80vh;
-  padding: 80px 24px 40px;
+  width: min(92vw, 420px);
+  min-height: 76vh;
+  padding: 94px 20px 28px;
 }
 .mobile-menu-nav-list {
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
   width: 100%; flex: 1; justify-content: center;
 }
 .mobile-menu-link {
-  font-family: var(--font-display); font-size: 20px; text-transform: uppercase;
-  letter-spacing: 0.25em; color: hsl(var(--text-muted));
+  font-family: var(--font-display); font-size: clamp(25px, 7.5vw, 32px); text-transform: uppercase;
+  letter-spacing: 0.16em; color: hsl(var(--text-primary) / 0.75);
   text-decoration: none;
-  padding: 16px 32px; width: 100%; text-align: center;
-  border-radius: 16px;
-  border: 1px solid transparent;
+  padding: 14px 24px; width: 100%; text-align: center;
+  border-radius: 18px;
+  border: 1px solid hsl(var(--border-line) / 0.16);
+  background: hsl(var(--bg-surface) / 0.28);
+  backdrop-filter: blur(6px);
   opacity: 0; transform: translateY(20px);
   transition: opacity 0.4s ease, transform 0.4s ease, background 0.3s, border-color 0.3s, color 0.3s;
 }
@@ -318,16 +320,17 @@ body {
   background: linear-gradient(135deg, hsl(var(--accent-ice)), hsl(var(--accent-mint)));
   font-weight: 700;
   border-color: transparent;
-  box-shadow: 0 4px 20px hsl(var(--accent-ice) / 0.3);
+  box-shadow: 0 10px 30px hsl(var(--accent-ice) / 0.34);
 }
+.mobile-menu-link:hover,
 .mobile-menu-link:not(.active):active {
-  background: hsl(var(--bg-surface) / 0.6);
-  border-color: hsl(var(--border-line) / 0.3);
+  background: hsl(var(--bg-surface) / 0.62);
+  border-color: hsl(var(--accent-ice) / 0.24);
   color: hsl(var(--text-primary));
 }
 .mobile-link-num {
   font-family: var(--font-mono); font-size: 12px;
-  color: hsl(var(--accent-ice) / 0.4); margin-right: 10px;
+  color: hsl(var(--accent-ice) / 0.65); margin-right: 10px;
   font-weight: 400;
 }
 .mobile-menu-link.active .mobile-link-num {
@@ -336,7 +339,7 @@ body {
 .mobile-link-text { font-weight: inherit; }
 
 .mobile-menu-footer {
-  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
   width: 100%;
 }
 .mobile-menu-divider {
@@ -348,10 +351,10 @@ body {
   font-family: var(--font-mono); font-size: 13px; font-weight: 600;
   letter-spacing: 0.15em; text-transform: uppercase;
   color: hsl(var(--accent-ice)); text-decoration: none;
-  border: 1px solid hsl(var(--accent-ice) / 0.3);
-  padding: 14px 36px; border-radius: 999px;
+  border: 1px solid hsl(var(--accent-ice) / 0.35);
+  padding: 12px 30px; border-radius: 999px;
   transition: all 0.3s;
-  background: hsl(var(--accent-ice) / 0.05);
+  background: hsl(var(--accent-ice) / 0.1);
 }
 .mobile-menu-cta:active {
   background: hsl(var(--accent-ice) / 0.15);
@@ -361,10 +364,11 @@ body {
   display: flex; gap: 16px; margin-top: 4px;
 }
 .mobile-social-icon {
-  color: hsl(var(--text-muted)); font-size: 20px;
+  color: hsl(var(--text-primary) / 0.75); font-size: 20px;
   text-decoration: none; transition: color 0.2s;
   width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
-  border-radius: 50%; border: 1px solid hsl(var(--border-line) / 0.2);
+  border-radius: 50%; border: 1px solid hsl(var(--border-line) / 0.3);
+  background: hsl(var(--bg-surface) / 0.22);
 }
 .mobile-social-icon:active {
   color: hsl(var(--accent-ice));
@@ -431,7 +435,7 @@ body {
 
 section {
   min-height: auto;
-  padding: 80px 5vw 60px;
+  padding: 18px 5vw 60px;
   position: relative;
   scroll-margin-top: 72px;
 }
@@ -565,6 +569,7 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: clamp(46px, 8vh, 86px);
 }
 
 /* Name — single line, centered */
@@ -728,22 +733,29 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 
 @media (max-width: 768px) {
   .hero-section {
-    padding: 64px 6vw 20px !important;
+    padding: 74px 6vw 20px !important;
     align-items: flex-start;
     justify-content: flex-start;
-    padding-top: 72px !important;
+    padding-top: 74px !important;
   }
   .hero-text {
     max-width: 100%;
-    margin-top: auto;
+    margin-top: 0;
     margin-bottom: auto;
+    padding-top: 22px;
   }
   .hero-name {
     white-space: normal; flex-direction: column; gap: 0;
     margin-bottom: 14px;
+    overflow: hidden;
   }
-  .hero-name-first { font-size: clamp(40px, 14vw, 72px); }
-  .hero-name-last { font-size: clamp(40px, 14vw, 72px); }
+  .hero-name-first,
+  .hero-name-last {
+    font-size: clamp(34px, 12.5vw, 56px);
+    line-height: 0.95;
+    max-width: 100%;
+    text-align: center;
+  }
   .hero-role-tag { margin-bottom: 10px; }
   .hero-role-line { width: 24px; }
   .hero-role-label { font-size: 11px; letter-spacing: 0.2em; }
@@ -1459,7 +1471,7 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
   .back-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 14px; }
 
   /* Mobile menu enhancements */
-  .mobile-menu a { font-size: 20px; letter-spacing: 0.2em; }
+  .mobile-menu-link { letter-spacing: 0.13em; }
 
   /* Disable 3D tilt on skill cards for mobile */
   .skill-card { perspective: none; transform-style: flat; }

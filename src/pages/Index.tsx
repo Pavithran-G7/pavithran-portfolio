@@ -462,6 +462,33 @@ export default function Index() {
     return () => { ScrollTrigger.getAll().forEach((t: any) => t.kill()); };
   }, [loaded]);
 
+  // Prevent background scrolling while mobile navigation is open.
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [mobileMenuOpen]);
+
   // ===== SKILL CARD TILT =====
   const handleSkillMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (window.innerWidth <= 768) return;
@@ -575,7 +602,20 @@ export default function Index() {
           <a href="#contact" className="nav-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>
             Let's Talk
           </a>
-          <div className={`hamburger ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <div
+            className={`hamburger ${mobileMenuOpen ? 'open' : ''}`}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            role="button"
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileMenuOpen}
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setMobileMenuOpen(!mobileMenuOpen);
+              }
+            }}
+          >
             <span/><span/><span/>
           </div>
         </div>
@@ -585,14 +625,15 @@ export default function Index() {
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }}></div>
 
       {/* MOBILE MENU */}
-      <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
-        <div className="mobile-menu-inner">
-          <div className="mobile-menu-nav-list">
+      <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(false)}>
+        <div className="mobile-menu-inner" onClick={(e) => e.stopPropagation()}>
+          <div className="mobile-menu-nav-list" role="menu" aria-label="Mobile navigation">
             {NAV_LINKS.map((id, i) => (
               <a
                 key={id}
                 href={`#${id}`}
                 className={`mobile-menu-link ${activeNav === id ? 'active' : ''}`}
+                role="menuitem"
                 style={{ transitionDelay: mobileMenuOpen ? `${i * 0.06 + 0.15}s` : '0s' }}
                 onClick={(e) => {
                   e.preventDefault();
