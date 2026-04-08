@@ -211,7 +211,7 @@ body {
 
 /* Nav links */
 .nav-links-minimal {
-  display: flex; gap: 0; list-style: none;
+  display: flex; gap: 8px; list-style: none;
   font-family: var(--font-mono); text-transform: uppercase;
   letter-spacing: 0.15em; font-size: 11px;
   background: hsl(var(--bg-surface) / 0.3);
@@ -221,9 +221,9 @@ body {
 .nav-links-minimal li { display: flex; }
 .nav-links-minimal a {
   color: hsl(var(--text-muted)); text-decoration: none;
-  padding: 8px 16px; border-radius: 999px;
+  padding: 8px 24px; border-radius: 999px;
   cursor: pointer; white-space: nowrap;
-  transition: all 0.3s ease;
+  transition: background 0.15s ease-out, color 0.15s ease-out;
   position: relative;
 }
 .nav-links-minimal a:hover {
@@ -233,13 +233,6 @@ body {
   color: hsl(var(--bg-void));
   background: linear-gradient(135deg, hsl(var(--accent-ice)), hsl(var(--accent-mint)));
   font-weight: 600;
-}
-.nav-link-num {
-  font-size: 9px; opacity: 0.5; margin-right: 4px;
-  font-weight: 400;
-}
-.nav-links-minimal a.active .nav-link-num {
-  opacity: 0.7;
 }
 
 /* Nav CTA */
@@ -327,14 +320,6 @@ body {
   background: hsl(var(--bg-surface) / 0.62);
   border-color: hsl(var(--accent-ice) / 0.24);
   color: hsl(var(--text-primary));
-}
-.mobile-link-num {
-  font-family: var(--font-mono); font-size: 12px;
-  color: hsl(var(--accent-ice) / 0.65); margin-right: 10px;
-  font-weight: 400;
-}
-.mobile-menu-link.active .mobile-link-num {
-  color: hsl(var(--bg-void) / 0.6);
 }
 .mobile-link-text { font-weight: inherit; }
 
@@ -639,7 +624,7 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
   background: hsl(var(--accent-mint));
   border-radius: 50%;
   display: inline-block;
-  animation: pulse-dot 2s ease-in-out infinite;
+  animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   box-shadow: 0 0 8px hsl(var(--accent-mint) / 0.5);
 }
 @keyframes pulse-dot {
@@ -712,7 +697,7 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
   display: inline-flex; align-items: center; justify-content: center;
   width: 40px; height: 40px; border-radius: 50%;
   border: 1px solid hsl(var(--border-line) / 0.2);
-  transition: all 0.3s;
+  transition: color 0.3s, border-color 0.3s, background 0.3s, transform 0.3s;
 }
 .hero-social-link:hover {
   color: hsl(var(--accent-ice));
@@ -856,6 +841,8 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
   border-top-color: hsl(var(--accent-ice));
   border-right-color: hsl(var(--accent-mint));
   animation: photoRingSpin 6s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
 }
 @keyframes photoRingSpin {
   to { transform: rotate(360deg); }
@@ -867,6 +854,8 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
   border: 3px solid hsl(var(--bg-deep));
   box-shadow: 0 0 10px hsl(var(--accent-mint) / 0.5);
   animation: pulse-dot 2s ease-in-out infinite;
+  will-change: transform, opacity;
+  transform: translateZ(0);
 }
 
 .profile-avatar-ring {
@@ -1006,7 +995,7 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
   background: hsl(var(--bg-surface) / 0.5); border: 1px solid hsl(var(--border-line) / 0.3);
   border-radius: 14px; padding: 24px 16px; text-align: center;
   perspective: 600px; transform-style: preserve-3d;
-  transition: transform 0.4s ease, box-shadow 0.3s, border-color 0.3s; will-change: transform;
+  transition: transform 0.4s ease, box-shadow 0.5s ease, border-color 0.5s ease; will-change: transform;
   position: relative; overflow: hidden;
 }
 .skill-card::before {
@@ -1015,8 +1004,8 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
   pointer-events: none;
 }
 .skill-card:hover {
-  box-shadow: 0 0 24px hsl(var(--accent-ice) / 0.15);
-  border-color: hsl(var(--accent-ice) / 0.3);
+  box-shadow: 0 0 16px hsl(var(--accent-ice) / 0.1);
+  border-color: hsl(var(--accent-ice) / 0.2);
 }
 
 .skill-icon {

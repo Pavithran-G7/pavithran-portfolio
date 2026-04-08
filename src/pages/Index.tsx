@@ -268,7 +268,7 @@ export default function Index() {
           entry.target.classList.add('in-view');
         }
       });
-    }, { threshold: 0.01, rootMargin: '200px 0px 0px 0px' });
+    }, { threshold: 0.01, rootMargin: '0px 0px 200px 0px' });
     sections.forEach(s => observer.observe(s));
     return () => observer.disconnect();
   }, [loaded]);
@@ -341,7 +341,7 @@ export default function Index() {
       document.querySelectorAll('.skill-bar-fill').forEach(bar => {
         const level = (bar as HTMLElement).dataset.level || "0";
         ScrollTrigger.create({
-          trigger: bar, start: "top 90%", once: true,
+          trigger: bar, start: "top 70%", once: true,
           onEnter: () => { (bar as HTMLElement).style.width = level + "%"; }
         });
       });
@@ -583,7 +583,7 @@ export default function Index() {
             <span className="nav-brand-label">PORTFOLIO</span>
           </a>
           <ul className="nav-links-minimal">
-            {NAV_LINKS.map((id, i) => (
+            {NAV_LINKS.map((id) => (
               <li key={id}>
                 <a
                   href={`#${id}`}
@@ -593,7 +593,6 @@ export default function Index() {
                     scrollToSection(id);
                   }}
                 >
-                  <span className="nav-link-num">0{i + 1}</span>
                   {id}
                 </a>
               </li>
@@ -640,7 +639,6 @@ export default function Index() {
                   scrollToSection(id);
                 }}
               >
-                <span className="mobile-link-num">0{i + 1}.</span>
                 <span className="mobile-link-text">{id}</span>
               </a>
             ))}
