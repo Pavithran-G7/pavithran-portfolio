@@ -586,20 +586,28 @@ export default function Index() {
 
       {/* MOBILE MENU */}
       <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
-        {NAV_LINKS.map((id, i) => (
-          <a
-            key={id}
-            href={`#${id}`}
-            className={activeNav === id ? 'active' : ''}
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection(id);
-            }}
-          >
-            <span className="mobile-link-num">0{i + 1}.</span> {id}
+        <div className="mobile-menu-inner">
+          {NAV_LINKS.map((id, i) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              className={activeNav === id ? 'active' : ''}
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection(id);
+              }}
+            >
+              <span className="mobile-link-num">0{i + 1}.</span> {id}
+            </a>
+          ))}
+          <div className="mobile-menu-divider"></div>
+          <a href="#contact" className="mobile-menu-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>
+            Let's Talk
           </a>
-        ))}
-        <SocialIcons />
+          <div style={{ marginTop: 20 }}>
+            <SocialIcons />
+          </div>
+        </div>
       </div>
 
       {/* PROJECT POPUP — clean minimal */}
