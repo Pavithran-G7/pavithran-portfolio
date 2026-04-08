@@ -524,7 +524,6 @@ export default function Index() {
         y: 20, opacity: 0, stagger: 0.08, duration: 0.6, delay: 0.3, ease: "power3.out",
         scrollTrigger: { trigger: ".contact-links", start: "top 85%", toggleActions: "play none none reverse" }
       });
-    });
 
       // ---- BACKGROUND COLOR TRANSITIONS ----
       const bgLayer = document.querySelector('.bg-transition-layer') as HTMLElement;
