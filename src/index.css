@@ -36,10 +36,9 @@
   --popover-foreground: var(--text-primary);
   --radius: 0.5rem;
 
-  --font-display: 'Outfit', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-ui: 'Plus Jakarta Sans', sans-serif;
-  --font-hero: 'Space Grotesk', sans-serif;
+  --font-display: 'Orbitron', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-ui: 'Rajdhani', sans-serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -52,7 +51,7 @@ html {
 body {
   background: hsl(var(--bg-void));
   color: hsl(var(--text-primary));
-  font-family: var(--font-ui);
+  font-family: var(--font-mono);
   overflow-x: hidden;
 }
 
@@ -575,7 +574,7 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 
 /* Name — single line, centered */
 .hero-name {
-  font-family: var(--font-hero), var(--font-display), sans-serif;
+  font-family: 'Syne', var(--font-display), sans-serif;
   font-weight: 800;
   line-height: 1.0;
   margin-bottom: 20px;
