@@ -36,9 +36,10 @@
   --popover-foreground: var(--text-primary);
   --radius: 0.5rem;
 
-  --font-display: 'Orbitron', sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
-  --font-ui: 'Rajdhani', sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-ui: 'Plus Jakarta Sans', sans-serif;
+  --font-hero: 'Space Grotesk', sans-serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
