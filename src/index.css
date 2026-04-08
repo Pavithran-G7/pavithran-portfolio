@@ -1339,6 +1339,37 @@ section:not(.hero-section):not(.projects-section)+section:not(.projects-section)
   color: hsl(var(--accent-mint));
 }
 
+/* ===== BACKGROUND TRANSITION LAYER ===== */
+.bg-transition-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: hsl(var(--bg-void));
+  transition: background-color 1.2s ease;
+  pointer-events: none;
+}
+
+/* ===== MAGNETIC HOVER ===== */
+.hero-btn,
+.nav-cta,
+.hero-social-link,
+.btn-submit {
+  will-change: transform;
+}
+
+/* ===== LENIS OVERRIDES ===== */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
 
 .about-section {
   background-image: radial-gradient(circle, hsl(var(--text-muted) / 0.08) 1px, transparent 1px);
