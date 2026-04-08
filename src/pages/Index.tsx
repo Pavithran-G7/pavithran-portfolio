@@ -526,8 +526,90 @@ export default function Index() {
       });
     });
 
+      // ---- BACKGROUND COLOR TRANSITIONS ----
+      const bgLayer = document.querySelector('.bg-transition-layer') as HTMLElement;
+      if (bgLayer) {
+        SECTION_BG_COLORS.forEach(({ section, color }) => {
+          const el = document.querySelector(section);
+          if (el) {
+            ScrollTrigger.create({
+              trigger: el,
+              start: 'top 60%',
+              end: 'bottom 40%',
+              onEnter: () => gsap.to(bgLayer, { backgroundColor: color, duration: 1.2, ease: 'power2.inOut' }),
+              onEnterBack: () => gsap.to(bgLayer, { backgroundColor: color, duration: 1.2, ease: 'power2.inOut' }),
+            });
+          }
+        });
+      }
+
+      // ---- ENHANCED CHARACTER SPLITS for section headings ----
+      document.querySelectorAll('.section-heading[data-splitting]').forEach(heading => {
+        const chars = heading.querySelectorAll('.char');
+        if (chars.length) {
+          gsap.from(chars, {
+            opacity: 0, y: 60, rotateX: -90, filter: 'blur(8px)',
+            stagger: 0.02, duration: 0.8, ease: 'power4.out',
+            scrollTrigger: { trigger: heading, start: 'top 80%', toggleActions: 'play none none reverse' }
+          });
+        }
+      });
+
+      // ---- STAGGERED BUILD-ON REVEALS ----
+      document.querySelectorAll('.achievement-card, .education-card, .exp-card').forEach(card => {
+        gsap.from(card, {
+          opacity: 0, y: 40, scale: 0.95,
+          duration: 0.7, ease: 'power3.out',
+          scrollTrigger: { trigger: card, start: 'top 85%', toggleActions: 'play none none reverse' }
+        });
+      });
+    });
+
     return () => { ScrollTrigger.getAll().forEach((t: any) => t.kill()); };
   }, [loaded]);
+
+  // ===== MAGNETIC HOVER EFFECT (desktop only) =====
+  useEffect(() => {
+    if (!loaded || window.innerWidth <= 768) return;
+
+    const magneticEls = document.querySelectorAll('.hero-btn, .nav-cta, .hero-social-link, .btn-submit');
+    const handlers: Array<{ el: Element; move: (e: MouseEvent) => void; leave: () => void }> = [];
+
+    magneticEls.forEach(el => {
+      const move = (e: MouseEvent) => {
+        const rect = (el as HTMLElement).getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        gsap.to(el, { x: x * 0.25, y: y * 0.25, duration: 0.3, ease: 'power2.out' });
+      };
+      const leave = () => {
+        gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.3)' });
+      };
+      (el as HTMLElement).addEventListener('mousemove', move as any);
+      (el as HTMLElement).addEventListener('mouseleave', leave);
+      handlers.push({ el, move, leave });
+    });
+
+    return () => {
+      handlers.forEach(({ el, move, leave }) => {
+        (el as HTMLElement).removeEventListener('mousemove', move as any);
+        (el as HTMLElement).removeEventListener('mouseleave', leave);
+      });
+    };
+  }, [loaded]);
+
+  // ===== CLICK AUDIO ON BUTTONS =====
+  useEffect(() => {
+    if (!loaded) return;
+    const handler = (e: Event) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('a, button, .btn-primary, .btn-secondary, .hero-btn, .nav-cta')) {
+        playClickSound();
+      }
+    };
+    document.addEventListener('click', handler);
+    return () => document.removeEventListener('click', handler);
+  }, [loaded, playClickSound]);
 
   // Prevent background scrolling while mobile navigation is open.
   useEffect(() => {
