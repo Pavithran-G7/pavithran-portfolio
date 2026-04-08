@@ -657,7 +657,11 @@ export default function Index() {
     const offset = id === "home" ? 0 : NAVBAR_HEIGHT;
     const top = Math.max(section.getBoundingClientRect().top + window.scrollY - offset, 0);
     window.history.replaceState(null, "", id === "home" ? window.location.pathname : `#${id}`);
-    window.scrollTo({ top, behavior: smooth ? "smooth" : "auto" });
+    if (lenisRef.current && smooth) {
+      lenisRef.current.scrollTo(top, { duration: 1.5 });
+    } else {
+      window.scrollTo({ top, behavior: smooth ? "smooth" : "auto" });
+    }
     setMobileMenuOpen(false);
   }, []);
 
