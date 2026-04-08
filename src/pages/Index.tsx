@@ -462,18 +462,12 @@ export default function Index() {
     return () => { ScrollTrigger.getAll().forEach((t: any) => t.kill()); };
   }, [loaded]);
 
-  // Prevent background scrolling while mobile navigation is open.
+  // Close mobile dropdown on scroll
   useEffect(() => {
-    const originalOverflow = document.body.style.overflow;
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-
-    return () => {
-      document.body.style.overflow = originalOverflow;
-    };
+    if (!mobileMenuOpen) return;
+    const onScroll = () => setMobileMenuOpen(false);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, [mobileMenuOpen]);
 
   useEffect(() => {
