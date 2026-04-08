@@ -639,6 +639,9 @@ export default function Index() {
         </div>
       </nav>
 
+      {/* SCROLL PROGRESS */}
+      <div className="scroll-progress" style={{ width: `${scrollProgress}%` }}></div>
+
       {/* PROJECT POPUP — clean minimal */}
       {popupProject && (
         <div className="project-popup-overlay" onClick={() => setPopupProject(null)}>
