@@ -183,9 +183,31 @@ export default function Index() {
   const cursorDotRef = useRef<HTMLDivElement>(null);
   const loaderBarRef = useRef<HTMLDivElement>(null);
   const loaderTextRef = useRef<HTMLSpanElement>(null);
+  const lenisRef = useRef<Lenis | null>(null);
+  const audioCtxRef = useRef<AudioContext | null>(null);
 
   const mousePos = useRef({ x: 0, y: 0 });
   const ringPos = useRef({ x: 0, y: 0 });
+
+  // ===== CLICK AUDIO FEEDBACK =====
+  const playClickSound = useCallback(() => {
+    try {
+      if (!audioCtxRef.current) {
+        audioCtxRef.current = new AudioContext();
+      }
+      const ctx = audioCtxRef.current;
+      const oscillator = ctx.createOscillator();
+      const gain = ctx.createGain();
+      oscillator.connect(gain);
+      gain.connect(ctx.destination);
+      oscillator.frequency.setValueAtTime(800, ctx.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.12, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+      oscillator.start(ctx.currentTime);
+      oscillator.stop(ctx.currentTime + 0.1);
+    } catch {}
+  }, []);
 
   // ===== LOADER SEQUENCE =====
   useEffect(() => {
@@ -200,6 +222,33 @@ export default function Index() {
         setTimeout(() => setRevealGone(true), 1400);
       }, [], 3.1);
   }, []);
+
+  // ===== LENIS SMOOTH SCROLL =====
+  useEffect(() => {
+    if (!loaded) return;
+
+    const lenis = new Lenis({
+      lerp: 0.08,
+      smoothWheel: true,
+      wheelMultiplier: 0.8,
+    });
+    lenisRef.current = lenis;
+
+    lenis.on('scroll', () => {
+      ScrollTrigger?.update?.();
+    });
+
+    const raf = (time: number) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+      lenisRef.current = null;
+    };
+  }, [loaded]);
 
   // ===== BACKGROUND REMOVED FOR SIMPLICITY =====
 
