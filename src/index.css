@@ -575,7 +575,7 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 /* Subtitle row */
 .hero-subtitle-row {
   display: flex; align-items: center; justify-content: center; gap: 12px;
-  margin-bottom: 16px; flex-wrap: wrap;
+  margin-bottom: 12px; flex-wrap: wrap;
 }
 .hero-subtitle-badge {
   display: inline-flex; align-items: center; gap: 8px;
