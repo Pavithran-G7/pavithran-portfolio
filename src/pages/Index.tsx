@@ -156,8 +156,8 @@ function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: type
 
 export default function Index() {
   const [loaded, setLoaded] = useState(false);
-  const [doorOpen, setDoorOpen] = useState(false);
-  const [doorsGone, setDoorsGone] = useState(false);
+  const [diamondOpen, setDiamondOpen] = useState(false);
+  const [revealGone, setRevealGone] = useState(false);
   const [navScrolled, setNavScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -183,10 +183,8 @@ export default function Index() {
       .to("#loader > *", { opacity: 0, duration: 0.4 }, 2.7)
       .call(() => {
         setLoaded(true);
-        // Start door open animation after loader hides
-        setTimeout(() => setDoorOpen(true), 100);
-        // Remove door panels after animation completes
-        setTimeout(() => setDoorsGone(true), 1200);
+        setTimeout(() => setDiamondOpen(true), 100);
+        setTimeout(() => setRevealGone(true), 1400);
       }, [], 3.1);
   }, []);
 
@@ -532,11 +530,10 @@ export default function Index() {
         <div className="loader-progress"><div className="loader-progress-bar" ref={loaderBarRef}></div></div>
       </div>
 
-      {/* DOOR REVEAL */}
-      {!doorsGone && (
-        <div className="door-overlay">
-          <div className={`door-panel door-left ${doorOpen ? 'open' : ''}`}></div>
-          <div className={`door-panel door-right ${doorOpen ? 'open' : ''}`}></div>
+      {/* DIAMOND REVEAL */}
+      {!revealGone && (
+        <div className={`diamond-overlay ${diamondOpen ? 'open' : ''}`}>
+          <div className="diamond-glow"></div>
         </div>
       )}
 
@@ -589,20 +586,28 @@ export default function Index() {
 
       {/* MOBILE MENU */}
       <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
-        {NAV_LINKS.map((id, i) => (
-          <a
-            key={id}
-            href={`#${id}`}
-            className={activeNav === id ? 'active' : ''}
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection(id);
-            }}
-          >
-            <span className="mobile-link-num">0{i + 1}.</span> {id}
+        <div className="mobile-menu-inner">
+          {NAV_LINKS.map((id, i) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              className={activeNav === id ? 'active' : ''}
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection(id);
+              }}
+            >
+              <span className="mobile-link-num">0{i + 1}.</span> {id}
+            </a>
+          ))}
+          <div className="mobile-menu-divider"></div>
+          <a href="#contact" className="mobile-menu-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>
+            Let's Talk
           </a>
-        ))}
-        <SocialIcons />
+          <div style={{ marginTop: 20 }}>
+            <SocialIcons />
+          </div>
+        </div>
       </div>
 
       {/* PROJECT POPUP — clean minimal */}
@@ -699,22 +704,31 @@ export default function Index() {
             <div className="about-profile-card">
               <div className="profile-card-glow"></div>
               <div className="profile-card-inner">
-                <div className="profile-avatar-ring">
-                  <div className="profile-avatar-core">PG</div>
-                  <svg className="profile-ring-svg" viewBox="0 0 160 160">
-                    <circle className="ring-track" cx="80" cy="80" r="74" fill="none" stroke="hsl(var(--border-line))" strokeWidth="1.5" opacity="0.3" />
-                    <circle className="ring-progress" cx="80" cy="80" r="74" fill="none" stroke="hsl(var(--accent-ice))" strokeWidth="2" strokeLinecap="round" strokeDasharray="465" strokeDashoffset="93" />
-                  </svg>
+                <div className="profile-photo-wrapper">
+                  <div className="profile-photo-placeholder">PG</div>
+                  <div className="profile-photo-ring"></div>
+                  <div className="profile-photo-dot"></div>
                 </div>
                 <div className="profile-name-tag">PAVITHRAN G</div>
                 <span className="profile-role-badge">AI & ML DEVELOPER</span>
                 <div className="profile-meta-row">
-                  <span className="profile-meta-item"><i className="fa-solid fa-location-dot"></i> KSRCT, Tiruchengode</span>
-                  <span className="profile-meta-item"><i className="fa-solid fa-graduation-cap"></i> AI &amp; ML</span>
+                  <span className="profile-meta-item"><i className="fa-solid fa-location-dot"></i> Tiruchengode, TN</span>
+                  <span className="profile-meta-item"><i className="fa-solid fa-graduation-cap"></i> B.E. AI &amp; ML</span>
                 </div>
                 <div className="profile-status-row">
                   <span className="profile-status-dot"></span>
-                  Available for opportunities
+                  Open for opportunities
+                </div>
+                <div className="profile-social-links">
+                  <a href="https://github.com/Pavithran030" target="_blank" rel="noopener noreferrer" className="profile-social-btn" aria-label="GitHub">
+                    <i className="fa-brands fa-github"></i>
+                  </a>
+                  <a href="https://www.linkedin.com/in/pavithran030" target="_blank" rel="noopener noreferrer" className="profile-social-btn" aria-label="LinkedIn">
+                    <i className="fa-brands fa-linkedin"></i>
+                  </a>
+                  <a href="mailto:techpavithran18@gmail.com" className="profile-social-btn" aria-label="Email">
+                    <i className="fa-solid fa-envelope"></i>
+                  </a>
                 </div>
               </div>
             </div>
