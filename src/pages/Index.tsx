@@ -8,13 +8,6 @@ import project004 from "@/assets/project-004.jpg";
 import project005 from "@/assets/project-005.jpg";
 import { SEO } from "@/components/SEO";
 
-
-declare const gsap: any;
-declare const ScrollTrigger: any;
-declare const ScrollToPlugin: any;
-declare const TextPlugin: any;
-declare const Splitting: any;
-
 // Section background colors for scroll-driven transitions
 const SECTION_BG_COLORS = [
   { section: '#home', color: 'hsl(210, 80%, 3%)' },
@@ -29,7 +22,7 @@ const SECTION_BG_COLORS = [
 
 const NAV_LINKS = ["home", "about", "skills", "projects", "experience", "contact"];
 
-const SKILL_ICONS: Record<string, React.ComponentType<any>> = {
+const SKILL_ICONS: Record<string, React.ComponentType<unknown>> = {
   "Python": FileCode, "C": Terminal, "Java": Braces, "SQL (MySQL)": CircuitBoard,
   "TensorFlow": Atom, "MediaPipe": Flame, "NumPy": Database, "Pandas": Server,
   "Machine Learning": Code2, "Computer Vision": Palette,
@@ -37,7 +30,7 @@ const SKILL_ICONS: Record<string, React.ComponentType<any>> = {
   "Git": GitBranch, "GitHub": Github, "Google Colab": Layout,
 };
 
-const CATEGORY_ICONS: Record<string, React.ComponentType<any>> = {
+const CATEGORY_ICONS: Record<string, React.ComponentType<unknown>> = {
   "LANGUAGES": Terminal, "AI & ML": Atom, "AUTOMATION": Wind, "TOOLS": Wrench,
 };
 
@@ -207,7 +200,9 @@ export default function Index() {
       gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
       oscillator.start(ctx.currentTime);
       oscillator.stop(ctx.currentTime + 0.1);
-    } catch {}
+    } catch {
+      // Ignore audio API failures on restricted browsers/devices.
+    }
   }, []);
 
   // ===== LOADER SEQUENCE =====
@@ -565,7 +560,7 @@ export default function Index() {
       });
     });
 
-    return () => { ScrollTrigger.getAll().forEach((t: any) => t.kill()); };
+    return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
   }, [loaded]);
 
   // ===== MAGNETIC HOVER EFFECT (desktop only) =====
@@ -585,14 +580,14 @@ export default function Index() {
       const leave = () => {
         gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.3)' });
       };
-      (el as HTMLElement).addEventListener('mousemove', move as any);
+      (el as HTMLElement).addEventListener('mousemove', move);
       (el as HTMLElement).addEventListener('mouseleave', leave);
       handlers.push({ el, move, leave });
     });
 
     return () => {
       handlers.forEach(({ el, move, leave }) => {
-        (el as HTMLElement).removeEventListener('mousemove', move as any);
+        (el as HTMLElement).removeEventListener('mousemove', move);
         (el as HTMLElement).removeEventListener('mouseleave', leave);
       });
     };
