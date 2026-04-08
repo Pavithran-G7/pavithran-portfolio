@@ -727,25 +727,38 @@ section:not(.hero-section):not(.projects-section) + section:not(.projects-sectio
 }
 
 @media (max-width: 768px) {
-  .hero-section { padding: 0 5vw !important; }
-  .hero-text { max-width: 100%; }
-  .hero-name { white-space: normal; flex-direction: column; gap: 0; }
-  .hero-name-first { font-size: clamp(36px, 13vw, 64px); }
-  .hero-name-last { font-size: clamp(36px, 13vw, 64px); }
-  .hero-description { font-size: 13px; margin-bottom: 32px; }
-  .hero-buttons { flex-direction: column; gap: 12px; }
+  .hero-section {
+    padding: 64px 6vw 20px !important;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 72px !important;
+  }
+  .hero-text {
+    max-width: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  .hero-name {
+    white-space: normal; flex-direction: column; gap: 0;
+    margin-bottom: 14px;
+  }
+  .hero-name-first { font-size: clamp(40px, 14vw, 72px); }
+  .hero-name-last { font-size: clamp(40px, 14vw, 72px); }
+  .hero-role-tag { margin-bottom: 10px; }
+  .hero-role-line { width: 24px; }
+  .hero-role-label { font-size: 11px; letter-spacing: 0.2em; }
+  .hero-subtitle-row { gap: 8px; margin-bottom: 10px; }
+  .hero-subtitle-separator { display: none; }
+  .hero-subtitle-text { font-size: 11px; }
+  .hero-description { font-size: 13px; line-height: 1.7; margin-bottom: 24px; }
+  .hero-buttons { flex-direction: column; gap: 10px; margin-bottom: 20px; }
   .hero-btn { width: 100%; justify-content: center; padding: 14px 24px; }
-  .hero-social-row { flex-wrap: wrap; gap: 12px; }
+  .hero-social-row { flex-wrap: wrap; gap: 10px; }
   .hero-scroll-hint { display: none; }
   .hero-social-divider { display: none; }
   .hero-corner-frame { display: none; }
   .hero-grid-pattern { display: none; }
   .hero-glow-orb { opacity: 0.2; }
-  .hero-role-line { width: 24px; }
-  .hero-role-label { font-size: 11px; letter-spacing: 0.2em; }
-  .hero-subtitle-row { gap: 8px; }
-  .hero-subtitle-separator { display: none; }
-  .hero-subtitle-text { font-size: 11px; }
 }
 
 /* ===== GENERIC BUTTONS (used in popups etc.) ===== */
