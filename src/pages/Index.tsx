@@ -997,7 +997,7 @@ export default function Index() {
         {/* ===== EDUCATION ===== */}
         <section id="education" className="education-section">
           <span className="section-label">// 04. KNOWLEDGE BASE</span>
-          <h2 className="section-heading">Education</h2>
+          <h2 className="section-heading" data-splitting>Education</h2>
           <div className="education-timeline">
             <div className="education-line"></div>
             {EDUCATION.map((edu, i) => (
@@ -1021,7 +1021,7 @@ export default function Index() {
         {/* ===== ACHIEVEMENTS ===== */}
         <section className="achievements-section">
           <span className="section-label">// 05. MILESTONES</span>
-          <h2 className="section-heading">Achievements</h2>
+          <h2 className="section-heading" data-splitting>Achievements</h2>
           <div className="achievements-stats">
             {ACHIEVEMENTS_STATS.map((s, i) => (
               <div className="achievement-stat" key={i}>
@@ -1051,7 +1051,7 @@ export default function Index() {
         {/* ===== EXPERIENCE ===== */}
         <section id="experience" className="experience-section">
           <span className="section-label">// 06. MISSION HISTORY</span>
-          <h2 className="section-heading">Experience</h2>
+          <h2 className="section-heading" data-splitting>Experience</h2>
           <div className="experience-timeline">
             <svg className="experience-svg-line" width="40" height="100%" preserveAspectRatio="none">
               <path className="exp-svg-path" d="M20,0 L20,2000" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="2" style={{ filter: 'drop-shadow(0 0 4px hsl(195,100%,50%,0.5))' }} />
