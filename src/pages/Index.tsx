@@ -779,9 +779,6 @@ export default function Index() {
         </div>
       </nav>
 
-      {/* NAV LOADING SWEEP */}
-      <div className="nav-loading-sweep"></div>
-
       {/* SCROLL PROGRESS */}
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }}></div>
 
