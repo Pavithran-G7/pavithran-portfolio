@@ -733,7 +733,7 @@ export default function Index() {
       <nav className={`navbar ${navScrolled ? 'scrolled' : ''}`}>
         <div className="nav-inner">
           <a className="nav-brand" href="#" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
-            <span className="nav-brand-mark">PG</span>
+            <span className="nav-brand-mark glow-active">PG</span>
             <span className="nav-brand-divider"></span>
             <span className="nav-brand-label">PORTFOLIO</span>
           </a>
@@ -774,6 +774,9 @@ export default function Index() {
           </div>
         </div>
       </nav>
+
+      {/* NAV LOADING SWEEP */}
+      <div className="nav-loading-sweep"></div>
 
       {/* SCROLL PROGRESS */}
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }}></div>
