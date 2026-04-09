@@ -1346,7 +1346,7 @@ section:not(.hero-section):not(.projects-section)+section:not(.projects-section)
   inset: 0;
   z-index: -1;
   background-color: hsl(var(--bg-void));
-  transition: background-color 1.2s ease;
+  transition: background-color 1.8s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
