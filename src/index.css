@@ -256,7 +256,7 @@ body {
   }
 }
 
-/* ===== NAVBAR — premium glass ===== */
+/* ===== NAVBAR — transparent, inherits section colors ===== */
 .navbar {
   position: fixed;
   top: 0;
@@ -269,14 +269,14 @@ body {
   justify-content: center;
   padding: 0 32px;
   background: transparent;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.6s ease, backdrop-filter 0.6s ease;
 }
 
 .navbar.scrolled {
-  background: hsl(var(--bg-void) / 0.6);
-  backdrop-filter: blur(20px) saturate(1.4);
-  border-bottom: 1px solid hsl(var(--accent-ice) / 0.08);
-  box-shadow: 0 4px 30px hsl(var(--bg-void) / 0.5);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  border-bottom: 1px solid hsl(var(--accent-ice) / 0.06);
 }
 
 .nav-inner {
@@ -341,10 +341,11 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.15em;
   font-size: 11px;
-  background: hsl(var(--bg-surface) / 0.3);
-  border: 1px solid hsl(var(--border-line) / 0.2);
+  background: hsl(var(--bg-surface) / 0.15);
+  border: 1px solid hsl(var(--border-line) / 0.12);
   border-radius: 999px;
   padding: 4px;
+  backdrop-filter: blur(8px);
 }
 
 .nav-links-minimal li {
@@ -623,6 +624,7 @@ body {
   .navbar {
     height: 64px;
     padding: 0 20px;
+    background: transparent;
   }
 
   .nav-brand-mark {
@@ -791,13 +793,14 @@ section {
 section:not(.hero-section)::before {
   content: '';
   position: absolute;
-  top: -60px;
+  top: -80px;
   left: 0;
   right: 0;
-  height: 120px;
-  background: linear-gradient(to bottom, transparent, hsl(var(--bg-void) / 0.6) 40%, hsl(var(--bg-void) / 0.6) 60%, transparent);
+  height: 160px;
+  background: linear-gradient(to bottom, transparent 0%, hsl(var(--bg-void) / 0.3) 30%, hsl(var(--bg-void) / 0.3) 70%, transparent 100%);
   pointer-events: none;
   z-index: -1;
+  opacity: 0.5;
 }
 
 .about-section,
@@ -807,8 +810,8 @@ section:not(.hero-section)::before {
 .experience-section,
 .contact-section {
   opacity: 0;
-  transform: translateY(60px) scale(0.98);
-  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(80px) scale(0.96);
+  transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
@@ -1344,7 +1347,7 @@ section:not(.hero-section):not(.projects-section)+section:not(.projects-section)
   inset: 0;
   z-index: -1;
   background-color: hsl(var(--bg-void));
-  transition: background-color 1.2s ease;
+  transition: background-color 1.8s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 

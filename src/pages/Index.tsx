@@ -224,9 +224,10 @@ export default function Index() {
     if (!loaded) return;
 
     const lenis = new Lenis({
-      lerp: 0.08,
+      lerp: 0.06,
       smoothWheel: true,
-      wheelMultiplier: 0.8,
+      wheelMultiplier: 0.7,
+      touchMultiplier: 1.5,
     });
     lenisRef.current = lenis;
 
