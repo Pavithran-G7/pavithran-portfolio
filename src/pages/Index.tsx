@@ -168,7 +168,6 @@ export default function Index() {
   const [navScrolled, setNavScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [loadBarDone, setLoadBarDone] = useState(false);
   const [showBackTop, setShowBackTop] = useState(false);
   const [activeNav, setActiveNav] = useState("home");
   const [formSent, setFormSent] = useState(false);
@@ -217,8 +216,6 @@ export default function Index() {
         setLoaded(true);
         setTimeout(() => setDiamondOpen(true), 100);
         setTimeout(() => setRevealGone(true), 1400);
-        // Hide load bar after its animation completes (~5s after load)
-        setTimeout(() => setLoadBarDone(true), 5500);
       }, [], 3.1);
   }, []);
 
@@ -781,9 +778,6 @@ export default function Index() {
           </div>
         </div>
       </nav>
-
-      {/* NAVBAR LOAD ANIMATION BAR */}
-      {!loadBarDone && <div className={`navbar-load-bar ${loadBarDone ? 'done' : ''}`}></div>}
 
       {/* SCROLL PROGRESS */}
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }}></div>

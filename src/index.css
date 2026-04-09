@@ -256,7 +256,7 @@ body {
   }
 }
 
-/* ===== NAVBAR — solid dark, matching site background ===== */
+/* ===== NAVBAR — transparent, inherits section colors ===== */
 .navbar {
   position: fixed;
   top: 0;
@@ -268,16 +268,15 @@ body {
   align-items: center;
   justify-content: center;
   padding: 0 32px;
-  background: hsl(var(--bg-void));
-  border-bottom: 1px solid hsl(var(--border-line) / 0.25);
-  backdrop-filter: blur(12px) saturate(1.2);
-  -webkit-backdrop-filter: blur(12px) saturate(1.2);
-  transition: background 0.6s ease, border-color 0.6s ease;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.6s ease, backdrop-filter 0.6s ease;
 }
 
 .navbar.scrolled {
-  background: hsl(var(--bg-void) / 0.92);
-  border-bottom: 1px solid hsl(var(--accent-ice) / 0.1);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  border-bottom: 1px solid hsl(var(--accent-ice) / 0.06);
 }
 
 .nav-inner {
@@ -311,32 +310,11 @@ body {
   justify-content: center;
   letter-spacing: 0.05em;
   transition: transform 0.3s, box-shadow 0.3s;
-  position: relative;
-  box-shadow: 0 0 12px hsl(var(--accent-ice) / 0.25), 0 0 24px hsl(var(--accent-mint) / 0.1);
-}
-
-/* PG brand glow pulse animation on load */
-.nav-brand-mark::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 13px;
-  background: linear-gradient(135deg, hsl(var(--accent-ice) / 0.4), hsl(var(--accent-mint) / 0.3));
-  z-index: -1;
-  opacity: 0;
-  animation: pg-glow-pulse 2s ease-in-out 3.5s forwards;
-}
-
-@keyframes pg-glow-pulse {
-  0% { opacity: 0; transform: scale(0.8); }
-  30% { opacity: 1; transform: scale(1.15); }
-  60% { opacity: 0.6; transform: scale(1.05); }
-  100% { opacity: 0.3; transform: scale(1); }
 }
 
 .nav-brand:hover .nav-brand-mark {
   transform: scale(1.08);
-  box-shadow: 0 0 24px hsl(var(--accent-ice) / 0.4), 0 0 40px hsl(var(--accent-mint) / 0.15);
+  box-shadow: 0 0 20px hsl(var(--accent-ice) / 0.3);
 }
 
 .nav-brand-divider {
@@ -427,7 +405,6 @@ body {
   box-shadow: 0 0 20px hsl(var(--accent-ice) / 0.15);
 }
 
-/* Scroll progress bar with load-in animation */
 .scroll-progress {
   position: fixed;
   top: 72px;
@@ -437,38 +414,6 @@ body {
   z-index: 999;
   transition: width 0.05s linear;
   box-shadow: 0 0 10px hsl(var(--accent-ice) / 0.5);
-}
-
-/* Load animation bar that sweeps across below navbar on page load */
-.navbar-load-bar {
-  position: fixed;
-  top: 71px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, hsl(var(--accent-ice)), hsl(var(--accent-mint)), hsl(var(--accent-ice)));
-  background-size: 200% 100%;
-  z-index: 999;
-  animation: navbar-load-sweep 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 3.2s forwards,
-             navbar-load-shimmer 1.2s ease-in-out 3.2s 2;
-  box-shadow: 0 0 12px hsl(var(--accent-ice) / 0.6), 0 1px 6px hsl(var(--accent-mint) / 0.3);
-  pointer-events: none;
-}
-
-.navbar-load-bar.done {
-  opacity: 0;
-  transition: opacity 0.6s ease 0.3s;
-}
-
-@keyframes navbar-load-sweep {
-  0% { width: 0; }
-  60% { width: 100%; }
-  100% { width: 100%; }
-}
-
-@keyframes navbar-load-shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
 }
 
 /* Hamburger */
@@ -679,7 +624,7 @@ body {
   .navbar {
     height: 64px;
     padding: 0 20px;
-    background: hsl(var(--bg-void));
+    background: transparent;
   }
 
   .nav-brand-mark {
