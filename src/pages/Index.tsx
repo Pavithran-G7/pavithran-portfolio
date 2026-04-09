@@ -220,6 +220,10 @@ export default function Index() {
         setLoaded(true);
         setTimeout(() => setDiamondOpen(true), 100);
         setTimeout(() => setRevealGone(true), 1400);
+        // Auto-scroll slightly to show hero centered with loading state
+        setTimeout(() => {
+          window.scrollTo({ top: 120, behavior: 'smooth' });
+        }, 1600);
       }, [], 3.1);
   }, []);
 
