@@ -216,6 +216,10 @@ export default function Index() {
         setLoaded(true);
         setTimeout(() => setDiamondOpen(true), 100);
         setTimeout(() => setRevealGone(true), 1400);
+        // Scroll to 120px so hero text is centered in viewport
+        setTimeout(() => {
+          window.scrollTo({ top: 120, behavior: 'smooth' });
+        }, 1600);
       }, [], 3.1);
   }, []);
 
@@ -732,6 +736,10 @@ export default function Index() {
         <div className="fog-blob"></div>
         <div className="fog-blob"></div>
       </div>
+
+      {/* NAVBAR — premium glass */}
+      {/* Loading sweep line */}
+      <div className="nav-loading-sweep"></div>
 
       {/* NAVBAR — premium glass */}
       <nav className={`navbar ${navScrolled ? 'scrolled' : ''}`}>
