@@ -652,7 +652,11 @@ body {
   .navbar {
     height: 64px;
     padding: 0 20px;
-    background: transparent;
+    background: linear-gradient(180deg, hsl(192 40% 6%) 0%, hsl(192 35% 5% / 0.95) 100%);
+  }
+
+  .nav-loading-sweep {
+    top: 64px;
   }
 
   .nav-brand-mark {
