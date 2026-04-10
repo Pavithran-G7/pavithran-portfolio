@@ -2988,14 +2988,5 @@ html.lenis, html.lenis body {
     transform: scale(0.9);
   }
 
-  /* Smooth mobile section reveal */
-  .about-section,
-  .skills-section,
-  .education-section,
-  .achievements-section,
-  .experience-section,
-  .contact-section {
-    transform: translateY(24px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  }
+  /* Framer Motion handles section reveals on mobile too */
 }
