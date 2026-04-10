@@ -6,13 +6,7 @@ import project002 from "@/assets/project-002.jpg";
 import project003 from "@/assets/project-003.jpg";
 import project004 from "@/assets/project-004.jpg";
 import project005 from "@/assets/project-005.jpg";
-
-
-declare const gsap: any;
-declare const ScrollTrigger: any;
-declare const ScrollToPlugin: any;
-declare const TextPlugin: any;
-declare const Splitting: any;
+import { SEO } from "@/components/SEO";
 
 // Section background colors for scroll-driven transitions
 const SECTION_BG_COLORS = [
@@ -28,7 +22,7 @@ const SECTION_BG_COLORS = [
 
 const NAV_LINKS = ["home", "about", "skills", "projects", "experience", "contact"];
 
-const SKILL_ICONS: Record<string, React.ComponentType<any>> = {
+const SKILL_ICONS: Record<string, React.ComponentType<unknown>> = {
   "Python": FileCode, "C": Terminal, "Java": Braces, "SQL (MySQL)": CircuitBoard,
   "TensorFlow": Atom, "MediaPipe": Flame, "NumPy": Database, "Pandas": Server,
   "Machine Learning": Code2, "Computer Vision": Palette,
@@ -36,7 +30,7 @@ const SKILL_ICONS: Record<string, React.ComponentType<any>> = {
   "Git": GitBranch, "GitHub": Github, "Google Colab": Layout,
 };
 
-const CATEGORY_ICONS: Record<string, React.ComponentType<any>> = {
+const CATEGORY_ICONS: Record<string, React.ComponentType<unknown>> = {
   "LANGUAGES": Terminal, "AI & ML": Atom, "AUTOMATION": Wind, "TOOLS": Wrench,
 };
 
@@ -206,7 +200,9 @@ export default function Index() {
       gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
       oscillator.start(ctx.currentTime);
       oscillator.stop(ctx.currentTime + 0.1);
-    } catch {}
+    } catch {
+      // Ignore audio API failures on restricted browsers/devices.
+    }
   }, []);
 
   // ===== LOADER SEQUENCE =====
@@ -220,10 +216,6 @@ export default function Index() {
         setLoaded(true);
         setTimeout(() => setDiamondOpen(true), 100);
         setTimeout(() => setRevealGone(true), 1400);
-        // Auto-scroll slightly to show hero centered with loading state
-        setTimeout(() => {
-          window.scrollTo({ top: 120, behavior: 'smooth' });
-        }, 1600);
       }, [], 3.1);
   }, []);
 
@@ -232,9 +224,10 @@ export default function Index() {
     if (!loaded) return;
 
     const lenis = new Lenis({
-      lerp: 0.08,
+      lerp: 0.06,
       smoothWheel: true,
-      wheelMultiplier: 0.8,
+      wheelMultiplier: 0.7,
+      touchMultiplier: 1.5,
     });
     lenisRef.current = lenis;
 
@@ -568,7 +561,7 @@ export default function Index() {
       });
     });
 
-    return () => { ScrollTrigger.getAll().forEach((t: any) => t.kill()); };
+    return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
   }, [loaded]);
 
   // ===== MAGNETIC HOVER EFFECT (desktop only) =====
@@ -588,14 +581,14 @@ export default function Index() {
       const leave = () => {
         gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.3)' });
       };
-      (el as HTMLElement).addEventListener('mousemove', move as any);
+      (el as HTMLElement).addEventListener('mousemove', move);
       (el as HTMLElement).addEventListener('mouseleave', leave);
       handlers.push({ el, move, leave });
     });
 
     return () => {
       handlers.forEach(({ el, move, leave }) => {
-        (el as HTMLElement).removeEventListener('mousemove', move as any);
+        (el as HTMLElement).removeEventListener('mousemove', move);
         (el as HTMLElement).removeEventListener('mouseleave', leave);
       });
     };
@@ -702,6 +695,13 @@ export default function Index() {
 
   return (
     <>
+      <SEO
+        title="Pavithran G | AI & ML Developer Portfolio"
+        description="Portfolio of Pavithran G, an AI and ML developer building machine learning, computer vision, and automation projects with Python, TensorFlow, and modern web tools."
+        path="/"
+        type="website"
+      />
+
       {/* LOADER */}
       <div id="loader" className={loaded ? "hidden" : ""}>
         <div className="loader-scanline" />
@@ -737,7 +737,7 @@ export default function Index() {
       <nav className={`navbar ${navScrolled ? 'scrolled' : ''}`}>
         <div className="nav-inner">
           <a className="nav-brand" href="#" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
-            <span className="nav-brand-mark glow-active">PG</span>
+            <span className="nav-brand-mark">PG</span>
             <span className="nav-brand-divider"></span>
             <span className="nav-brand-label">PORTFOLIO</span>
           </a>

@@ -1,0 +1,36 @@
+name: Sync to Clean Repo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v3
+
+      - name: Clone target repo
+        run: |
+          git clone https://${{ secrets.PAT_TOKEN }}@github.com/Pavithran-G7/pavithran-portfolio.git target
+
+      
+      - name: Copy files
+        run: |
+          rsync -av --delete \
+            --exclude='.git' \
+            --exclude='.github' \
+            ./ target/
+
+      - name: Commit & Push
+        run: |
+          cd target
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+          git add .
+          git commit -m "Auto sync from Lovable repo" || echo "No changes"
+          git push

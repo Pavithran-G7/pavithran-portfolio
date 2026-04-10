@@ -12,11 +12,32 @@ dist
 dist-ssr
 *.local
 
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Build and tool caches
+.cache/
+.vite/
+.turbo/
+coverage/
+
+# Test artifacts
+playwright-report/
+test-results/
+blob-report/
+
+# Package manager artifacts not needed in this npm repo
+bun.lock
+bun.lockb
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
+.vercel
 *.suo
 *.ntvs*
 *.njsproj
