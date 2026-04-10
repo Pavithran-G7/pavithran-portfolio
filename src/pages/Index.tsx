@@ -738,6 +738,10 @@ export default function Index() {
       </div>
 
       {/* NAVBAR — premium glass */}
+      {/* Loading sweep line */}
+      <div className="nav-loading-sweep"></div>
+
+      {/* NAVBAR — premium glass */}
       <nav className={`navbar ${navScrolled ? 'scrolled' : ''}`}>
         <div className="nav-inner">
           <a className="nav-brand" href="#" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
