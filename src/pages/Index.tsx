@@ -391,7 +391,7 @@ export default function Index() {
 
       // ---- HERO — smooth parallax fade-out (requires pinning) ----
       const heroTl = gsap.timeline({
-        scrollTrigger: { trigger: "#home", start: "top top", end: "+=60%", scrub: 0.3, pin: true, pinSpacing: true }
+        scrollTrigger: { trigger: "#home", start: "top top", end: "+=40%", scrub: 0.3, pin: true, pinSpacing: true }
       });
       heroTl.to(".hero-text", { y: -80, opacity: 0, scale: 0.97, duration: 1, ease: "power2.in" }, 0);
       heroTl.to(".hero-glow-orb", { opacity: 0, scale: 1.3, duration: 1 }, 0);
