@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { Code2, FileCode, Braces, Atom, Wind, Server, Terminal, Database, CircuitBoard, Flame, GitBranch, Github, Container, Figma, Palette, Layout, Layers, HardDrive, Wrench } from "lucide-react";
+import { Code2, FileCode, Braces, Atom, Wind, Server, Terminal, Database, CircuitBoard, Flame, GitBranch, Github, Container, Palette, Layout, Wrench } from "lucide-react";
 import Lenis from 'lenis';
+import { motion, useScroll, useSpring, useInView } from "motion/react";
 import project001 from "@/assets/project-001.jpg";
 import project002 from "@/assets/project-002.jpg";
 import project003 from "@/assets/project-003.jpg";
 import project004 from "@/assets/project-004.jpg";
 import project005 from "@/assets/project-005.jpg";
 import { SEO } from "@/components/SEO";
+import { MotionSection, MotionItem, StaggerContainer, staggerChildVariants } from "@/components/MotionSection";
 
 // Section background colors for scroll-driven transitions
 const SECTION_BG_COLORS = [
@@ -102,6 +104,48 @@ const PROJECT_CARD_WIDTH = 480;
 const PROJECT_GAP = 32;
 const NAVBAR_HEIGHT = 72;
 
+// Counter component that animates when in view
+function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-30px" });
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+    let start = 0;
+    const duration = 1500;
+    const startTime = performance.now();
+    const animate = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      start = Math.floor(eased * target);
+      setValue(start);
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+  }, [isInView, target]);
+
+  return <div ref={ref}>{value}{suffix}</div>;
+}
+
+// Skill bar that fills when in view
+function AnimatedSkillBar({ level }: { level: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-20px" });
+
+  return (
+    <div className="skill-bar" ref={ref}>
+      <motion.div
+        className="skill-bar-fill"
+        initial={{ width: "0%" }}
+        animate={isInView ? { width: `${level}%` } : { width: "0%" }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+      />
+    </div>
+  );
+}
+
 function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: typeof PROJECTS; onProjectClick: (p: typeof PROJECTS[0]) => void }) {
   return (
     <section
@@ -129,11 +173,15 @@ function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: type
             willChange: "transform",
           }}
         >
-          {projects.map((p) => (
-            <div
+          {projects.map((p, i) => (
+            <motion.div
               className="project-card"
               key={p.id}
               style={{ flex: `0 0 ${PROJECT_CARD_WIDTH}px` }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className="project-visual" onClick={() => onProjectClick(p)} style={{ cursor: "pointer" }}>
                 <img src={p.image} alt={p.title} className="project-image" loading="lazy" />
@@ -153,11 +201,28 @@ function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: type
                   <a href="#">{"</>"} SOURCE CODE</a>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+// Scroll progress bar component
+function ScrollProgressBar() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  return (
+    <motion.div
+      className="scroll-progress-bar"
+      style={{ scaleX, transformOrigin: "0%" }}
+    />
   );
 }
 
@@ -167,7 +232,6 @@ export default function Index() {
   const [revealGone, setRevealGone] = useState(false);
   const [navScrolled, setNavScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [showBackTop, setShowBackTop] = useState(false);
   const [activeNav, setActiveNav] = useState("home");
   const [formSent, setFormSent] = useState(false);
@@ -201,7 +265,7 @@ export default function Index() {
       oscillator.start(ctx.currentTime);
       oscillator.stop(ctx.currentTime + 0.1);
     } catch {
-      // Ignore audio API failures on restricted browsers/devices.
+      // Ignore audio API failures
     }
   }, []);
 
@@ -216,7 +280,6 @@ export default function Index() {
         setLoaded(true);
         setTimeout(() => setDiamondOpen(true), 100);
         setTimeout(() => setRevealGone(true), 1400);
-        // Scroll to 120px so hero text is centered in viewport
         setTimeout(() => {
           window.scrollTo({ top: 120, behavior: 'smooth' });
         }, 1600);
@@ -250,8 +313,6 @@ export default function Index() {
       lenisRef.current = null;
     };
   }, [loaded]);
-
-  // ===== BACKGROUND REMOVED FOR SIMPLICITY =====
 
   // ===== CUSTOM CURSOR =====
   useEffect(() => {
@@ -303,8 +364,6 @@ export default function Index() {
   useEffect(() => {
     const onScroll = () => {
       const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
       setNavScrolled(scrollTop > 80);
       setShowBackTop(scrollTop > 400);
 
@@ -321,23 +380,7 @@ export default function Index() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // ===== SMOOTH SECTION REVEAL VIA INTERSECTION OBSERVER =====
-  useEffect(() => {
-    if (!loaded) return;
-    const sections = document.querySelectorAll('.about-section, .skills-section, .education-section, .achievements-section, .experience-section, .contact-section');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-        }
-      });
-    }, { threshold: 0.01, rootMargin: '200px 0px 0px 0px' });
-    sections.forEach(s => observer.observe(s));
-    return () => observer.disconnect();
-  }, [loaded]);
-
-
-  // ===== GSAP ANIMATIONS =====
+  // ===== GSAP — only for complex pinning & text plugin =====
   useEffect(() => {
     if (!loaded) return;
 
@@ -346,7 +389,7 @@ export default function Index() {
     requestAnimationFrame(() => {
       Splitting({ target: '[data-splitting]', by: 'words' });
 
-      // ---- HERO — smooth parallax fade-out ----
+      // ---- HERO — smooth parallax fade-out (requires pinning) ----
       const heroTl = gsap.timeline({
         scrollTrigger: { trigger: "#home", start: "top top", end: "+=60%", scrub: 0.3, pin: true, pinSpacing: true }
       });
@@ -355,7 +398,7 @@ export default function Index() {
       heroTl.to(".hero-grid-pattern", { opacity: 0, duration: 0.8 }, 0);
       heroTl.to(".hero-corner-frame", { opacity: 0, duration: 0.6 }, 0);
 
-      // ---- ABOUT ----
+      // ---- ABOUT word reveals ----
       const aboutWords = document.querySelectorAll('.about-section [data-splitting] .word');
       if (aboutWords.length) {
         gsap.from(aboutWords, {
@@ -365,51 +408,6 @@ export default function Index() {
           scrollTrigger: { trigger: ".about-section", start: "top 70%", end: "top 20%", scrub: 0.8 }
         });
       }
-
-      document.querySelectorAll('.stat-number[data-target]').forEach(el => {
-        const target = parseInt((el as HTMLElement).dataset.target || "0");
-        const suffix = (el as HTMLElement).dataset.suffix || "";
-        ScrollTrigger.create({
-          trigger: el, start: "top 85%", once: true,
-          onEnter: () => {
-            const obj = { val: 0 };
-            gsap.to(obj, {
-              val: target, duration: 1.5, ease: "power2.out", onUpdate: () => {
-                (el as HTMLElement).textContent = Math.floor(obj.val) + suffix;
-              }
-            });
-          }
-        });
-      });
-
-      // ---- SKILLS ----
-      const skillCards = document.querySelectorAll('.skill-card');
-      if (skillCards.length) {
-        gsap.set(skillCards, { opacity: 1, rotateX: 0, y: 0 });
-        gsap.from(skillCards, {
-          opacity: 0, y: 30,
-          stagger: { each: 0.05, from: "start" },
-          duration: 0.6, ease: "power2.out",
-          scrollTrigger: { trigger: ".skills-section", start: "top 80%", toggleActions: "play none none none" }
-        });
-      }
-
-      const skillChars = document.querySelectorAll('.skills-section .section-heading .char');
-      if (skillChars.length) {
-        gsap.from(skillChars, {
-          opacity: 0, y: 80, rotation: -15,
-          stagger: 0.04, ease: "expo.out",
-          scrollTrigger: { trigger: ".skills-section", start: "top 70%", toggleActions: "play none none reverse" }
-        });
-      }
-
-      document.querySelectorAll('.skill-bar-fill').forEach(bar => {
-        const level = (bar as HTMLElement).dataset.level || "0";
-        ScrollTrigger.create({
-          trigger: bar, start: "top 90%", once: true,
-          onEnter: () => { (bar as HTMLElement).style.width = level + "%"; }
-        });
-      });
 
       // ---- PROJECTS HORIZONTAL SCROLL (desktop only) ----
       const isMobile = window.innerWidth <= 768;
@@ -433,32 +431,9 @@ export default function Index() {
             invalidateOnRefresh: true,
           },
         });
-
-        gsap.from('.project-card', {
-          opacity: 0, scale: 0.9,
-          stagger: 0.08, duration: 0.5, ease: "power2.out",
-          scrollTrigger: { trigger: projectsSection, start: "top 80%", toggleActions: "play none none none" }
-        });
-      } else if (isMobile && projectsSection) {
-        // Mobile: simple staggered fade-up for project cards
-        gsap.from('.project-card', {
-          opacity: 0, y: 30,
-          stagger: 0.12, duration: 0.5, ease: "power2.out",
-          scrollTrigger: { trigger: projectsSection, start: "top 85%", toggleActions: "play none none none" }
-        });
       }
 
-      // ---- EDUCATION ----
-      document.querySelectorAll('.education-card').forEach(card => {
-        gsap.fromTo(card,
-          { clipPath: "polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%)", opacity: 0 },
-          {
-            clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", opacity: 1, duration: 1.1, ease: "power3.out",
-            scrollTrigger: { trigger: card, start: "top 80%", toggleActions: "play none none reverse" }
-          }
-        );
-      });
-
+      // ---- EDUCATION line ----
       const eduLine = document.querySelector('.education-line') as HTMLElement;
       if (eduLine) {
         gsap.to(eduLine, {
@@ -467,33 +442,7 @@ export default function Index() {
         });
       }
 
-      // ---- ACHIEVEMENTS ----
-      document.querySelectorAll('.achievement-stat-number[data-target]').forEach(el => {
-        const target = parseInt((el as HTMLElement).dataset.target || "0");
-        const suffix = (el as HTMLElement).dataset.suffix || "";
-        ScrollTrigger.create({
-          trigger: el, start: "top 85%", once: true,
-          onEnter: () => {
-            const obj = { val: 0 };
-            gsap.to(obj, {
-              val: target, duration: 1.5, ease: "power2.out", onUpdate: () => {
-                (el as HTMLElement).textContent = Math.floor(obj.val) + suffix;
-              }
-            });
-            const burst = (el as HTMLElement).parentElement?.querySelector('.radial-burst');
-            if (burst) {
-              gsap.fromTo(burst.children, { scale: 0, opacity: 1 }, { scale: 1, opacity: 0, duration: 0.8, stagger: 0.03, ease: "power2.out" });
-            }
-          }
-        });
-      });
-
-      gsap.from('.achievement-card', {
-        x: 60, opacity: 0, stagger: 0.1, duration: 0.8, ease: "power3.out",
-        scrollTrigger: { trigger: '.achievement-cards', start: "top 80%", toggleActions: "play none none reverse" }
-      });
-
-      // ---- EXPERIENCE ----
+      // ---- EXPERIENCE SVG line ----
       const svgLine = document.querySelector('.exp-svg-path') as SVGPathElement;
       if (svgLine) {
         const length = svgLine.getTotalLength();
@@ -504,27 +453,6 @@ export default function Index() {
           scrollTrigger: { trigger: ".experience-section", start: "top 50%", end: "bottom 60%", scrub: 1 }
         });
       }
-
-      document.querySelectorAll('.exp-card').forEach(card => {
-        gsap.from(card, {
-          rotationX: 90, opacity: 0, transformOrigin: "top center", duration: 1.0, ease: "power4.out",
-          scrollTrigger: { trigger: card, start: "top 80%", toggleActions: "play none none reverse" }
-        });
-      });
-
-      // ---- CONTACT ----
-      gsap.from('.contact-info', {
-        x: -60, opacity: 0, duration: 0.9, ease: "power3.out",
-        scrollTrigger: { trigger: ".contact-section", start: "top 70%", toggleActions: "play none none reverse" }
-      });
-      gsap.from('.contact-form', {
-        x: 60, opacity: 0, duration: 0.9, delay: 0.15, ease: "power3.out",
-        scrollTrigger: { trigger: ".contact-section", start: "top 70%", toggleActions: "play none none reverse" }
-      });
-      gsap.from('.contact-link-row', {
-        y: 20, opacity: 0, stagger: 0.08, duration: 0.6, delay: 0.3, ease: "power3.out",
-        scrollTrigger: { trigger: ".contact-links", start: "top 85%", toggleActions: "play none none reverse" }
-      });
 
       // ---- BACKGROUND COLOR TRANSITIONS ----
       const bgLayer = document.querySelector('.bg-transition-layer') as HTMLElement;
@@ -543,7 +471,7 @@ export default function Index() {
         });
       }
 
-      // ---- ENHANCED CHARACTER SPLITS for section headings ----
+      // ---- SECTION HEADING character reveals ----
       document.querySelectorAll('.section-heading[data-splitting]').forEach(heading => {
         const chars = heading.querySelectorAll('.char');
         if (chars.length) {
@@ -553,15 +481,6 @@ export default function Index() {
             scrollTrigger: { trigger: heading, start: 'top 80%', toggleActions: 'play none none reverse' }
           });
         }
-      });
-
-      // ---- STAGGERED BUILD-ON REVEALS ----
-      document.querySelectorAll('.achievement-card, .education-card, .exp-card').forEach(card => {
-        gsap.from(card, {
-          opacity: 0, y: 40, scale: 0.95,
-          duration: 0.7, ease: 'power3.out',
-          scrollTrigger: { trigger: card, start: 'top 85%', toggleActions: 'play none none reverse' }
-        });
       });
     });
 
@@ -619,21 +538,14 @@ export default function Index() {
     } else {
       document.body.style.overflow = '';
     }
-
-    return () => {
-      document.body.style.overflow = originalOverflow;
-    };
+    return () => { document.body.style.overflow = originalOverflow; };
   }, [mobileMenuOpen]);
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
-
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setMobileMenuOpen(false);
-      }
+      if (event.key === 'Escape') setMobileMenuOpen(false);
     };
-
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [mobileMenuOpen]);
@@ -654,7 +566,6 @@ export default function Index() {
   const scrollToSection = useCallback((id: string, smooth = true) => {
     const section = document.getElementById(id);
     if (!section) return;
-
     const offset = id === "home" ? 0 : NAVBAR_HEIGHT;
     const top = Math.max(section.getBoundingClientRect().top + window.scrollY - offset, 0);
     window.history.replaceState(null, "", id === "home" ? window.location.pathname : `#${id}`);
@@ -669,33 +580,20 @@ export default function Index() {
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
     if (!hash) return;
-
     const alignToHash = () => scrollToSection(hash, false);
     window.addEventListener("load", alignToHash);
     const timeout = window.setTimeout(alignToHash, 0);
-
     return () => {
       window.removeEventListener("load", alignToHash);
       window.clearTimeout(timeout);
     };
   }, [scrollToSection]);
 
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormSent(true);
     setTimeout(() => setFormSent(false), 3000);
   };
-
-  const SocialIcons = ({ className = "" }: { className?: string }) => (
-    <div className={`social-icons ${className}`}>
-      {SOCIAL_ICONS.map(s => (
-        <a key={s.tooltip} href={s.url} data-tooltip={s.tooltip} aria-label={s.tooltip}>
-          <i className={s.icon}></i>
-        </a>
-      ))}
-    </div>
-  );
 
   return (
     <>
@@ -731,17 +629,13 @@ export default function Index() {
       {/* BACKGROUND TRANSITION LAYER */}
       <div className="bg-transition-layer"></div>
 
-      {/* FOG — subtle gradient only */}
+      {/* FOG */}
       <div className="fog-overlay">
         <div className="fog-blob"></div>
         <div className="fog-blob"></div>
       </div>
 
-      {/* NAVBAR — premium glass */}
-      {/* Loading sweep line */}
-      <div className="nav-loading-sweep"></div>
-
-      {/* NAVBAR — premium glass */}
+      {/* NAVBAR */}
       <nav className={`navbar ${navScrolled ? 'scrolled' : ''}`}>
         <div className="nav-inner">
           <a className="nav-brand" href="#" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
@@ -787,8 +681,8 @@ export default function Index() {
         </div>
       </nav>
 
-      {/* SCROLL PROGRESS */}
-      <div className="scroll-progress" style={{ width: `${scrollProgress}%` }}></div>
+      {/* SCROLL PROGRESS — driven by scroll position via Framer Motion */}
+      <ScrollProgressBar />
 
       {/* MOBILE MENU */}
       <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(false)}>
@@ -826,7 +720,7 @@ export default function Index() {
         </div>
       </div>
 
-      {/* PROJECT POPUP — clean minimal */}
+      {/* PROJECT POPUP */}
       {popupProject && (
         <div className="project-popup-overlay" onClick={() => setPopupProject(null)}>
           <div className="project-popup" onClick={e => e.stopPropagation()}>
@@ -850,9 +744,8 @@ export default function Index() {
       )}
 
       <div className="content-wrapper">
-        {/* ===== HERO — premium modern ===== */}
+        {/* ===== HERO ===== */}
         <section id="home" className="hero-section">
-          {/* Decorative elements */}
           <div className="hero-grid-pattern"></div>
           <div className="hero-glow-orb hero-glow-orb--1"></div>
           <div className="hero-glow-orb hero-glow-orb--2"></div>
@@ -913,11 +806,11 @@ export default function Index() {
         </section>
 
         {/* ===== ABOUT ===== */}
-        <section id="about" className="about-section">
+        <MotionSection id="about" className="about-section">
           <span className="section-label">// 01. WHO I AM</span>
           <h2 className="section-heading" data-splitting>About <span className="accent">Me</span></h2>
           <div className="about-grid">
-            <div className="about-profile-card">
+            <MotionItem className="about-profile-card" delay={0.1}>
               <div className="profile-card-glow"></div>
               <div className="profile-card-inner">
                 <div className="profile-photo-wrapper">
@@ -947,8 +840,8 @@ export default function Index() {
                   </a>
                 </div>
               </div>
-            </div>
-            <div className="about-text">
+            </MotionItem>
+            <MotionItem className="about-text" delay={0.2}>
               <p data-splitting>Motivated AI and Machine Learning undergraduate with hands-on experience in building AI-driven applications, automation workflows, and computer vision systems. Skilled in Python, machine learning fundamentals, and full-stack AI project development.</p>
               <p data-splitting>I've interned at ResDev Global Solution (Certainti.ai) as an AI Engineer and completed a virtual AIML internship with Google for Developers through Eduskill. My projects range from RPA automation with UiPath to bilingual AI chatbots and real-time motion capture systems.</p>
               <p data-splitting>Seeking an entry-level AI/ML or software engineering role to apply problem-solving skills, data-driven thinking, and continuous learning to real-world industry challenges. Let's build something impactful together.</p>
@@ -960,60 +853,68 @@ export default function Index() {
                   { val: 3, suffix: "+", label: "Certifications" },
                 ].map(s => (
                   <div className="stat-card" key={s.label}>
-                    <div className="stat-number" data-target={s.val} data-suffix={s.suffix}>0</div>
+                    <div className="stat-number">
+                      <AnimatedCounter target={s.val} suffix={s.suffix} />
+                    </div>
                     <div className="stat-label">{s.label}</div>
                   </div>
                 ))}
               </div>
-            </div>
+            </MotionItem>
           </div>
-        </section>
+        </MotionSection>
 
         {/* ===== SKILLS ===== */}
-        <section id="skills" className="skills-section">
+        <MotionSection id="skills" className="skills-section">
           <span className="section-label">// 02. TECH ARSENAL</span>
           <h2 className="section-heading" data-splitting>My <span className="accent">Skills</span></h2>
           <div className="skills-categories">
-            {SKILLS_BY_CATEGORY.map(({ category, skills }) => {
+            {SKILLS_BY_CATEGORY.map(({ category, skills }, catIdx) => {
               const CatIcon = CATEGORY_ICONS[category] || Code2;
               return (
-                <div className="skill-category-group" key={category}>
+                <MotionItem key={category} delay={catIdx * 0.1}>
                   <div className="skill-category-header">
                     <div className="skill-category-icon"><CatIcon size={20} /></div>
                     <h3 className="skill-category-title">{category}</h3>
                     <span className="skill-category-count">{skills.length} skills</span>
                   </div>
-                  <div className="skills-grid">
+                  <StaggerContainer className="skills-grid">
                     {skills.map(skill => {
                       const IconComp = SKILL_ICONS[skill.name] || Code2;
                       return (
-                        <div className="skill-card" key={skill.name} onMouseMove={handleSkillMouseMove} onMouseLeave={handleSkillMouseLeave}>
+                        <motion.div
+                          className="skill-card"
+                          key={skill.name}
+                          variants={staggerChildVariants}
+                          onMouseMove={handleSkillMouseMove as any}
+                          onMouseLeave={handleSkillMouseLeave as any}
+                        >
                           <div className="skill-icon"><IconComp size={24} strokeWidth={1.5} /></div>
                           <div className="skill-name">{skill.name}</div>
-                          <div className="skill-bar"><div className="skill-bar-fill" data-level={skill.level}></div></div>
+                          <AnimatedSkillBar level={skill.level} />
                           <div className="skill-level">{skill.level}%</div>
                           <div className={`skill-status ${skill.status.toLowerCase()}`}>{skill.status}</div>
-                        </div>
+                        </motion.div>
                       );
                     })}
-                  </div>
-                </div>
+                  </StaggerContainer>
+                </MotionItem>
               );
             })}
           </div>
-        </section>
+        </MotionSection>
 
         {/* ===== PROJECTS ===== */}
         <ProjectsHorizontalScroll projects={PROJECTS} onProjectClick={setPopupProject} />
 
         {/* ===== EDUCATION ===== */}
-        <section id="education" className="education-section">
+        <MotionSection id="education" className="education-section">
           <span className="section-label">// 04. KNOWLEDGE BASE</span>
           <h2 className="section-heading" data-splitting>Education</h2>
           <div className="education-timeline">
             <div className="education-line"></div>
             {EDUCATION.map((edu, i) => (
-              <div className="education-card" key={i}>
+              <MotionItem key={i} className="education-card" delay={i * 0.15}>
                 <div className="edu-initial">{edu.initial}</div>
                 <div className="edu-degree">{edu.degree}</div>
                 <div className="edu-institution">{edu.institution}</div>
@@ -1025,43 +926,42 @@ export default function Index() {
                   {edu.tags.map(t => <span key={t}>{t}</span>)}
                 </div>
                 <div className={`edu-status ${edu.status}`}>{edu.status === 'pursuing' ? '● PURSUING' : '✓ COMPLETED'}</div>
-              </div>
+              </MotionItem>
             ))}
           </div>
-        </section>
+        </MotionSection>
 
         {/* ===== ACHIEVEMENTS ===== */}
-        <section className="achievements-section">
+        <MotionSection className="achievements-section">
           <span className="section-label">// 05. MILESTONES</span>
           <h2 className="section-heading" data-splitting>Achievements</h2>
           <div className="achievements-stats">
             {ACHIEVEMENTS_STATS.map((s, i) => (
-              <div className="achievement-stat" key={i}>
-                <div className="achievement-stat-number" data-target={s.value} data-suffix={s.suffix}>0</div>
-                <div className="achievement-stat-label">{s.label}</div>
-                <div className="radial-burst">
-                  {Array.from({ length: 8 }).map((_, j) => (
-                    <span key={j} style={{ transform: `rotate(${j * 45}deg) translateY(-30px)` }}></span>
-                  ))}
+              <MotionItem key={i} delay={i * 0.1}>
+                <div className="achievement-stat">
+                  <div className="achievement-stat-number">
+                    <AnimatedCounter target={s.value} suffix={s.suffix} />
+                  </div>
+                  <div className="achievement-stat-label">{s.label}</div>
                 </div>
-              </div>
+              </MotionItem>
             ))}
           </div>
-          <div className="achievement-cards">
+          <StaggerContainer className="achievement-cards">
             {ACHIEVEMENT_CARDS.map((a, i) => (
-              <div className="achievement-card" key={i}>
+              <motion.div className="achievement-card" key={i} variants={staggerChildVariants}>
                 <i className={a.icon}></i>
                 <div>
                   <div className="achievement-card-title">{a.title}</div>
                   <div className="achievement-card-desc">{a.desc}</div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </section>
+          </StaggerContainer>
+        </MotionSection>
 
         {/* ===== EXPERIENCE ===== */}
-        <section id="experience" className="experience-section">
+        <MotionSection id="experience" className="experience-section">
           <span className="section-label">// 06. MISSION HISTORY</span>
           <h2 className="section-heading" data-splitting>Experience</h2>
           <div className="experience-timeline">
@@ -1069,7 +969,7 @@ export default function Index() {
               <path className="exp-svg-path" d="M20,0 L20,2000" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="2" style={{ filter: 'drop-shadow(0 0 4px hsl(195,100%,50%,0.5))' }} />
             </svg>
             {EXPERIENCE.map((exp, i) => (
-              <div className="experience-entry" key={i}>
+              <MotionItem key={i} className="experience-entry" delay={i * 0.2}>
                 <div className="exp-card">
                   <div className="exp-date">{exp.date}</div>
                   <div className="exp-role">{exp.role}</div>
@@ -1079,17 +979,17 @@ export default function Index() {
                   </ul>
                   <span className={`exp-status ${exp.status}`}>{exp.statusText}</span>
                 </div>
-              </div>
+              </MotionItem>
             ))}
           </div>
-        </section>
+        </MotionSection>
 
         {/* ===== CONTACT ===== */}
-        <section id="contact" className="contact-section">
+        <MotionSection id="contact" className="contact-section">
           <span className="section-label">// 07. GET IN TOUCH</span>
           <h2 className="section-heading">Contact <span className="accent">Me</span></h2>
           <div className="contact-grid">
-            <div className="contact-info">
+            <MotionItem className="contact-info" direction="left">
               <h3>Let's work together</h3>
               <p className="contact-desc">
                 I'm currently open to AI/ML engineering roles, internship opportunities, and exciting collaborations. Feel free to reach out — I'd love to hear from you.
@@ -1101,39 +1001,43 @@ export default function Index() {
                   { icon: "fa-brands fa-linkedin", label: "LinkedIn", url: "linkedin.com/in/pavithran030", href: "https://www.linkedin.com/in/pavithran030" },
                   { icon: "fa-solid fa-phone", label: "Phone", url: "+91 9363575964", href: "tel:+919363575964" },
                 ].map((l, i) => (
-                  <a className="contact-link-row" href={l.href} target="_blank" rel="noopener noreferrer" key={i}>
-                    <i className={l.icon}></i>
-                    <div>
-                      <span className="link-label">{l.label}</span>
-                      <span className="link-url">{l.url}</span>
-                    </div>
-                  </a>
+                  <MotionItem key={i} className="contact-link-row-wrapper" delay={i * 0.08} direction="left">
+                    <a className="contact-link-row" href={l.href} target="_blank" rel="noopener noreferrer">
+                      <i className={l.icon}></i>
+                      <div>
+                        <span className="link-label">{l.label}</span>
+                        <span className="link-url">{l.url}</span>
+                      </div>
+                    </a>
+                  </MotionItem>
                 ))}
               </div>
-            </div>
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label>Name</label>
-                <input type="text" required placeholder="John Doe" />
-              </div>
-              <div className="form-group">
-                <label>Email</label>
-                <input type="email" required placeholder="john@example.com" />
-              </div>
-              <div className="form-group">
-                <label>Subject</label>
-                <input type="text" required placeholder="Project inquiry" />
-              </div>
-              <div className="form-group">
-                <label>Message</label>
-                <textarea required placeholder="Tell me about your project..." rows={4}></textarea>
-              </div>
-              <button type="submit" className={`btn-submit ${formSent ? 'sent' : ''}`}>
-                {formSent ? '✓ Message Sent' : 'Send Message'}
-              </button>
-            </form>
+            </MotionItem>
+            <MotionItem direction="right" delay={0.15}>
+              <form className="contact-form" onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label>Name</label>
+                  <input type="text" required placeholder="John Doe" />
+                </div>
+                <div className="form-group">
+                  <label>Email</label>
+                  <input type="email" required placeholder="john@example.com" />
+                </div>
+                <div className="form-group">
+                  <label>Subject</label>
+                  <input type="text" required placeholder="Project inquiry" />
+                </div>
+                <div className="form-group">
+                  <label>Message</label>
+                  <textarea required placeholder="Tell me about your project..." rows={4}></textarea>
+                </div>
+                <button type="submit" className={`btn-submit ${formSent ? 'sent' : ''}`}>
+                  {formSent ? '✓ Message Sent' : 'Send Message'}
+                </button>
+              </form>
+            </MotionItem>
           </div>
-        </section>
+        </MotionSection>
 
         {/* ===== FOOTER ===== */}
         <footer className="footer">

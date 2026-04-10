@@ -279,32 +279,16 @@ body {
   border-bottom: 1px solid hsl(var(--accent-ice) / 0.1);
 }
 
-/* Loading sweep line below navbar */
-.nav-loading-sweep {
+/* Scroll progress bar — driven by Framer Motion */
+.scroll-progress-bar {
   position: fixed;
   top: 72px;
   left: 0;
   right: 0;
   height: 2px;
   z-index: 1001;
-  background: transparent;
-  overflow: hidden;
-}
-
-.nav-loading-sweep::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -40%;
-  width: 40%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, hsl(var(--accent-ice)), hsl(var(--accent-mint)), transparent);
-  animation: navSweep 2s ease-in-out infinite;
-}
-
-@keyframes navSweep {
-  0% { left: -40%; }
-  100% { left: 100%; }
+  background: linear-gradient(90deg, hsl(var(--accent-ice)), hsl(var(--accent-mint)));
+  box-shadow: 0 0 10px hsl(var(--accent-ice) / 0.5);
 }
 
 .nav-inner {
@@ -433,16 +417,7 @@ body {
   box-shadow: 0 0 20px hsl(var(--accent-ice) / 0.15);
 }
 
-.scroll-progress {
-  position: fixed;
-  top: 72px;
-  left: 0;
-  height: 2px;
-  background: linear-gradient(90deg, hsl(var(--accent-ice)), hsl(var(--accent-mint)));
-  z-index: 999;
-  transition: width 0.05s linear;
-  box-shadow: 0 0 10px hsl(var(--accent-ice) / 0.5);
-}
+/* Old scroll-progress replaced by .scroll-progress-bar */
 
 /* Hamburger */
 .hamburger {
@@ -655,7 +630,7 @@ body {
     background: linear-gradient(180deg, hsl(192 40% 6%) 0%, hsl(192 35% 5% / 0.95) 100%);
   }
 
-  .nav-loading-sweep {
+  .scroll-progress-bar {
     top: 64px;
   }
 
@@ -835,27 +810,7 @@ section:not(.hero-section)::before {
   opacity: 0.5;
 }
 
-.about-section,
-.skills-section,
-.education-section,
-.achievements-section,
-.experience-section,
-.contact-section {
-  opacity: 0;
-  transform: translateY(80px) scale(0.96);
-  transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-
-.about-section.in-view,
-.skills-section.in-view,
-.education-section.in-view,
-.achievements-section.in-view,
-.experience-section.in-view,
-.contact-section.in-view {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
+/* Section reveals handled by Framer Motion — no CSS opacity/transform needed */
 
 /* Decorative divider between sections */
 section:not(.hero-section):not(.projects-section)+section:not(.projects-section)::after {
@@ -3033,14 +2988,5 @@ html.lenis, html.lenis body {
     transform: scale(0.9);
   }
 
-  /* Smooth mobile section reveal */
-  .about-section,
-  .skills-section,
-  .education-section,
-  .achievements-section,
-  .experience-section,
-  .contact-section {
-    transform: translateY(24px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  }
+  /* Framer Motion handles section reveals on mobile too */
 }
