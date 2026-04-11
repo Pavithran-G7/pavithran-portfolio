@@ -5,15 +5,32 @@ type SeoProps = {
   description: string;
   path?: string;
   image?: string;
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageType?: string;
+  keywords?: string[];
   robots?: string;
   type?: "website" | "profile";
   noIndex?: boolean;
 };
 
 const SITE_URL = "https://pavithraninfo.dev";
-const DEFAULT_IMAGE = `${SITE_URL}/og-image.svg`;
 const SITE_NAME = "Pavithran G Portfolio";
+const DEFAULT_IMAGE = `${SITE_URL}/og-image.svg`;
 const DEFAULT_ROBOTS = "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1";
+const DEFAULT_KEYWORDS = [
+  "Pavithran G",
+  "AI ML developer",
+  "machine learning portfolio",
+  "computer vision projects",
+  "automation workflows",
+  "Python developer",
+  "React portfolio",
+  "TensorFlow projects",
+  "UiPath automation",
+  "n8n workflows",
+];
 
 function upsertMeta(attribute: "name" | "property", key: string, content: string) {
   const selector = `meta[${attribute}='${key}']`;
@@ -66,6 +83,11 @@ export function SEO({
   description,
   path = "/",
   image = DEFAULT_IMAGE,
+  imageAlt = "Pavithran G AI and ML Developer Portfolio",
+  imageWidth = 1200,
+  imageHeight = 630,
+  imageType = "image/svg+xml",
+  keywords = DEFAULT_KEYWORDS,
   robots,
   type = "website",
   noIndex = false,
@@ -76,6 +98,7 @@ export function SEO({
     const robotsContent = noIndex
       ? "noindex,nofollow,max-image-preview:none"
       : (robots ?? DEFAULT_ROBOTS);
+    const keywordContent = keywords.filter(Boolean).join(", ");
 
     document.title = title;
 
@@ -84,6 +107,11 @@ export function SEO({
 
     upsertMeta("name", "description", description);
     upsertMeta("name", "author", "Pavithran G");
+    upsertMeta("name", "application-name", SITE_NAME);
+    upsertMeta("name", "generator", "Vite + React + TypeScript");
+    upsertMeta("name", "theme-color", "#0a0f14");
+    upsertMeta("name", "color-scheme", "dark");
+    upsertMeta("name", "keywords", keywordContent);
     upsertMeta("name", "robots", robotsContent);
     upsertMeta("name", "googlebot", robotsContent);
     upsertMeta("name", "bingbot", robotsContent);
@@ -95,15 +123,51 @@ export function SEO({
     upsertMeta("property", "og:url", canonicalUrl);
     upsertMeta("property", "og:image", image);
     upsertMeta("property", "og:image:secure_url", image);
-    upsertMeta("property", "og:image:alt", "Pavithran G AI and ML Developer Portfolio");
+    upsertMeta("property", "og:image:type", imageType);
+    upsertMeta("property", "og:image:width", String(imageWidth));
+    upsertMeta("property", "og:image:height", String(imageHeight));
+    upsertMeta("property", "og:image:alt", imageAlt);
     upsertMeta("property", "og:locale", "en_US");
 
     upsertMeta("name", "twitter:card", "summary_large_image");
+    upsertMeta("name", "twitter:site", "@Pavithran030");
+    upsertMeta("name", "twitter:creator", "@Pavithran030");
     upsertMeta("name", "twitter:title", title);
     upsertMeta("name", "twitter:description", description);
     upsertMeta("name", "twitter:image", image);
-    upsertMeta("name", "twitter:image:alt", "Pavithran G AI and ML Developer Portfolio");
-  }, [title, description, path, image, robots, type, noIndex]);
+    upsertMeta("name", "twitter:image:alt", imageAlt);
+
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: title,
+      description,
+      url: canonicalUrl,
+      inLanguage: "en",
+      isPartOf: {
+        "@type": "WebSite",
+        name: SITE_NAME,
+        url: SITE_URL,
+      },
+      primaryImageOfPage: {
+        "@type": "ImageObject",
+        url: image,
+        contentUrl: image,
+        caption: imageAlt,
+        width: imageWidth,
+        height: imageHeight,
+      },
+    };
+
+    let script = document.getElementById("structured-data-page") as HTMLScriptElement | null;
+    if (!script) {
+      script = document.createElement("script");
+      script.id = "structured-data-page";
+      script.type = "application/ld+json";
+      document.head.appendChild(script);
+    }
+    script.textContent = JSON.stringify(structuredData);
+  }, [title, description, path, image, imageAlt, imageWidth, imageHeight, imageType, keywords, robots, type, noIndex]);
 
   return null;
 }

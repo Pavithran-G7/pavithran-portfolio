@@ -601,6 +601,18 @@ export default function Index() {
         title="Pavithran G | AI & ML Developer Portfolio"
         description="Portfolio of Pavithran G, an AI and ML developer building machine learning, computer vision, and automation projects with Python, TensorFlow, and modern web tools."
         path="/"
+        keywords={[
+          "Pavithran G",
+          "AI ML developer portfolio",
+          "machine learning engineer",
+          "computer vision developer",
+          "automation workflows",
+          "Python developer",
+          "TensorFlow portfolio",
+          "React portfolio",
+          "UiPath automation",
+          "n8n workflows",
+        ]}
         type="website"
       />
 

@@ -15,6 +15,7 @@ const NotFound = () => {
         title="404 | Pavithran G Portfolio"
         description="The page you are looking for does not exist on pavithraninfo.dev."
         path={location.pathname}
+        keywords={["Pavithran G", "404", "portfolio", "AI ML developer"]}
         noIndex
       />
 
