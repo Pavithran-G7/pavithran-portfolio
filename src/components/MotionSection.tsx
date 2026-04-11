@@ -17,12 +17,12 @@ export function MotionSection({ children, className = "", id, delay = 0 }: Motio
       ref={ref}
       id={id}
       className={className}
-      initial={{ opacity: 0, y: 60, scale: 0.97 }}
-      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 60, scale: 0.97 }}
+      initial={{ opacity: 1, y: 56, scale: 0.985 }}
+      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 1, y: 56, scale: 0.985 }}
       transition={{
-        duration: 0.9,
+        duration: 1.05,
         delay,
-        ease: [0.16, 1, 0.3, 1],
+        ease: [0.22, 1, 0.36, 1],
       }}
     >
       {children}

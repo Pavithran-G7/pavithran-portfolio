@@ -4,8 +4,8 @@
   "description": "AI and ML developer portfolio showcasing machine learning, computer vision, and automation projects.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0a0f14",
-  "theme_color": "#0a0f14",
+  "background_color": "#000000",
+  "theme_color": "#000000",
   "scope": "/",
   "lang": "en",
   "icons": [

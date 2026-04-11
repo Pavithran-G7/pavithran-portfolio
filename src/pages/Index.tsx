@@ -12,14 +12,14 @@ import { MotionSection, MotionItem, StaggerContainer, staggerChildVariants } fro
 
 // Section background colors for scroll-driven transitions
 const SECTION_BG_COLORS = [
-  { section: '#home', color: 'hsl(210, 80%, 3%)' },
-  { section: '#about', color: 'hsl(220, 60%, 5%)' },
-  { section: '#skills', color: 'hsl(215, 50%, 4%)' },
-  { section: '#projects', color: 'hsl(210, 70%, 3%)' },
-  { section: '#education', color: 'hsl(225, 55%, 5%)' },
-  { section: '.achievements-section', color: 'hsl(200, 60%, 4%)' },
-  { section: '#experience', color: 'hsl(218, 65%, 4%)' },
-  { section: '#contact', color: 'hsl(195, 50%, 5%)' },
+  { section: '#home', color: 'hsl(0, 0%, 0%)' },
+  { section: '#about', color: 'hsl(0, 0%, 7%)' },
+  { section: '#skills', color: 'hsl(0, 0%, 0%)' },
+  { section: '#projects', color: 'hsl(0, 0%, 7%)' },
+  { section: '#education', color: 'hsl(0, 0%, 0%)' },
+  { section: '.achievements-section', color: 'hsl(0, 0%, 7%)' },
+  { section: '#experience', color: 'hsl(0, 0%, 0%)' },
+  { section: '#contact', color: 'hsl(0, 0%, 7%)' },
 ];
 
 const NAV_LINKS = ["home", "about", "skills", "projects", "experience", "contact"];
@@ -102,7 +102,7 @@ const SOCIAL_ICONS = [
 
 const PROJECT_CARD_WIDTH = 480;
 const PROJECT_GAP = 32;
-const NAVBAR_HEIGHT = 72;
+const NAVBAR_HEIGHT = 96;
 
 // Counter component that animates when in view
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
@@ -160,7 +160,7 @@ function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: type
           flexDirection: "column",
           justifyContent: "center",
           overflow: "hidden",
-          padding: "0 5vw",
+          padding: "0 var(--section-inline)",
         }}
       >
         <span className="section-label" style={{ marginBottom: 12 }}>// 03. MISSION LOG</span>
@@ -280,15 +280,12 @@ export default function Index() {
         setLoaded(true);
         setTimeout(() => setDiamondOpen(true), 100);
         setTimeout(() => setRevealGone(true), 1400);
-        setTimeout(() => {
-          window.scrollTo({ top: 120, behavior: 'smooth' });
-        }, 1600);
       }, [], 3.1);
   }, []);
 
   // ===== LENIS SMOOTH SCROLL =====
   useEffect(() => {
-    if (!loaded) return;
+    if (!loaded || !revealGone) return;
 
     const lenis = new Lenis({
       lerp: 0.06,
@@ -316,7 +313,7 @@ export default function Index() {
 
   // ===== CUSTOM CURSOR =====
   useEffect(() => {
-    if (window.innerWidth <= 768) return;
+    if (!loaded || !revealGone || window.innerWidth <= 768) return;
     const ring = cursorRingRef.current;
     const dot = cursorDotRef.current;
     if (!ring || !dot) return;
@@ -358,7 +355,7 @@ export default function Index() {
       window.removeEventListener('mousedown', down);
       window.removeEventListener('mouseup', up);
     };
-  }, []);
+  }, [loaded, revealGone]);
 
   // ===== SCROLL TRACKING =====
   useEffect(() => {
@@ -382,7 +379,7 @@ export default function Index() {
 
   // ===== GSAP — only for complex pinning & text plugin =====
   useEffect(() => {
-    if (!loaded) return;
+    if (!loaded || !revealGone) return;
 
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin);
 
@@ -391,7 +388,15 @@ export default function Index() {
 
       // ---- HERO — smooth parallax fade-out (requires pinning) ----
       const heroTl = gsap.timeline({
-        scrollTrigger: { trigger: "#home", start: "top top", end: "+=40%", scrub: 0.3, pin: true, pinSpacing: true }
+        scrollTrigger: {
+          trigger: "#home",
+          start: "top top",
+          end: "+=40%",
+          scrub: 0.3,
+          pin: false,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        }
       });
       heroTl.to(".hero-text", { y: -80, opacity: 0, scale: 0.97, duration: 1, ease: "power2.in" }, 0);
       heroTl.to(".hero-glow-orb", { opacity: 0, scale: 1.3, duration: 1 }, 0);
@@ -482,10 +487,39 @@ export default function Index() {
           });
         }
       });
+
+      // ---- MODERN SECTION REVEALS (clip-path + blur + depth) ----
+      const sections = Array.from(document.querySelectorAll<HTMLElement>('.content-wrapper section:not(.hero-section)'));
+      sections.forEach((section, index) => {
+        gsap.fromTo(
+          section,
+          {
+            clipPath: 'inset(12% 0% 14% 0% round 24px)',
+            y: 90,
+            opacity: 0.35,
+            filter: 'blur(10px)',
+          },
+          {
+            clipPath: 'inset(0% 0% 0% 0% round 0px)',
+            y: 0,
+            opacity: 1,
+            filter: 'blur(0px)',
+            duration: 1.25,
+            ease: 'power4.out',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 84%',
+              end: 'top 48%',
+              scrub: 0.65,
+            },
+            delay: index * 0.02,
+          }
+        );
+      });
     });
 
     return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
-  }, [loaded]);
+  }, [loaded, revealGone]);
 
   // ===== MAGNETIC HOVER EFFECT (desktop only) =====
   useEffect(() => {
@@ -515,7 +549,7 @@ export default function Index() {
         (el as HTMLElement).removeEventListener('mouseleave', leave);
       });
     };
-  }, [loaded]);
+  }, [loaded, revealGone]);
 
   // ===== CLICK AUDIO ON BUTTONS =====
   useEffect(() => {
@@ -563,6 +597,14 @@ export default function Index() {
     e.currentTarget.style.transform = '';
   }, []);
 
+  const scrollToTop = useCallback(() => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { duration: 1.2 });
+      return;
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   const scrollToSection = useCallback((id: string, smooth = true) => {
     const section = document.getElementById(id);
     if (!section) return;
@@ -580,7 +622,7 @@ export default function Index() {
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
     if (!hash) return;
-    const alignToHash = () => scrollToSection(hash, false);
+    const alignToHash = () => scrollToSection(hash, true);
     window.addEventListener("load", alignToHash);
     const timeout = window.setTimeout(alignToHash, 0);
     return () => {
@@ -620,8 +662,8 @@ export default function Index() {
       <div id="loader" className={loaded ? "hidden" : ""}>
         <div className="loader-scanline" />
         <svg className="loader-logo" viewBox="0 0 60 60">
-          <polygon points="30,2 58,30 30,58 2,30" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="2" />
-          <polygon points="30,12 48,30 30,48 12,30" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="1.5" opacity="0.5" />
+          <polygon points="30,2 58,30 30,58 2,30" fill="none" stroke="hsl(10,100%,59%)" strokeWidth="2" />
+          <polygon points="30,12 48,30 30,48 12,30" fill="none" stroke="hsl(10,100%,59%)" strokeWidth="1.5" opacity="0.5" />
         </svg>
         <div className="loader-text"><span ref={loaderTextRef}></span></div>
         <div className="loader-progress"><div className="loader-progress-bar" ref={loaderBarRef}></div></div>
@@ -635,8 +677,12 @@ export default function Index() {
       )}
 
       {/* CURSORS */}
-      <div className="cursor-ring" ref={cursorRingRef}></div>
-      <div className="cursor-dot" ref={cursorDotRef}></div>
+      {loaded && revealGone && (
+        <>
+          <div className="cursor-ring" ref={cursorRingRef}></div>
+          <div className="cursor-dot" ref={cursorDotRef}></div>
+        </>
+      )}
 
       {/* BACKGROUND TRANSITION LAYER */}
       <div className="bg-transition-layer"></div>
@@ -693,8 +739,8 @@ export default function Index() {
         </div>
       </nav>
 
-      {/* SCROLL PROGRESS — driven by scroll position via Framer Motion */}
-      <ScrollProgressBar />
+      {/* SCROLL PROGRESS — shown only after user begins scrolling */}
+      {loaded && revealGone && navScrolled && <ScrollProgressBar />}
 
       {/* MOBILE MENU */}
       <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(false)}>
@@ -812,7 +858,16 @@ export default function Index() {
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" /><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" /></svg>
               </a>
               <span className="hero-social-divider"></span>
-              <span className="hero-scroll-hint">Scroll to explore</span>
+            </div>
+
+            <div className="hero-scroll-hint" aria-label="Scroll to explore">
+              <span className="hero-scroll-hint-icon" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 5v14" />
+                  <path d="m18 13-6 6-6-6" />
+                </svg>
+              </span>
+              <span className="hero-scroll-hint-copy">Scroll to explore</span>
             </div>
           </div>
         </section>
@@ -978,7 +1033,7 @@ export default function Index() {
           <h2 className="section-heading" data-splitting>Experience</h2>
           <div className="experience-timeline">
             <svg className="experience-svg-line" width="40" height="100%" preserveAspectRatio="none">
-              <path className="exp-svg-path" d="M20,0 L20,2000" fill="none" stroke="hsl(195,100%,50%)" strokeWidth="2" style={{ filter: 'drop-shadow(0 0 4px hsl(195,100%,50%,0.5))' }} />
+              <path className="exp-svg-path" d="M20,0 L20,2000" fill="none" stroke="hsl(10,100%,59%)" strokeWidth="2" style={{ filter: 'drop-shadow(0 0 4px hsl(10,100%,59%,0.5))' }} />
             </svg>
             {EXPERIENCE.map((exp, i) => (
               <MotionItem key={i} className="experience-entry" delay={i * 0.2}>
@@ -1058,7 +1113,7 @@ export default function Index() {
       </div>
 
       {/* BACK TO TOP */}
-      <button className={`back-to-top ${showBackTop ? 'visible' : ''}`} onClick={() => gsap.to(window, { scrollTo: { y: 0 }, duration: 1.5, ease: "power4.inOut" })} aria-label="Back to top">
+      <button className={`back-to-top ${showBackTop ? 'visible' : ''}`} onClick={scrollToTop} aria-label="Back to top">
         <i className="fa-solid fa-arrow-up"></i>
       </button>
     </>
