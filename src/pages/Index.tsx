@@ -41,7 +41,7 @@ const SECTION_BG_COLORS = [
   { section: "#contact", color: "hsl(0, 0%, 12%)" },
 ];
 
-const NAV_LINKS = ["home", "about", "skills", "projects", "experience", "contact"];
+const NAV_LINKS = ["home", "about", "skills", "projects", "experience", "achievements", "education", "contact"];
 
 const SKILL_ICONS: Record<string, React.ComponentType<unknown>> = {
   Python: FileCode,
