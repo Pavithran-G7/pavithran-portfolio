@@ -494,16 +494,17 @@ body {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  justify-content: flex-start;
+  justify-content: center;
   width: min(88vw, 360px);
-  margin-top: 72px;
+  margin-top: auto;
+  margin-bottom: auto;
   margin-right: 12px;
-  max-height: calc(100dvh - 96px);
+  max-height: calc(100dvh - 40px);
   min-height: auto;
-  padding: 12px 12px 12px;
+  padding: 18px 16px 16px;
   border: 1px solid hsl(var(--border-line) / 0.35);
   border-radius: 16px;
-  background: linear-gradient(180deg, hsl(var(--bg-void) / 0.9), hsl(var(--bg-deep) / 0.88));
+  background: linear-gradient(180deg, hsl(var(--bg-void) / 0.92), hsl(var(--bg-deep) / 0.9));
   box-shadow: 0 10px 30px hsl(0 0% 0% / 0.38);
   overflow: auto;
   position: relative;
@@ -545,27 +546,27 @@ body {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 6px;
+  gap: 4px;
   width: 100%;
   flex: 0;
   justify-content: flex-start;
-  margin-top: 30px;
+  margin-top: 36px;
+  margin-bottom: 8px;
 }
 
 .mobile-menu-link {
   font-family: var(--font-ui);
-  font-size: clamp(13px, 4.1vw, 16px);
+  font-size: clamp(13px, 4.1vw, 15px);
   text-transform: uppercase;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.11em;
   color: hsl(var(--text-primary) / 0.65);
   text-decoration: none;
-  padding: 10px 14px;
+  padding: 12px 16px;
   width: 100%;
   text-align: left;
   border-radius: 10px;
-  border: 1px solid hsl(var(--border-line) / 0.1);
-  background: hsl(var(--bg-surface) / 0.2);
-  backdrop-filter: blur(6px);
+  border: 1px solid transparent;
+  background: transparent;
   opacity: 0;
   transform: translateY(24px) scale(0.95);
   transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
@@ -583,7 +584,7 @@ body {
   background: linear-gradient(135deg, hsl(var(--accent-ice)), hsl(var(--accent-mint)));
   font-weight: 600;
   border-color: transparent;
-  box-shadow: 0 6px 20px hsl(var(--accent-ice) / 0.24), inset 0 1px 0 hsl(var(--text-primary) / 0.15);
+  box-shadow: 0 4px 16px hsl(var(--accent-ice) / 0.2);
 }
 
 .mobile-menu-link:not(.active):active {
@@ -613,9 +614,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
-  margin-top: 10px;
+  margin-top: 14px;
+  padding-top: 6px;
 }
 
 .mobile-menu-divider {
@@ -712,7 +714,6 @@ body {
   .mobile-menu-inner {
     width: calc(100vw - 16px);
     margin-right: 8px;
-    margin-top: 68px;
   }
 
   .mobile-menu-link {
