@@ -918,7 +918,7 @@ section {
   justify-content: center;
   height: 100vh !important;
   min-height: 100vh;
-  padding: 0 var(--section-inline) !important;
+  padding: 96px var(--section-inline) 0 !important;
   margin-top: 0 !important;
   scroll-margin-top: 0 !important;
   box-sizing: border-box;
@@ -1348,7 +1348,7 @@ section {
   .hero-section {
     min-height: 100svh;
     height: 100svh !important;
-    padding: 0 6vw !important;
+    padding: 64px 6vw 0 !important;
     align-items: center;
     justify-content: center;
   }
