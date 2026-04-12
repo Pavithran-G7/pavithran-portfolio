@@ -313,46 +313,7 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
   );
 }
 
-// Circular skill ring SVG
-function SkillRing({ level, size = 56, strokeWidth = 3.5 }: { level: number; size?: number; strokeWidth?: number }) {
-  const ref = useRef<SVGSVGElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-20px" });
-  const radius = (size - strokeWidth) / 2;
-  const circumference = 2 * Math.PI * radius;
 
-  return (
-    <svg ref={ref} width={size} height={size} className="skill-ring-svg">
-      <circle
-        cx={size / 2}
-        cy={size / 2}
-        r={radius}
-        fill="none"
-        stroke="hsl(var(--border-line) / 0.15)"
-        strokeWidth={strokeWidth}
-      />
-      <motion.circle
-        cx={size / 2}
-        cy={size / 2}
-        r={radius}
-        fill="none"
-        stroke="url(#skillGradient)"
-        strokeWidth={strokeWidth}
-        strokeLinecap="round"
-        strokeDasharray={circumference}
-        initial={{ strokeDashoffset: circumference }}
-        animate={isInView ? { strokeDashoffset: circumference - (circumference * level) / 100 } : { strokeDashoffset: circumference }}
-        transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-        style={{ transform: "rotate(-90deg)", transformOrigin: "center" }}
-      />
-      <defs>
-        <linearGradient id="skillGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="hsl(var(--accent-ice))" />
-          <stop offset="100%" stopColor="hsl(var(--accent-mint))" />
-        </linearGradient>
-      </defs>
-    </svg>
-  );
-}
 
 function ProjectsHorizontalScroll({
   projects,
