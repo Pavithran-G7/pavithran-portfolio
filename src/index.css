@@ -714,7 +714,6 @@ body {
   .mobile-menu-inner {
     width: calc(100vw - 16px);
     margin-right: 8px;
-    margin-top: 68px;
   }
 
   .mobile-menu-link {
