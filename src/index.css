@@ -1877,169 +1877,132 @@ html.lenis body {
   }
 }
 
-/* ===== SKILLS — PREMIUM REDESIGN ===== */
+/* ===== SKILLS — 3D ORB CLOUD ===== */
 
-/* Tab bar */
-.skills-tab-bar {
+.skills-orb-cloud {
   display: flex;
-  gap: 8px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
+  flex-direction: column;
+  gap: 48px;
 }
 
-.skills-tab {
+.skills-orb-group-label {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 22px;
-  border-radius: 40px;
-  border: 1px solid hsl(var(--border-line) / 0.25);
-  background: hsl(var(--bg-surface) / 0.3);
-  color: hsl(var(--text-muted));
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  backdrop-filter: blur(8px);
-}
-
-.skills-tab:hover {
-  border-color: hsl(var(--accent-ice) / 0.4);
-  color: hsl(var(--text-primary));
-  background: hsl(var(--accent-ice) / 0.06);
-}
-
-.skills-tab.active {
-  background: linear-gradient(135deg, hsl(var(--accent-ice) / 0.15), hsl(var(--accent-mint) / 0.1));
-  border-color: hsl(var(--accent-ice) / 0.5);
-  color: hsl(var(--accent-ice));
-  box-shadow: 0 0 20px hsl(var(--accent-ice) / 0.12), inset 0 1px 0 hsl(var(--accent-ice) / 0.15);
-}
-
-/* Panel grid */
-.skills-panel {
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-}
-
-/* Premium card */
-.skill-card-premium {
-  position: relative;
+  color: hsl(var(--text-muted));
+  margin-bottom: 20px;
+  padding: 6px 16px;
   border-radius: 20px;
-  padding: 2px;
-  background: linear-gradient(
-    135deg,
-    hsl(var(--accent-ice) / 0.2),
-    hsl(var(--border-line) / 0.15) 50%,
-    hsl(var(--accent-mint) / 0.15)
-  );
-  cursor: default;
-  overflow: hidden;
+  background: hsl(var(--bg-surface) / 0.3);
+  border: 1px solid hsl(var(--border-line) / 0.2);
+  backdrop-filter: blur(6px);
 }
 
-.skill-card-glow {
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  background: radial-gradient(circle at 50% 0%, hsl(var(--accent-ice) / 0.08), transparent 60%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.4s;
-}
-
-.skill-card-premium:hover .skill-card-glow {
-  opacity: 1;
-}
-
-.skill-card-inner-p {
-  position: relative;
-  z-index: 1;
-  background: hsl(var(--bg-deep) / 0.92);
-  backdrop-filter: blur(16px);
-  border-radius: 18px;
-  padding: 28px 20px 22px;
+.skills-orb-row {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  text-align: center;
-}
-
-/* Ring wrapper */
-.skill-ring-wrap {
-  position: relative;
-  display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 28px;
   justify-content: center;
 }
 
-.skill-ring-icon {
+/* Individual orb */
+.skill-orb {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: default;
+  width: 100px;
+}
+
+/* 3D Sphere */
+.skill-orb-sphere {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255,255,255,0.35), transparent 50%),
+    radial-gradient(circle at 65% 70%, var(--orb-c2), transparent 60%),
+    radial-gradient(circle at 40% 40%, var(--orb-c1), var(--orb-c2));
+  box-shadow:
+    0 8px 32px color-mix(in srgb, var(--orb-c1) 35%, transparent),
+    0 2px 12px color-mix(in srgb, var(--orb-c2) 25%, transparent),
+    inset 0 -4px 12px color-mix(in srgb, var(--orb-c2) 30%, transparent),
+    inset 0 4px 8px rgba(255,255,255,0.15);
+  transition: box-shadow 0.35s, transform 0.35s;
+  position: relative;
+  z-index: 1;
+}
+
+.skill-orb:hover .skill-orb-sphere {
+  box-shadow:
+    0 12px 48px color-mix(in srgb, var(--orb-c1) 50%, transparent),
+    0 4px 20px color-mix(in srgb, var(--orb-c2) 40%, transparent),
+    inset 0 -4px 12px color-mix(in srgb, var(--orb-c2) 30%, transparent),
+    inset 0 4px 8px rgba(255,255,255,0.2);
+}
+
+/* Icon overlay on sphere */
+.skill-orb-icon {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -60%);
-  color: hsl(var(--accent-ice));
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  color: rgba(255, 255, 255, 0.9);
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.3));
   transition: transform 0.3s;
 }
 
-.skill-card-premium:hover .skill-ring-icon {
-  transform: translate(-50%, -60%) scale(1.15);
+.skill-orb:hover .skill-orb-icon {
+  transform: translate(-50%, -50%) scale(1.15);
 }
 
-.skill-ring-pct {
+/* Progress ring around sphere */
+.skill-orb-ring {
   position: absolute;
-  bottom: 2px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  width: 82px;
+  height: 82px;
+  transform: translate(-50%, calc(-50% - 5px));
+  z-index: 2;
+  pointer-events: none;
+}
+
+.skill-orb-ring-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--orb-c1) 40%, transparent));
+}
+
+/* Label */
+.skill-orb-label {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  color: hsl(var(--text-primary));
+  text-align: center;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Percentage */
+.skill-orb-pct {
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 700;
-  color: hsl(var(--accent-ice));
+  color: hsl(var(--text-muted));
   letter-spacing: 0.05em;
-}
-
-.skill-ring-svg {
-  filter: drop-shadow(0 0 6px hsl(var(--accent-ice) / 0.2));
-}
-
-/* Card name */
-.skill-card-name {
-  font-family: var(--font-ui);
-  font-size: 14px;
-  font-weight: 700;
-  color: hsl(var(--text-primary));
-  letter-spacing: 0.02em;
-}
-
-/* Status chip */
-.skill-chip {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  padding: 3px 10px;
-  border-radius: 20px;
-}
-
-.skill-chip.operational {
-  color: hsl(var(--accent-mint));
-  background: hsl(var(--accent-mint) / 0.1);
-  box-shadow: 0 0 8px hsl(var(--accent-mint) / 0.08);
-}
-
-.skill-chip.advanced {
-  color: hsl(var(--accent-ice));
-  background: hsl(var(--accent-ice) / 0.1);
-  box-shadow: 0 0 8px hsl(var(--accent-ice) / 0.08);
-}
-
-.skill-chip.learning {
-  color: hsl(var(--accent-amber));
-  background: hsl(var(--accent-amber) / 0.1);
 }
 
 /* ===== PROJECTS ===== */
