@@ -1398,40 +1398,62 @@ export default function Index() {
             })}
           </div>
 
-          {/* Skill Panels */}
-          {SKILLS_BY_CATEGORY.map(({ category, skills }, catIdx) => (
-            <StaggerContainer
-              key={category}
-              className="skills-panel"
-              style={{ display: catIdx === 0 ? "grid" : "none" } as React.CSSProperties}
-            >
-              {skills.map((skill) => {
-                const IconComp = SKILL_ICONS[skill.name] || Code2;
-                return (
-                  <motion.div
-                    className="skill-card-premium"
-                    key={skill.name}
-                    variants={staggerChildVariants}
-                    whileHover={{ y: -6, scale: 1.02 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  >
-                    <div className="skill-card-glow" />
-                    <div className="skill-card-inner-p">
-                      <div className="skill-ring-wrap">
-                        <SkillRing level={skill.level} />
-                        <div className="skill-ring-icon">
-                          <IconComp size={20} strokeWidth={1.5} />
-                        </div>
-                        <span className="skill-ring-pct">{skill.level}%</span>
-                      </div>
-                      <h4 className="skill-card-name">{skill.name}</h4>
-                      <div className={`skill-chip ${skill.status.toLowerCase()}`}>{skill.status}</div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </StaggerContainer>
-          ))}
+          {/* All Skills as 3D Orbs */}
+          <div className="skills-orb-cloud">
+            {SKILLS_BY_CATEGORY.map(({ category, skills }, catIdx) => (
+              <div key={category} className="skills-orb-group">
+                <MotionItem delay={catIdx * 0.1}>
+                  <div className="skills-orb-group-label">
+                    {(() => { const CatIcon = CATEGORY_ICONS[category] || Code2; return <CatIcon size={14} />; })()}
+                    <span>{category}</span>
+                  </div>
+                </MotionItem>
+                <div className="skills-orb-row">
+                  {skills.map((skill, i) => {
+                    const IconComp = SKILL_ICONS[skill.name] || Code2;
+                    const [c1, c2] = SKILL_COLORS[skill.name] || ["#60a5fa", "#34d399"];
+                    return (
+                      <MotionItem key={skill.name} delay={catIdx * 0.1 + i * 0.06}>
+                        <motion.div
+                          className="skill-orb"
+                          whileHover={{ scale: 1.18, y: -10 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                          style={{
+                            "--orb-c1": c1,
+                            "--orb-c2": c2,
+                          } as React.CSSProperties}
+                        >
+                          <div className="skill-orb-sphere" />
+                          <div className="skill-orb-icon">
+                            <IconComp size={22} strokeWidth={1.5} />
+                          </div>
+                          <div className="skill-orb-ring">
+                            <svg viewBox="0 0 60 60" className="skill-orb-ring-svg">
+                              <circle cx="30" cy="30" r="27" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="2.5" />
+                              <circle
+                                cx="30" cy="30" r="27" fill="none"
+                                stroke="url(#orbGrad)" strokeWidth="2.5" strokeLinecap="round"
+                                strokeDasharray={`${(2 * Math.PI * 27 * skill.level) / 100} ${2 * Math.PI * 27}`}
+                                style={{ transform: "rotate(-90deg)", transformOrigin: "center" }}
+                              />
+                              <defs>
+                                <linearGradient id="orbGrad">
+                                  <stop offset="0%" stopColor={c1} />
+                                  <stop offset="100%" stopColor={c2} />
+                                </linearGradient>
+                              </defs>
+                            </svg>
+                          </div>
+                          <span className="skill-orb-label">{skill.name}</span>
+                          <span className="skill-orb-pct">{skill.level}%</span>
+                        </motion.div>
+                      </MotionItem>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
         </MotionSection>
 
         {/* ===== PROJECTS ===== */}
