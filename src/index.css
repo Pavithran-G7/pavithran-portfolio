@@ -3216,8 +3216,8 @@ html.lenis body {
     letter-spacing: 0.13em;
   }
 
-  /* Disable hover lift on skill cards for mobile */
-  .skill-card-premium:hover {
+  /* Disable hover lift on skill orbs for mobile */
+  .skill-orb:hover {
     transform: none;
   }
 
