@@ -1,6 +1,23 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { Code2, FileCode, Braces, Atom, Wind, Server, Terminal, Database, CircuitBoard, Flame, GitBranch, Github, Container, Palette, Layout, Wrench } from "lucide-react";
-import Lenis from 'lenis';
+import {
+  Code2,
+  FileCode,
+  Braces,
+  Atom,
+  Wind,
+  Server,
+  Terminal,
+  Database,
+  CircuitBoard,
+  Flame,
+  GitBranch,
+  Github,
+  Container,
+  Palette,
+  Layout,
+  Wrench,
+} from "lucide-react";
+import Lenis from "lenis";
 import * as THREE from "three";
 import { motion, useScroll, useSpring, useInView } from "motion/react";
 import project001 from "@/assets/project-001.jpg";
@@ -14,28 +31,41 @@ import { ScrollTimeline } from "@/components/ScrollTimeline";
 
 // Section background colors for scroll-driven transitions
 const SECTION_BG_COLORS = [
-  { section: '#home', color: 'hsl(0, 0%, 0%)' },
-  { section: '#about', color: 'hsl(0, 0%, 7%)' },
-  { section: '#skills', color: 'hsl(0, 0%, 0%)' },
-  { section: '#projects', color: 'hsl(0, 0%, 7%)' },
-  { section: '#education', color: 'hsl(0, 0%, 9%)' },
-  { section: '.achievements-section', color: 'hsl(0, 0%, 13%)' },
-  { section: '#experience', color: 'hsl(0, 0%, 8%)' },
-  { section: '#contact', color: 'hsl(0, 0%, 12%)' },
+  { section: "#home", color: "hsl(0, 0%, 0%)" },
+  { section: "#about", color: "hsl(0, 0%, 7%)" },
+  { section: "#skills", color: "hsl(0, 0%, 0%)" },
+  { section: "#projects", color: "hsl(0, 0%, 7%)" },
+  { section: "#education", color: "hsl(0, 0%, 9%)" },
+  { section: ".achievements-section", color: "hsl(0, 0%, 13%)" },
+  { section: "#experience", color: "hsl(0, 0%, 8%)" },
+  { section: "#contact", color: "hsl(0, 0%, 12%)" },
 ];
 
 const NAV_LINKS = ["home", "about", "skills", "projects", "experience", "contact"];
 
 const SKILL_ICONS: Record<string, React.ComponentType<unknown>> = {
-  "Python": FileCode, "C": Terminal, "Java": Braces, "SQL (MySQL)": CircuitBoard,
-  "TensorFlow": Atom, "MediaPipe": Flame, "NumPy": Database, "Pandas": Server,
-  "Machine Learning": Code2, "Computer Vision": Palette,
-  "UiPath": Container, "n8n": Wind,
-  "Git": GitBranch, "GitHub": Github, "Google Colab": Layout,
+  Python: FileCode,
+  C: Terminal,
+  Java: Braces,
+  "SQL (MySQL)": CircuitBoard,
+  TensorFlow: Atom,
+  MediaPipe: Flame,
+  NumPy: Database,
+  Pandas: Server,
+  "Machine Learning": Code2,
+  "Computer Vision": Palette,
+  UiPath: Container,
+  n8n: Wind,
+  Git: GitBranch,
+  GitHub: Github,
+  "Google Colab": Layout,
 };
 
 const CATEGORY_ICONS: Record<string, React.ComponentType<unknown>> = {
-  "LANGUAGES": Terminal, "AI & ML": Atom, "AUTOMATION": Wind, "TOOLS": Wrench,
+  LANGUAGES: Terminal,
+  "AI & ML": Atom,
+  AUTOMATION: Wind,
+  TOOLS: Wrench,
 };
 
 const CATEGORY_ORDER = ["LANGUAGES", "AI & ML", "AUTOMATION", "TOOLS"];
@@ -58,24 +88,96 @@ const SKILLS = [
   { name: "Google Colab", category: "TOOLS", level: 80, status: "OPERATIONAL" },
 ];
 
-const SKILLS_BY_CATEGORY = CATEGORY_ORDER.map(cat => ({
+const SKILLS_BY_CATEGORY = CATEGORY_ORDER.map((cat) => ({
   category: cat,
-  skills: SKILLS.filter(s => s.category === cat),
+  skills: SKILLS.filter((s) => s.category === cat),
 }));
 
 const PROJECTS = [
-  { id: "001", title: "Fee Concession Automation", desc: "RPA solution using UiPath to automate fee concession approval process, reducing manual processing time.", longDesc: "Designed and implemented an RPA solution using UiPath to automate the fee concession approval process. Reduced manual processing time significantly and improved operational efficiency for the organization. The bot handles form validation, data extraction, and approval routing automatically.", tech: ["UiPath", "RPA", "Automation"], image: project001 },
-  { id: "002", title: "Farm Assist — AI Chatbot", desc: "Bilingual (Tamil/English) AI-powered chatbot using React.js and n8n for real-time farmer assistance.", longDesc: "Developed a bilingual (Tamil/English) AI-powered chatbot using React.js and n8n. Integrated APIs and webhook-based workflows for real-time farmer assistance. Improved accessibility and user engagement through conversational AI, helping farmers get instant answers about crop management, weather, and market prices.", tech: ["React.js", "n8n", "APIs", "AI"], image: project002 },
-  { id: "003", title: "Motion Capture System", desc: "Real-time human motion recognition using OpenCV, MediaPipe and Unity for 3D visualization.", longDesc: "Built a real-time human motion recognition system using OpenCV and MediaPipe. Integrated Python-based pose detection with Unity for 3D visualization. Enabled real-time movement tracking and interaction, creating an immersive experience for motion analysis and gaming applications.", tech: ["Python", "MediaPipe", "OpenCV", "Unity"], image: project003 },
-  { id: "004", title: "Smart Resume Screener", desc: "Placeholder: upcoming NLP-assisted resume filtering workflow for recruiter pipelines.", longDesc: "Placeholder project. Planned feature set includes resume parsing, scoring, and shortlist recommendations with explainable ranking insights.", tech: ["Python", "NLP", "FastAPI"], image: project004 },
-  { id: "005", title: "Vision Attendance System", desc: "Placeholder: upcoming real-time face recognition attendance application.", longDesc: "Placeholder project. Planned flow includes webcam capture, identity matching, secure logs, and analytics dashboard exports.", tech: ["OpenCV", "Face Recognition", "React"], image: project005 },
-  { id: "006", title: "AI Interview Copilot", desc: "Placeholder: upcoming interview simulation and feedback assistant.", longDesc: "Placeholder project. Planned module includes role-based mock sessions, rubric scoring, and personalized improvement reports.", tech: ["LLM", "Speech", "Evaluation"], image: project003 },
+  {
+    id: "001",
+    title: "Fee Concession Automation",
+    desc: "RPA solution using UiPath to automate fee concession approval process, reducing manual processing time.",
+    longDesc:
+      "Designed and implemented an RPA solution using UiPath to automate the fee concession approval process. Reduced manual processing time significantly and improved operational efficiency for the organization. The bot handles form validation, data extraction, and approval routing automatically.",
+    tech: ["UiPath", "RPA", "Automation"],
+    image: project001,
+  },
+  {
+    id: "002",
+    title: "Farm Assist — AI Chatbot",
+    desc: "Bilingual (Tamil/English) AI-powered chatbot using React.js and n8n for real-time farmer assistance.",
+    longDesc:
+      "Developed a bilingual (Tamil/English) AI-powered chatbot using React.js and n8n. Integrated APIs and webhook-based workflows for real-time farmer assistance. Improved accessibility and user engagement through conversational AI, helping farmers get instant answers about crop management, weather, and market prices.",
+    tech: ["React.js", "n8n", "APIs", "AI"],
+    image: project002,
+  },
+  {
+    id: "003",
+    title: "Motion Capture System",
+    desc: "Real-time human motion recognition using OpenCV, MediaPipe and Unity for 3D visualization.",
+    longDesc:
+      "Built a real-time human motion recognition system using OpenCV and MediaPipe. Integrated Python-based pose detection with Unity for 3D visualization. Enabled real-time movement tracking and interaction, creating an immersive experience for motion analysis and gaming applications.",
+    tech: ["Python", "MediaPipe", "OpenCV", "Unity"],
+    image: project003,
+  },
+  {
+    id: "004",
+    title: "Smart Resume Screener",
+    desc: "Placeholder: upcoming NLP-assisted resume filtering workflow for recruiter pipelines.",
+    longDesc:
+      "Placeholder project. Planned feature set includes resume parsing, scoring, and shortlist recommendations with explainable ranking insights.",
+    tech: ["Python", "NLP", "FastAPI"],
+    image: project004,
+  },
+  {
+    id: "005",
+    title: "Vision Attendance System",
+    desc: "Placeholder: upcoming real-time face recognition attendance application.",
+    longDesc:
+      "Placeholder project. Planned flow includes webcam capture, identity matching, secure logs, and analytics dashboard exports.",
+    tech: ["OpenCV", "Face Recognition", "React"],
+    image: project005,
+  },
+  {
+    id: "006",
+    title: "AI Interview Copilot",
+    desc: "Placeholder: upcoming interview simulation and feedback assistant.",
+    longDesc:
+      "Placeholder project. Planned module includes role-based mock sessions, rubric scoring, and personalized improvement reports.",
+    tech: ["LLM", "Speech", "Evaluation"],
+    image: project003,
+  },
 ];
 
 const EDUCATION = [
-  { initial: "K", degree: "B.E. in AI & Machine Learning", institution: "K.S. Rangasamy College of Technology, Tiruchengode", year: "2023 – 2027", gpa: "CGPA: 8.94 (upto 5th sem)", tags: ["Machine Learning", "Deep Learning", "Computer Vision", "NLP"], status: "pursuing" },
-  { initial: "S", degree: "HSC (Higher Secondary)", institution: "Sengunthar Matriculation Hr. Sec. School, Tharamangalam", year: "2021 – 2023", gpa: "90%", tags: ["Physics", "Chemistry", "Mathematics", "Computer Science"], status: "completed" },
-  { initial: "S", degree: "SSLC (Secondary)", institution: "Sengunthar Matriculation Hr. Sec. School, Tharamangalam", year: "2021", gpa: "100%", tags: ["Science", "Mathematics", "English", "Tamil"], status: "completed" },
+  {
+    initial: "K",
+    degree: "B.E. CSE(AI & ML)",
+    institution: "K.S. Rangasamy College of Technology, Tiruchengode",
+    year: "2023 – 2027",
+    gpa: "CGPA: 8.94 (upto 5th sem)",
+    tags: ["Machine Learning", "Deep Learning", "Computer Vision", "NLP"],
+    status: "pursuing",
+  },
+  {
+    initial: "S",
+    degree: "HSC (Higher Secondary)",
+    institution: "Sengunthar Matriculation Hr. Sec. School, Tharamangalam",
+    year: "2021 – 2023",
+    gpa: "90%",
+    tags: ["Physics", "Chemistry", "Mathematics", "Computer Science"],
+    status: "completed",
+  },
+  {
+    initial: "S",
+    degree: "SSLC (Secondary)",
+    institution: "Sengunthar Matriculation Hr. Sec. School, Tharamangalam",
+    year: "2021",
+    gpa: "100%",
+    tags: ["Science", "Mathematics", "English", "Tamil"],
+    status: "completed",
+  },
 ];
 
 const ACHIEVEMENTS_STATS = [
@@ -86,17 +188,63 @@ const ACHIEVEMENTS_STATS = [
 ];
 
 const ACHIEVEMENT_CARDS = [
-  { icon: "fa-solid fa-certificate", title: "Oracle AI Foundation Associate", desc: "Earned the Oracle Certified AI Foundation Associate — a globally recognized certification in AI fundamentals." },
-  { icon: "fa-solid fa-trophy", title: "NPTEL Elite — Joy of Computing", desc: "Certified from NPTEL Online Course 'The Joy of Computing using Python' with Elite grade." },
-  { icon: "fa-solid fa-medal", title: "NPTEL Elite+Silver — Entrepreneurship", desc: "Certified from NPTEL 'Understanding Incubation and Entrepreneurship' with Elite+Silver grade." },
-  { icon: "fa-solid fa-code", title: "HackerRank Java & Python Badge", desc: "Earned Java and Python badges on HackerRank, demonstrating strong programming fundamentals." },
-  { icon: "fa-solid fa-book", title: "Published Author — Hope's Tapestry", desc: "Contributed a story in the anthology 'Hope's Tapestry', published by Let's Write Publication." },
-  { icon: "fa-solid fa-users", title: "Hackathon Participant", desc: "Participated in Hackathons conducted by Bhumi-Skilled and ICT Academy." },
+  {
+    icon: "fa-solid fa-certificate",
+    title: "Oracle AI Foundation Associate",
+    desc: "Earned the Oracle Certified AI Foundation Associate — a globally recognized certification in AI fundamentals.",
+  },
+  {
+    icon: "fa-solid fa-trophy",
+    title: "NPTEL Elite — Joy of Computing",
+    desc: "Certified from NPTEL Online Course 'The Joy of Computing using Python' with Elite grade.",
+  },
+  {
+    icon: "fa-solid fa-medal",
+    title: "NPTEL Elite+Silver — Entrepreneurship",
+    desc: "Certified from NPTEL 'Understanding Incubation and Entrepreneurship' with Elite+Silver grade.",
+  },
+  {
+    icon: "fa-solid fa-code",
+    title: "HackerRank Java & Python Badge",
+    desc: "Earned Java and Python badges on HackerRank, demonstrating strong programming fundamentals.",
+  },
+  {
+    icon: "fa-solid fa-book",
+    title: "Published Author — Hope's Tapestry",
+    desc: "Contributed a story in the anthology 'Hope's Tapestry', published by Let's Write Publication.",
+  },
+  {
+    icon: "fa-solid fa-users",
+    title: "Hackathon Participant",
+    desc: "Participated in Hackathons conducted by Bhumi-Skilled and ICT Academy.",
+  },
 ];
 
 const EXPERIENCE = [
-  { date: "Aug 2025 – Sep 2025", role: "AI Engineer Intern", company: "ResDev Global Solution, Certainti.ai", bullets: ["Completed hands-on training in Artificial Intelligence and Machine Learning concepts", "Built and evaluated machine learning models using Python, TensorFlow, and Scikit-learn", "Performed data preprocessing, model training, and performance evaluation on real datasets"], status: "completed-status", statusText: "COMPLETED" },
-  { date: "Apr 2025 – Jun 2025", role: "AIML Virtual Intern", company: "Eduskill & Google for Developer", bullets: ["Developed an AI-based interview automation system for organizational use", "Worked on backend development, API integration, and AI workflow design", "Collaborated on building a full-stack AI application following industry practices"], status: "completed-status", statusText: "COMPLETED" },
+  {
+    date: "Aug 2025 – Sep 2025",
+    role: "AI Engineer Intern",
+    company: "ResDev Global Solution, Certainti.ai",
+    bullets: [
+      "Completed hands-on training in Artificial Intelligence and Machine Learning concepts",
+      "Built and evaluated machine learning models using Python, TensorFlow, and Scikit-learn",
+      "Performed data preprocessing, model training, and performance evaluation on real datasets",
+    ],
+    status: "completed-status",
+    statusText: "COMPLETED",
+  },
+  {
+    date: "Apr 2025 – Jun 2025",
+    role: "AIML Virtual Intern",
+    company: "Eduskill & Google for Developer",
+    bullets: [
+      "Developed an AI-based interview automation system for organizational use",
+      "Worked on backend development, API integration, and AI workflow design",
+      "Collaborated on building a full-stack AI application following industry practices",
+    ],
+    status: "completed-status",
+    statusText: "COMPLETED",
+  },
 ];
 
 const SOCIAL_ICONS = [
@@ -139,7 +287,12 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
     requestAnimationFrame(animate);
   }, [isInView, target]);
 
-  return <div ref={ref}>{value}{suffix}</div>;
+  return (
+    <div ref={ref}>
+      {value}
+      {suffix}
+    </div>
+  );
 }
 
 // Skill bar that fills when in view
@@ -159,12 +312,15 @@ function AnimatedSkillBar({ level }: { level: number }) {
   );
 }
 
-function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: typeof PROJECTS; onProjectClick: (p: typeof PROJECTS[0]) => void }) {
+function ProjectsHorizontalScroll({
+  projects,
+  onProjectClick,
+}: {
+  projects: typeof PROJECTS;
+  onProjectClick: (p: (typeof PROJECTS)[0]) => void;
+}) {
   return (
-    <section
-      id="projects"
-      className="projects-section"
-    >
+    <section id="projects" className="projects-section">
       <div
         className="projects-pin-wrapper"
         style={{
@@ -176,8 +332,12 @@ function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: type
           padding: "0 var(--section-inline)",
         }}
       >
-        <span className="section-label" style={{ marginBottom: 12 }}>// 03. MISSION LOG</span>
-        <h2 className="section-heading" style={{ marginBottom: 32 }}>Featured <span className="accent">Projects</span></h2>
+        <span className="section-label" style={{ marginBottom: 12 }}>
+          // 03. MISSION LOG
+        </span>
+        <h2 className="section-heading" style={{ marginBottom: 32 }}>
+          Featured <span className="accent">Projects</span>
+        </h2>
         <div
           className="projects-track"
           style={{
@@ -207,7 +367,9 @@ function ProjectsHorizontalScroll({ projects, onProjectClick }: { projects: type
                 <div className="project-title">{p.title}</div>
                 <div className="project-desc">{p.desc}</div>
                 <div className="project-tech">
-                  {p.tech.map(t => <span key={t}>{t}</span>)}
+                  {p.tech.map((t) => (
+                    <span key={t}>{t}</span>
+                  ))}
                 </div>
                 <div className="project-links">
                   <a href="#">↗ LIVE DEMO</a>
@@ -231,12 +393,7 @@ function ScrollProgressBar() {
     restDelta: 0.001,
   });
 
-  return (
-    <motion.div
-      className="scroll-progress-bar"
-      style={{ scaleX, transformOrigin: "0%" }}
-    />
-  );
+  return <motion.div className="scroll-progress-bar" style={{ scaleX, transformOrigin: "0%" }} />;
 }
 
 export default function Index() {
@@ -248,7 +405,7 @@ export default function Index() {
   const [showBackTop, setShowBackTop] = useState(false);
   const [activeNav, setActiveNav] = useState("home");
   const [formSent, setFormSent] = useState(false);
-  const [popupProject, setPopupProject] = useState<typeof PROJECTS[0] | null>(null);
+  const [popupProject, setPopupProject] = useState<(typeof PROJECTS)[0] | null>(null);
 
   const cursorRingRef = useRef<HTMLDivElement>(null);
   const cursorDotRef = useRef<HTMLDivElement>(null);
@@ -257,11 +414,9 @@ export default function Index() {
   const lenisRef = useRef<Lenis | null>(null);
   const heroVantaHostRef = useRef<HTMLDivElement>(null);
   const vantaRef = useRef<VantaEffectInstance | null>(null);
-  
 
   const mousePos = useRef({ x: 0, y: 0 });
   const ringPos = useRef({ x: 0, y: 0 });
-
 
   // ===== HERO BACKGROUND — VANTA DOTS =====
   useEffect(() => {
@@ -329,13 +484,23 @@ export default function Index() {
     const tl = gsap.timeline();
     tl.to({}, { duration: 0.7 })
       .to(loaderTextRef.current, { duration: 1.0, text: "INITIALIZING PORTFOLIO SYSTEMS...", ease: "none" }, 0.9)
-      .call(() => { if (loaderBarRef.current) loaderBarRef.current.style.width = "100%"; }, [], 1.9)
+      .call(
+        () => {
+          if (loaderBarRef.current) loaderBarRef.current.style.width = "100%";
+        },
+        [],
+        1.9,
+      )
       .to("#loader > *", { opacity: 0, duration: 0.4 }, 2.7)
-      .call(() => {
-        setLoaded(true);
-        setTimeout(() => setDiamondOpen(true), 100);
-        setTimeout(() => setRevealGone(true), 1400);
-      }, [], 3.1);
+      .call(
+        () => {
+          setLoaded(true);
+          setTimeout(() => setDiamondOpen(true), 100);
+          setTimeout(() => setRevealGone(true), 1400);
+        },
+        [],
+        3.1,
+      );
   }, []);
 
   // ===== LENIS SMOOTH SCROLL =====
@@ -350,7 +515,7 @@ export default function Index() {
     });
     lenisRef.current = lenis;
 
-    lenis.on('scroll', () => {
+    lenis.on("scroll", () => {
       ScrollTrigger?.update?.();
     });
 
@@ -374,41 +539,49 @@ export default function Index() {
     if (!ring || !dot) return;
 
     const move = (e: MouseEvent) => {
-      dot.style.left = e.clientX + 'px';
-      dot.style.top = e.clientY + 'px';
+      dot.style.left = e.clientX + "px";
+      dot.style.top = e.clientY + "px";
       mousePos.current = { x: e.clientX, y: e.clientY };
     };
-    const down = () => { ring.classList.add('clicking'); dot.classList.add('clicking'); };
-    const up = () => { ring.classList.remove('clicking'); dot.classList.remove('clicking'); };
+    const down = () => {
+      ring.classList.add("clicking");
+      dot.classList.add("clicking");
+    };
+    const up = () => {
+      ring.classList.remove("clicking");
+      dot.classList.remove("clicking");
+    };
 
     const lerpLoop = () => {
       ringPos.current.x += (mousePos.current.x - ringPos.current.x) * 0.18;
       ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.18;
-      ring.style.left = ringPos.current.x + 'px';
-      ring.style.top = ringPos.current.y + 'px';
+      ring.style.left = ringPos.current.x + "px";
+      ring.style.top = ringPos.current.y + "px";
       requestAnimationFrame(lerpLoop);
     };
     lerpLoop();
 
     const addHover = () => {
-      document.querySelectorAll('a, button, .btn-primary, .btn-secondary, .btn-transmit, .skill-card, .project-card').forEach(el => {
-        el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
-        el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
-      });
-      document.querySelectorAll('p, h1, h2, h3, span, li').forEach(el => {
-        el.addEventListener('mouseenter', () => ring.classList.add('text-hover'));
-        el.addEventListener('mouseleave', () => ring.classList.remove('text-hover'));
+      document
+        .querySelectorAll("a, button, .btn-primary, .btn-secondary, .btn-transmit, .skill-card, .project-card")
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () => ring.classList.add("hovering"));
+          el.addEventListener("mouseleave", () => ring.classList.remove("hovering"));
+        });
+      document.querySelectorAll("p, h1, h2, h3, span, li").forEach((el) => {
+        el.addEventListener("mouseenter", () => ring.classList.add("text-hover"));
+        el.addEventListener("mouseleave", () => ring.classList.remove("text-hover"));
       });
     };
     setTimeout(addHover, 3500);
 
-    window.addEventListener('mousemove', move);
-    window.addEventListener('mousedown', down);
-    window.addEventListener('mouseup', up);
+    window.addEventListener("mousemove", move);
+    window.addEventListener("mousedown", down);
+    window.addEventListener("mouseup", up);
     return () => {
-      window.removeEventListener('mousemove', move);
-      window.removeEventListener('mousedown', down);
-      window.removeEventListener('mouseup', up);
+      window.removeEventListener("mousemove", move);
+      window.removeEventListener("mousedown", down);
+      window.removeEventListener("mouseup", up);
     };
   }, [loaded, revealGone]);
 
@@ -421,7 +594,7 @@ export default function Index() {
       setShowBackTop(scrollTop > 400);
 
       const threshold = window.innerHeight * 0.4;
-      const sections = NAV_LINKS.map(id => document.getElementById(id));
+      const sections = NAV_LINKS.map((id) => document.getElementById(id));
       let foundActive = false;
       for (let i = sections.length - 1; i >= 0; i--) {
         const s = sections[i];
@@ -435,8 +608,8 @@ export default function Index() {
         setActiveNav("home");
       }
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   // ===== GSAP — only for complex pinning & text plugin =====
@@ -446,7 +619,7 @@ export default function Index() {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin);
 
     requestAnimationFrame(() => {
-      Splitting({ target: '[data-splitting]', by: 'words' });
+      Splitting({ target: "[data-splitting]", by: "words" });
 
       // ---- HERO — smooth parallax fade-out (requires pinning) ----
       const heroTl = gsap.timeline({
@@ -458,7 +631,7 @@ export default function Index() {
           pin: false,
           anticipatePin: 1,
           invalidateOnRefresh: true,
-        }
+        },
       });
       heroTl.to(".hero-text", { y: -80, opacity: 0, scale: 0.97, duration: 1, ease: "power2.in" }, 0);
       heroTl.to("#hero-vanta-bg", { opacity: 0.4, duration: 0.8 }, 0);
@@ -467,22 +640,24 @@ export default function Index() {
       heroTl.to(".hero-corner-frame", { opacity: 0, duration: 0.6 }, 0);
 
       // ---- ABOUT word reveals ----
-      const aboutWords = document.querySelectorAll('.about-section [data-splitting] .word');
+      const aboutWords = document.querySelectorAll(".about-section [data-splitting] .word");
       if (aboutWords.length) {
         gsap.from(aboutWords, {
-          y: "100%", opacity: 0, rotationX: -80,
+          y: "100%",
+          opacity: 0,
+          rotationX: -80,
           stagger: { each: 0.02, from: "start" },
           ease: "power4.out",
-          scrollTrigger: { trigger: ".about-section", start: "top 70%", end: "top 20%", scrub: 0.8 }
+          scrollTrigger: { trigger: ".about-section", start: "top 70%", end: "top 20%", scrub: 0.8 },
         });
       }
 
       // ---- PROJECTS HORIZONTAL SCROLL (desktop only) ----
       const isMobile = window.innerWidth <= 768;
-      const projectsTrack = document.querySelector('.projects-track') as HTMLElement;
-      const projectsSection = document.getElementById('projects');
+      const projectsTrack = document.querySelector(".projects-track") as HTMLElement;
+      const projectsSection = document.getElementById("projects");
       if (projectsTrack && projectsSection && !isMobile) {
-        const projectsWrapper = projectsSection.querySelector('.projects-pin-wrapper') as HTMLElement | null;
+        const projectsWrapper = projectsSection.querySelector(".projects-pin-wrapper") as HTMLElement | null;
         if (projectsWrapper) {
           // The wrapper has horizontal padding, so clientWidth alone overestimates available track viewport.
           // Use both last-card alignment and scrollWidth fallback for reliability across layout changes.
@@ -490,29 +665,31 @@ export default function Index() {
           const padLeft = parseFloat(wrapperStyles.paddingLeft) || 0;
           const padRight = parseFloat(wrapperStyles.paddingRight) || 0;
           const trackViewportWidth = projectsWrapper.clientWidth - padLeft - padRight;
-          const cards = projectsTrack.querySelectorAll<HTMLElement>('.project-card');
+          const cards = projectsTrack.querySelectorAll<HTMLElement>(".project-card");
           const lastCard = cards[cards.length - 1];
           const byTrackWidth = Math.max(projectsTrack.scrollWidth - trackViewportWidth, 0);
-          const byLastCard = lastCard ? Math.max(lastCard.offsetLeft + lastCard.offsetWidth - trackViewportWidth, 0) : 0;
+          const byLastCard = lastCard
+            ? Math.max(lastCard.offsetLeft + lastCard.offsetWidth - trackViewportWidth, 0)
+            : 0;
           const translateDistance = Math.max(byTrackWidth, byLastCard);
 
           if (translateDistance > 0) {
-          gsap.to(projectsTrack, {
-            x: -translateDistance,
-            ease: "none",
-            scrollTrigger: {
-              trigger: projectsSection,
-              start: "top top",
-              end: () => `+=${translateDistance}`,
-              scrub: true,
-              pin: true,
-              anticipatePin: 1,
-              invalidateOnRefresh: true,
-            },
-          });
+            gsap.to(projectsTrack, {
+              x: -translateDistance,
+              ease: "none",
+              scrollTrigger: {
+                trigger: projectsSection,
+                start: "top top",
+                end: () => `+=${translateDistance}`,
+                scrub: true,
+                pin: true,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+              },
+            });
 
-          // Ensure trigger measurements are updated after timeline registration.
-          (ScrollTrigger as unknown as { refresh?: () => void }).refresh?.();
+            // Ensure trigger measurements are updated after timeline registration.
+            (ScrollTrigger as unknown as { refresh?: () => void }).refresh?.();
           }
         }
       }
@@ -520,115 +697,125 @@ export default function Index() {
       // (Education and Experience timelines now use Framer Motion ScrollTimeline component)
 
       // ---- BACKGROUND COLOR TRANSITIONS ----
-      const bgLayer = document.querySelector('.bg-transition-layer') as HTMLElement;
+      const bgLayer = document.querySelector(".bg-transition-layer") as HTMLElement;
       if (bgLayer) {
         SECTION_BG_COLORS.forEach(({ section, color }) => {
           const el = document.querySelector(section);
           if (el) {
             ScrollTrigger.create({
               trigger: el,
-              start: 'top 60%',
-              end: 'bottom 40%',
-              onEnter: () => gsap.to(bgLayer, { backgroundColor: color, duration: 1.2, ease: 'power2.inOut' }),
-              onEnterBack: () => gsap.to(bgLayer, { backgroundColor: color, duration: 1.2, ease: 'power2.inOut' }),
+              start: "top 60%",
+              end: "bottom 40%",
+              onEnter: () => gsap.to(bgLayer, { backgroundColor: color, duration: 1.2, ease: "power2.inOut" }),
+              onEnterBack: () => gsap.to(bgLayer, { backgroundColor: color, duration: 1.2, ease: "power2.inOut" }),
             });
           }
         });
       }
 
       // ---- SECTION HEADING character reveals ----
-      document.querySelectorAll('.section-heading[data-splitting]').forEach(heading => {
-        const chars = heading.querySelectorAll('.char');
+      document.querySelectorAll(".section-heading[data-splitting]").forEach((heading) => {
+        const chars = heading.querySelectorAll(".char");
         if (chars.length) {
           gsap.from(chars, {
-            opacity: 0, y: 60, rotateX: -90, filter: 'blur(8px)',
-            stagger: 0.02, duration: 0.8, ease: 'power4.out',
-            scrollTrigger: { trigger: heading, start: 'top 80%', toggleActions: 'play none none reverse' }
+            opacity: 0,
+            y: 60,
+            rotateX: -90,
+            filter: "blur(8px)",
+            stagger: 0.02,
+            duration: 0.8,
+            ease: "power4.out",
+            scrollTrigger: { trigger: heading, start: "top 80%", toggleActions: "play none none reverse" },
           });
         }
       });
 
       // ---- MODERN SECTION REVEALS (y + opacity, no clip-path clipping) ----
       // Fix #8/#15: Removed aggressive clip-path and blur to prevent card clipping and compositing flash
-      const sections = Array.from(document.querySelectorAll<HTMLElement>('.content-wrapper section:not(.hero-section):not(.projects-section)'));
+      const sections = Array.from(
+        document.querySelectorAll<HTMLElement>(".content-wrapper section:not(.hero-section):not(.projects-section)"),
+      );
       sections.forEach((section, index) => {
         gsap.fromTo(
           section,
           {
             y: 60,
             opacity: 0.2,
-            filter: 'blur(3px)',
+            filter: "blur(3px)",
           },
           {
             y: 0,
             opacity: 1,
-            filter: 'blur(0px)',
+            filter: "blur(0px)",
             duration: 1.2,
-            ease: 'power3.out',
+            ease: "power3.out",
             scrollTrigger: {
               trigger: section,
-              start: 'top 88%',
-              end: 'top 55%',
+              start: "top 88%",
+              end: "top 55%",
               scrub: 0.5,
             },
             delay: index * 0.02,
-          }
+          },
         );
       });
     });
 
-    return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
   }, [loaded, revealGone]);
 
   // ===== MAGNETIC HOVER EFFECT (desktop only) =====
   useEffect(() => {
     if (!loaded || window.innerWidth <= 768) return;
 
-    const magneticEls = document.querySelectorAll('.hero-btn, .nav-cta, .hero-social-link, .btn-submit');
+    const magneticEls = document.querySelectorAll(".hero-btn, .nav-cta, .hero-social-link, .btn-submit");
     const handlers: Array<{ el: Element; move: (e: MouseEvent) => void; leave: () => void }> = [];
 
-    magneticEls.forEach(el => {
+    magneticEls.forEach((el) => {
       const move = (e: MouseEvent) => {
         const rect = (el as HTMLElement).getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
-        gsap.to(el, { x: x * 0.25, y: y * 0.25, duration: 0.3, ease: 'power2.out' });
+        gsap.to(el, { x: x * 0.25, y: y * 0.25, duration: 0.3, ease: "power2.out" });
       };
       const leave = () => {
-        gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.3)' });
+        gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
       };
-      (el as HTMLElement).addEventListener('mousemove', move);
-      (el as HTMLElement).addEventListener('mouseleave', leave);
+      (el as HTMLElement).addEventListener("mousemove", move);
+      (el as HTMLElement).addEventListener("mouseleave", leave);
       handlers.push({ el, move, leave });
     });
 
     return () => {
       handlers.forEach(({ el, move, leave }) => {
-        (el as HTMLElement).removeEventListener('mousemove', move);
-        (el as HTMLElement).removeEventListener('mouseleave', leave);
+        (el as HTMLElement).removeEventListener("mousemove", move);
+        (el as HTMLElement).removeEventListener("mouseleave", leave);
       });
     };
   }, [loaded, revealGone]);
-
 
   // Prevent background scrolling while mobile navigation is open.
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
     if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = originalOverflow; };
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
   }, [mobileMenuOpen]);
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMobileMenuOpen(false);
+      if (event.key === "Escape") setMobileMenuOpen(false);
     };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, [mobileMenuOpen]);
 
   // ===== SKILL CARD TILT =====
@@ -641,7 +828,7 @@ export default function Index() {
     card.style.transform = `rotateY(${x * 15}deg) rotateX(${-y * 15}deg)`;
   }, []);
   const handleSkillMouseLeave = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    e.currentTarget.style.transform = '';
+    e.currentTarget.style.transform = "";
   }, []);
 
   const scrollToTop = useCallback(() => {
@@ -722,15 +909,25 @@ export default function Index() {
         <div className="loader-scanline" />
         <svg className="loader-logo" viewBox="0 0 60 60">
           <polygon points="30,2 58,30 30,58 2,30" fill="none" stroke="hsl(10,100%,59%)" strokeWidth="2" />
-          <polygon points="30,12 48,30 30,48 12,30" fill="none" stroke="hsl(10,100%,59%)" strokeWidth="1.5" opacity="0.5" />
+          <polygon
+            points="30,12 48,30 30,48 12,30"
+            fill="none"
+            stroke="hsl(10,100%,59%)"
+            strokeWidth="1.5"
+            opacity="0.5"
+          />
         </svg>
-        <div className="loader-text"><span ref={loaderTextRef}></span></div>
-        <div className="loader-progress"><div className="loader-progress-bar" ref={loaderBarRef}></div></div>
+        <div className="loader-text">
+          <span ref={loaderTextRef}></span>
+        </div>
+        <div className="loader-progress">
+          <div className="loader-progress-bar" ref={loaderBarRef}></div>
+        </div>
       </div>
 
       {/* DIAMOND REVEAL */}
       {!revealGone && (
-        <div className={`diamond-overlay ${diamondOpen ? 'open' : ''}`}>
+        <div className={`diamond-overlay ${diamondOpen ? "open" : ""}`}>
           <div className="diamond-glow"></div>
         </div>
       )}
@@ -753,9 +950,16 @@ export default function Index() {
       </div>
 
       {/* NAVBAR */}
-      <nav className={`navbar ${navScrolled ? 'scrolled' : ''}`}>
+      <nav className={`navbar ${navScrolled ? "scrolled" : ""}`}>
         <div className="nav-inner">
-          <a className="nav-brand" href="#" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
+          <a
+            className="nav-brand"
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection("home");
+            }}
+          >
             <span className="nav-brand-mark">PG</span>
             <span className="nav-brand-divider"></span>
             <span className="nav-brand-label">PORTFOLIO</span>
@@ -765,7 +969,7 @@ export default function Index() {
               <li key={id}>
                 <a
                   href={`#${id}`}
-                  className={activeNav === id ? 'active' : ''}
+                  className={activeNav === id ? "active" : ""}
                   onClick={(e) => {
                     e.preventDefault();
                     scrollToSection(id);
@@ -776,24 +980,33 @@ export default function Index() {
               </li>
             ))}
           </ul>
-          <a href="#contact" className="nav-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>
+          <a
+            href="#contact"
+            className="nav-cta"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection("contact");
+            }}
+          >
             Let's Talk
           </a>
           <div
-            className={`hamburger ${mobileMenuOpen ? 'open' : ''}`}
+            className={`hamburger ${mobileMenuOpen ? "open" : ""}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             role="button"
-            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
             tabIndex={0}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
+              if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
                 setMobileMenuOpen(!mobileMenuOpen);
               }
             }}
           >
-            <span /><span /><span />
+            <span />
+            <span />
+            <span />
           </div>
         </div>
       </nav>
@@ -802,7 +1015,7 @@ export default function Index() {
       {loaded && revealGone && navScrolled && <ScrollProgressBar />}
 
       {/* MOBILE MENU */}
-      <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(false)}>
+      <div className={`mobile-menu ${mobileMenuOpen ? "open" : ""}`} onClick={() => setMobileMenuOpen(false)}>
         <div className="mobile-menu-inner" onClick={(e) => e.stopPropagation()}>
           <button
             type="button"
@@ -818,9 +1031,9 @@ export default function Index() {
               <a
                 key={id}
                 href={`#${id}`}
-                className={`mobile-menu-link ${activeNav === id ? 'active' : ''}`}
+                className={`mobile-menu-link ${activeNav === id ? "active" : ""}`}
                 role="menuitem"
-                style={{ transitionDelay: mobileMenuOpen ? `${i * 0.06 + 0.15}s` : '0s' }}
+                style={{ transitionDelay: mobileMenuOpen ? `${i * 0.06 + 0.15}s` : "0s" }}
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToSection(id);
@@ -832,12 +1045,26 @@ export default function Index() {
           </div>
           <div className="mobile-menu-footer">
             <div className="mobile-menu-divider"></div>
-            <a href="#contact" className="mobile-menu-cta" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>
+            <a
+              href="#contact"
+              className="mobile-menu-cta"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("contact");
+              }}
+            >
               Let's Talk
             </a>
             <div className="mobile-menu-socials">
-              {SOCIAL_ICONS.map(s => (
-                <a key={s.tooltip} href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.tooltip} className="mobile-social-icon">
+              {SOCIAL_ICONS.map((s) => (
+                <a
+                  key={s.tooltip}
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.tooltip}
+                  className="mobile-social-icon"
+                >
                   <i className={s.icon}></i>
                 </a>
               ))}
@@ -849,7 +1076,7 @@ export default function Index() {
       {/* PROJECT POPUP */}
       {popupProject && (
         <div className="project-popup-overlay" onClick={() => setPopupProject(null)}>
-          <div className="project-popup" onClick={e => e.stopPropagation()}>
+          <div className="project-popup" onClick={(e) => e.stopPropagation()}>
             <button className="popup-close" onClick={() => setPopupProject(null)}>
               <i className="fa-solid fa-xmark"></i>
             </button>
@@ -858,11 +1085,17 @@ export default function Index() {
               <h3 className="popup-title">{popupProject.title}</h3>
               <p className="popup-desc">{popupProject.longDesc}</p>
               <div className="popup-tech">
-                {popupProject.tech.map(t => <span key={t}>{t}</span>)}
+                {popupProject.tech.map((t) => (
+                  <span key={t}>{t}</span>
+                ))}
               </div>
               <div className="popup-links">
-                <a href="#" className="btn-primary">↗ LIVE DEMO</a>
-                <a href="#" className="btn-secondary">{"</>"} SOURCE CODE</a>
+                <a href="#" className="btn-primary">
+                  ↗ LIVE DEMO
+                </a>
+                <a href="#" className="btn-secondary">
+                  {"</>"} SOURCE CODE
+                </a>
               </div>
             </div>
           </div>
@@ -882,7 +1115,10 @@ export default function Index() {
           <div className="hero-text">
             <h1 className="hero-name">
               <span className="hero-name-first">PAVITHRAN</span>
-              <span className="hero-name-last"> G<span className="hero-name-dot">.</span></span>
+              <span className="hero-name-last">
+                {" "}
+                G<span className="hero-name-dot">.</span>
+              </span>
             </h1>
 
             <div className="hero-role-tag">
@@ -901,37 +1137,76 @@ export default function Index() {
             </div>
 
             <p className="hero-description">
-              Building AI-driven applications, automation workflows & computer vision systems.
-              Turning data into real-world impact with Python, TensorFlow & full-stack AI development.
+              Building AI-driven applications, automation workflows & computer vision systems. Turning data into
+              real-world impact with Python, TensorFlow & full-stack AI development.
             </p>
 
             <div className="hero-buttons">
-              <a href="#projects" className="hero-btn hero-btn--primary" onClick={(e) => { e.preventDefault(); scrollToSection('projects'); }}>
+              <a
+                href="#projects"
+                className="hero-btn hero-btn--primary"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("projects");
+                }}
+              >
                 <span>View Projects</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 17L17 7M17 7H7M17 7V17" /></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
               </a>
               <a href="/Pavithran_CV.pdf" className="hero-btn hero-btn--ghost" download>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" /></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
+                </svg>
                 <span>Resume</span>
               </a>
             </div>
 
             <div className="hero-social-row">
-              <a href="https://github.com/Pavithran030" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hero-social-link">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" /></svg>
+              <a
+                href="https://github.com/Pavithran030"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                className="hero-social-link"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                </svg>
               </a>
-              <a href="https://www.linkedin.com/in/pavithran030" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hero-social-link">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+              <a
+                href="https://www.linkedin.com/in/pavithran030"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="hero-social-link"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                </svg>
               </a>
               <a href="mailto:techpavithran18@gmail.com" aria-label="Email" className="hero-social-link">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" /><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" /></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
+                  <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
+                </svg>
               </a>
               <span className="hero-social-divider"></span>
             </div>
 
             <div className="hero-scroll-hint" aria-label="Scroll to explore">
               <span className="hero-scroll-hint-icon" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M12 5v14" />
                   <path d="m18 13-6 6-6-6" />
                 </svg>
@@ -944,7 +1219,9 @@ export default function Index() {
         {/* ===== ABOUT ===== */}
         <MotionSection id="about" className="about-section">
           <span className="section-label">// 01. WHO I AM</span>
-          <h2 className="section-heading" data-splitting>About <span className="accent">Me</span></h2>
+          <h2 className="section-heading" data-splitting>
+            About <span className="accent">Me</span>
+          </h2>
           <div className="about-grid">
             <MotionItem className="about-profile-card" delay={0.1}>
               <div className="profile-card-glow"></div>
@@ -957,18 +1234,34 @@ export default function Index() {
                 <div className="profile-name-tag">PAVITHRAN G</div>
                 <span className="profile-role-badge">AI & ML DEVELOPER</span>
                 <div className="profile-meta-row">
-                  <span className="profile-meta-item"><i className="fa-solid fa-location-dot"></i> Tiruchengode, TN</span>
-                  <span className="profile-meta-item"><i className="fa-solid fa-graduation-cap"></i> B.E. AI &amp; ML</span>
+                  <span className="profile-meta-item">
+                    <i className="fa-solid fa-location-dot"></i> Tiruchengode, TN
+                  </span>
+                  <span className="profile-meta-item">
+                    <i className="fa-solid fa-graduation-cap"></i> B.E. AI &amp; ML
+                  </span>
                 </div>
                 <div className="profile-status-row">
                   <span className="profile-status-dot"></span>
                   Open for opportunities
                 </div>
                 <div className="profile-social-links">
-                  <a href="https://github.com/Pavithran030" target="_blank" rel="noopener noreferrer" className="profile-social-btn" aria-label="GitHub">
+                  <a
+                    href="https://github.com/Pavithran030"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="profile-social-btn"
+                    aria-label="GitHub"
+                  >
                     <i className="fa-brands fa-github"></i>
                   </a>
-                  <a href="https://www.linkedin.com/in/pavithran030" target="_blank" rel="noopener noreferrer" className="profile-social-btn" aria-label="LinkedIn">
+                  <a
+                    href="https://www.linkedin.com/in/pavithran030"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="profile-social-btn"
+                    aria-label="LinkedIn"
+                  >
                     <i className="fa-brands fa-linkedin"></i>
                   </a>
                   <a href="mailto:techpavithran18@gmail.com" className="profile-social-btn" aria-label="Email">
@@ -978,16 +1271,28 @@ export default function Index() {
               </div>
             </MotionItem>
             <MotionItem className="about-text" delay={0.2}>
-              <p data-splitting>Motivated AI and Machine Learning undergraduate with hands-on experience in building AI-driven applications, automation workflows, and computer vision systems. Skilled in Python, machine learning fundamentals, and full-stack AI project development.</p>
-              <p data-splitting>I've interned at ResDev Global Solution (Certainti.ai) as an AI Engineer and completed a virtual AIML internship with Google for Developers through Eduskill. My projects range from RPA automation with UiPath to bilingual AI chatbots and real-time motion capture systems.</p>
-              <p data-splitting>Seeking an entry-level AI/ML or software engineering role to apply problem-solving skills, data-driven thinking, and continuous learning to real-world industry challenges. Let's build something impactful together.</p>
+              <p data-splitting>
+                Motivated AI and Machine Learning undergraduate with hands-on experience in building AI-driven
+                applications, automation workflows, and computer vision systems. Skilled in Python, machine learning
+                fundamentals, and full-stack AI project development.
+              </p>
+              <p data-splitting>
+                I've interned at ResDev Global Solution (Certainti.ai) as an AI Engineer and completed a virtual AIML
+                internship with Google for Developers through Eduskill. My projects range from RPA automation with
+                UiPath to bilingual AI chatbots and real-time motion capture systems.
+              </p>
+              <p data-splitting>
+                Seeking an entry-level AI/ML or software engineering role to apply problem-solving skills, data-driven
+                thinking, and continuous learning to real-world industry challenges. Let's build something impactful
+                together.
+              </p>
               <div className="about-stats">
                 {[
                   { val: 2, suffix: "+", label: "Internships" },
                   { val: 3, suffix: "+", label: "Projects" },
                   { val: 80, suffix: "+", label: "LeetCode" },
                   { val: 3, suffix: "+", label: "Certifications" },
-                ].map(s => (
+                ].map((s) => (
                   <div className="stat-card" key={s.label}>
                     <div className="stat-number">
                       <AnimatedCounter target={s.val} suffix={s.suffix} />
@@ -1003,19 +1308,23 @@ export default function Index() {
         {/* ===== SKILLS ===== */}
         <MotionSection id="skills" className="skills-section">
           <span className="section-label">// 02. TECH ARSENAL</span>
-          <h2 className="section-heading" data-splitting>My <span className="accent">Skills</span></h2>
+          <h2 className="section-heading" data-splitting>
+            My <span className="accent">Skills</span>
+          </h2>
           <div className="skills-categories">
             {SKILLS_BY_CATEGORY.map(({ category, skills }, catIdx) => {
               const CatIcon = CATEGORY_ICONS[category] || Code2;
               return (
                 <MotionItem key={category} delay={catIdx * 0.1}>
                   <div className="skill-category-header">
-                    <div className="skill-category-icon"><CatIcon size={20} /></div>
+                    <div className="skill-category-icon">
+                      <CatIcon size={20} />
+                    </div>
                     <h3 className="skill-category-title">{category}</h3>
                     <span className="skill-category-count">{skills.length} skills</span>
                   </div>
                   <StaggerContainer className="skills-grid">
-                    {skills.map(skill => {
+                    {skills.map((skill) => {
                       const IconComp = SKILL_ICONS[skill.name] || Code2;
                       return (
                         <motion.div
@@ -1025,7 +1334,9 @@ export default function Index() {
                           onMouseMove={handleSkillMouseMove as any}
                           onMouseLeave={handleSkillMouseLeave as any}
                         >
-                          <div className="skill-icon"><IconComp size={24} strokeWidth={1.5} /></div>
+                          <div className="skill-icon">
+                            <IconComp size={24} strokeWidth={1.5} />
+                          </div>
                           <div className="skill-name">{skill.name}</div>
                           <AnimatedSkillBar level={skill.level} />
                           <div className="skill-level">{skill.level}%</div>
@@ -1046,9 +1357,11 @@ export default function Index() {
         {/* ===== EDUCATION ===== */}
         <MotionSection id="education" className="education-section">
           <span className="section-label">// 04. KNOWLEDGE BASE</span>
-          <h2 className="section-heading" data-splitting>Education</h2>
+          <h2 className="section-heading" data-splitting>
+            Education
+          </h2>
           <ScrollTimeline
-            items={EDUCATION.map(edu => ({
+            items={EDUCATION.map((edu) => ({
               initial: edu.initial,
               title: edu.degree,
               subtitle: edu.institution,
@@ -1064,7 +1377,9 @@ export default function Index() {
         {/* ===== ACHIEVEMENTS ===== */}
         <MotionSection className="achievements-section">
           <span className="section-label">// 05. MILESTONES</span>
-          <h2 className="section-heading" data-splitting>Achievements</h2>
+          <h2 className="section-heading" data-splitting>
+            Achievements
+          </h2>
           <div className="achievements-stats">
             {ACHIEVEMENTS_STATS.map((s, i) => (
               <MotionItem key={i} delay={i * 0.1}>
@@ -1093,9 +1408,11 @@ export default function Index() {
         {/* ===== EXPERIENCE ===== */}
         <MotionSection id="experience" className="experience-section">
           <span className="section-label">// 06. MISSION HISTORY</span>
-          <h2 className="section-heading" data-splitting>Experience</h2>
+          <h2 className="section-heading" data-splitting>
+            Experience
+          </h2>
           <ScrollTimeline
-            items={EXPERIENCE.map(exp => ({
+            items={EXPERIENCE.map((exp) => ({
               initial: exp.role.charAt(0),
               title: exp.role,
               subtitle: exp.company,
@@ -1110,18 +1427,36 @@ export default function Index() {
         {/* ===== CONTACT ===== */}
         <MotionSection id="contact" className="contact-section">
           <span className="section-label">// 07. GET IN TOUCH</span>
-          <h2 className="section-heading">Contact <span className="accent">Me</span></h2>
+          <h2 className="section-heading">
+            Contact <span className="accent">Me</span>
+          </h2>
           <div className="contact-grid">
             <MotionItem className="contact-info" direction="left">
               <h3>Let's work together</h3>
               <p className="contact-desc">
-                I'm currently open to AI/ML engineering roles, internship opportunities, and exciting collaborations. Feel free to reach out — I'd love to hear from you.
+                I'm currently open to AI/ML engineering roles, internship opportunities, and exciting collaborations.
+                Feel free to reach out — I'd love to hear from you.
               </p>
               <div className="contact-links">
                 {[
-                  { icon: "fa-solid fa-envelope", label: "Email", url: "techpavithran18@gmail.com", href: "mailto:techpavithran18@gmail.com" },
-                  { icon: "fa-brands fa-github", label: "GitHub", url: "github.com/Pavithran030", href: "https://github.com/Pavithran030" },
-                  { icon: "fa-brands fa-linkedin", label: "LinkedIn", url: "linkedin.com/in/pavithran030", href: "https://www.linkedin.com/in/pavithran030" },
+                  {
+                    icon: "fa-solid fa-envelope",
+                    label: "Email",
+                    url: "techpavithran18@gmail.com",
+                    href: "mailto:techpavithran18@gmail.com",
+                  },
+                  {
+                    icon: "fa-brands fa-github",
+                    label: "GitHub",
+                    url: "github.com/Pavithran030",
+                    href: "https://github.com/Pavithran030",
+                  },
+                  {
+                    icon: "fa-brands fa-linkedin",
+                    label: "LinkedIn",
+                    url: "linkedin.com/in/pavithran030",
+                    href: "https://www.linkedin.com/in/pavithran030",
+                  },
                   { icon: "fa-solid fa-phone", label: "Phone", url: "+91 9363575964", href: "tel:+919363575964" },
                 ].map((l, i) => (
                   <MotionItem key={i} className="contact-link-row-wrapper" delay={i * 0.08} direction="left">
@@ -1154,8 +1489,8 @@ export default function Index() {
                   <label>Message</label>
                   <textarea name="message" required placeholder="Tell me about your project..." rows={4}></textarea>
                 </div>
-                <button type="submit" className={`btn-submit ${formSent ? 'sent' : ''}`}>
-                  {formSent ? '✓ Message Sent' : 'Send Message'}
+                <button type="submit" className={`btn-submit ${formSent ? "sent" : ""}`}>
+                  {formSent ? "✓ Message Sent" : "Send Message"}
                 </button>
               </form>
             </MotionItem>
@@ -1169,7 +1504,7 @@ export default function Index() {
       </div>
 
       {/* BACK TO TOP */}
-      <button className={`back-to-top ${showBackTop ? 'visible' : ''}`} onClick={scrollToTop} aria-label="Back to top">
+      <button className={`back-to-top ${showBackTop ? "visible" : ""}`} onClick={scrollToTop} aria-label="Back to top">
         <i className="fa-solid fa-arrow-up"></i>
       </button>
     </>
