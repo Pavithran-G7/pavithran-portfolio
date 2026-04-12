@@ -3095,52 +3095,37 @@ html.lenis body {
   }
 
   /* Skills */
-  .skills-grid {
+  .skills-tab-bar {
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+
+  .skills-tab {
+    padding: 8px 14px;
+    font-size: 10px;
+  }
+
+  .skills-panel {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 12px;
   }
 
-  .skill-card {
-    padding: 16px 12px;
-    border-radius: 10px;
+  .skill-card-premium {
+    border-radius: 14px;
   }
 
-  .skill-icon {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 10px;
+  .skill-card-inner-p {
+    padding: 18px 12px 16px;
+    border-radius: 12px;
+    gap: 8px;
   }
 
-  .skill-name {
-    font-size: 13px;
-    margin-bottom: 6px;
-  }
-
-  .skill-bar {
-    margin-bottom: 4px;
-  }
-
-  .skill-level {
-    font-size: 11px;
-  }
-
-  .skill-status {
-    font-size: 8px;
-  }
-
-  .skill-category-header {
-    margin-bottom: 14px;
-    padding-bottom: 8px;
-  }
-
-  .skill-category-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-  }
-
-  .skill-category-title {
+  .skill-card-name {
     font-size: 12px;
+  }
+
+  .skill-chip {
+    font-size: 8px;
   }
 
   /* Education */
