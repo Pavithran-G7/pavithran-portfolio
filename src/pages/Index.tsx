@@ -1374,29 +1374,28 @@ export default function Index() {
         {/* ===== PROJECTS ===== */}
         <ProjectsHorizontalScroll projects={PROJECTS} onProjectClick={setPopupProject} />
 
-        {/* ===== EDUCATION ===== */}
-        <MotionSection id="education" className="education-section">
-          <span className="section-label">// 04. KNOWLEDGE BASE</span>
+        {/* ===== EXPERIENCE ===== */}
+        <MotionSection id="experience" className="experience-section">
+          <span className="section-label">// 05. MISSION HISTORY</span>
           <h2 className="section-heading" data-splitting>
-            Education
+            Experience
           </h2>
           <ScrollTimeline
-            items={EDUCATION.map((edu) => ({
-              initial: edu.initial,
-              title: edu.degree,
-              subtitle: edu.institution,
-              date: edu.year,
-              tags: edu.tags,
-              meta: [{ label: "GPA", value: edu.gpa }],
-              badge: edu.status === "pursuing" ? "PURSUING" : "COMPLETED",
-              badgeVariant: edu.status as "pursuing" | "completed",
+            items={EXPERIENCE.map((exp) => ({
+              initial: exp.role.charAt(0),
+              title: exp.role,
+              subtitle: exp.company,
+              date: exp.date,
+              bullets: exp.bullets,
+              badge: exp.statusText,
+              badgeVariant: "completed" as const,
             }))}
           />
         </MotionSection>
 
         {/* ===== ACHIEVEMENTS ===== */}
         <MotionSection className="achievements-section">
-          <span className="section-label">// 05. MILESTONES</span>
+          <span className="section-label">// 06. MILESTONES</span>
           <h2 className="section-heading" data-splitting>
             Achievements
           </h2>
@@ -1425,21 +1424,22 @@ export default function Index() {
           </StaggerContainer>
         </MotionSection>
 
-        {/* ===== EXPERIENCE ===== */}
-        <MotionSection id="experience" className="experience-section">
-          <span className="section-label">// 06. MISSION HISTORY</span>
+        {/* ===== EDUCATION ===== */}
+        <MotionSection id="education" className="education-section">
+          <span className="section-label">// 07. KNOWLEDGE BASE</span>
           <h2 className="section-heading" data-splitting>
-            Experience
+            Education
           </h2>
           <ScrollTimeline
-            items={EXPERIENCE.map((exp) => ({
-              initial: exp.role.charAt(0),
-              title: exp.role,
-              subtitle: exp.company,
-              date: exp.date,
-              bullets: exp.bullets,
-              badge: exp.statusText,
-              badgeVariant: "completed" as const,
+            items={EDUCATION.map((edu) => ({
+              initial: edu.initial,
+              title: edu.degree,
+              subtitle: edu.institution,
+              date: edu.year,
+              tags: edu.tags,
+              meta: [{ label: "GPA", value: edu.gpa }],
+              badge: edu.status === "pursuing" ? "PURSUING" : "COMPLETED",
+              badgeVariant: edu.status as "pursuing" | "completed",
             }))}
           />
         </MotionSection>
