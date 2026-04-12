@@ -333,7 +333,7 @@ function ProjectsHorizontalScroll({
         }}
       >
         <span className="section-label" style={{ marginBottom: 12 }}>
-          // 03. MISSION LOG
+          // 04. MISSION LOG
         </span>
         <h2 className="section-heading" style={{ marginBottom: 32 }}>
           Featured <span className="accent">Projects</span>
@@ -1446,7 +1446,7 @@ export default function Index() {
 
         {/* ===== CONTACT ===== */}
         <MotionSection id="contact" className="contact-section">
-          <span className="section-label">// 07. GET IN TOUCH</span>
+          <span className="section-label">// 08. GET IN TOUCH</span>
           <h2 className="section-heading">
             Contact <span className="accent">Me</span>
           </h2>
