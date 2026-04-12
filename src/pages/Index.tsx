@@ -262,27 +262,6 @@ export default function Index() {
   const mousePos = useRef({ x: 0, y: 0 });
   const ringPos = useRef({ x: 0, y: 0 });
 
-  // ===== CLICK AUDIO FEEDBACK =====
-  const playClickSound = useCallback(() => {
-    try {
-      if (!audioCtxRef.current) {
-        audioCtxRef.current = new AudioContext();
-      }
-      const ctx = audioCtxRef.current;
-      const oscillator = ctx.createOscillator();
-      const gain = ctx.createGain();
-      oscillator.connect(gain);
-      gain.connect(ctx.destination);
-      oscillator.frequency.setValueAtTime(800, ctx.currentTime);
-      oscillator.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.08);
-      gain.gain.setValueAtTime(0.12, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
-      oscillator.start(ctx.currentTime);
-      oscillator.stop(ctx.currentTime + 0.1);
-    } catch {
-      // Ignore audio API failures
-    }
-  }, []);
 
   // ===== HERO BACKGROUND — VANTA DOTS =====
   useEffect(() => {
@@ -631,18 +610,6 @@ export default function Index() {
     };
   }, [loaded, revealGone]);
 
-  // ===== CLICK AUDIO ON BUTTONS =====
-  useEffect(() => {
-    if (!loaded) return;
-    const handler = (e: Event) => {
-      const target = e.target as HTMLElement;
-      if (target.closest('a, button, .btn-primary, .btn-secondary, .hero-btn, .nav-cta')) {
-        playClickSound();
-      }
-    };
-    document.addEventListener('click', handler);
-    return () => document.removeEventListener('click', handler);
-  }, [loaded, playClickSound]);
 
   // Prevent background scrolling while mobile navigation is open.
   useEffect(() => {
