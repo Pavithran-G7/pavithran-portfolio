@@ -538,26 +538,7 @@ export default function Index() {
         }
       }
 
-      // ---- EDUCATION line ----
-      const eduLine = document.querySelector('.education-line') as HTMLElement;
-      if (eduLine) {
-        gsap.to(eduLine, {
-          height: "100%",
-          scrollTrigger: { trigger: ".education-section", start: "top 60%", end: "bottom 60%", scrub: 1 }
-        });
-      }
-
-      // ---- EXPERIENCE SVG line ----
-      const svgLine = document.querySelector('.exp-svg-path') as SVGPathElement;
-      if (svgLine) {
-        const length = svgLine.getTotalLength();
-        svgLine.style.strokeDasharray = String(length);
-        svgLine.style.strokeDashoffset = String(length);
-        gsap.to(svgLine, {
-          strokeDashoffset: 0,
-          scrollTrigger: { trigger: ".experience-section", start: "top 50%", end: "bottom 60%", scrub: 1 }
-        });
-      }
+      // (Education and Experience timelines now use Framer Motion ScrollTimeline component)
 
       // ---- BACKGROUND COLOR TRANSITIONS ----
       const bgLayer = document.querySelector('.bg-transition-layer') as HTMLElement;
