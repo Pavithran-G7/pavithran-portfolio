@@ -295,20 +295,44 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
   );
 }
 
-// Skill bar that fills when in view
-function AnimatedSkillBar({ level }: { level: number }) {
-  const ref = useRef<HTMLDivElement>(null);
+// Circular skill ring SVG
+function SkillRing({ level, size = 56, strokeWidth = 3.5 }: { level: number; size?: number; strokeWidth?: number }) {
+  const ref = useRef<SVGSVGElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-20px" });
+  const radius = (size - strokeWidth) / 2;
+  const circumference = 2 * Math.PI * radius;
 
   return (
-    <div className="skill-bar" ref={ref}>
-      <motion.div
-        className="skill-bar-fill"
-        initial={{ width: "0%" }}
-        animate={isInView ? { width: `${level}%` } : { width: "0%" }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+    <svg ref={ref} width={size} height={size} className="skill-ring-svg">
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        fill="none"
+        stroke="hsl(var(--border-line) / 0.15)"
+        strokeWidth={strokeWidth}
       />
-    </div>
+      <motion.circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        fill="none"
+        stroke="url(#skillGradient)"
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+        strokeDasharray={circumference}
+        initial={{ strokeDashoffset: circumference }}
+        animate={isInView ? { strokeDashoffset: circumference - (circumference * level) / 100 } : { strokeDashoffset: circumference }}
+        transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+        style={{ transform: "rotate(-90deg)", transformOrigin: "center" }}
+      />
+      <defs>
+        <linearGradient id="skillGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="hsl(var(--accent-ice))" />
+          <stop offset="100%" stopColor="hsl(var(--accent-mint))" />
+        </linearGradient>
+      </defs>
+    </svg>
   );
 }
 
@@ -1331,44 +1355,65 @@ export default function Index() {
           <h2 className="section-heading" data-splitting>
             My <span className="accent">Skills</span>
           </h2>
-          <div className="skills-categories">
-            {SKILLS_BY_CATEGORY.map(({ category, skills }, catIdx) => {
+
+          {/* Category Tabs */}
+          <div className="skills-tab-bar">
+            {SKILLS_BY_CATEGORY.map(({ category }, idx) => {
               const CatIcon = CATEGORY_ICONS[category] || Code2;
               return (
-                <MotionItem key={category} delay={catIdx * 0.1}>
-                  <div className="skill-category-header">
-                    <div className="skill-category-icon">
-                      <CatIcon size={20} />
-                    </div>
-                    <h3 className="skill-category-title">{category}</h3>
-                    <span className="skill-category-count">{skills.length} skills</span>
-                  </div>
-                  <StaggerContainer className="skills-grid">
-                    {skills.map((skill) => {
-                      const IconComp = SKILL_ICONS[skill.name] || Code2;
-                      return (
-                        <motion.div
-                          className="skill-card"
-                          key={skill.name}
-                          variants={staggerChildVariants}
-                          onMouseMove={handleSkillMouseMove as any}
-                          onMouseLeave={handleSkillMouseLeave as any}
-                        >
-                          <div className="skill-icon">
-                            <IconComp size={24} strokeWidth={1.5} />
-                          </div>
-                          <div className="skill-name">{skill.name}</div>
-                          <AnimatedSkillBar level={skill.level} />
-                          <div className="skill-level">{skill.level}%</div>
-                          <div className={`skill-status ${skill.status.toLowerCase()}`}>{skill.status}</div>
-                        </motion.div>
-                      );
-                    })}
-                  </StaggerContainer>
+                <MotionItem key={category} delay={idx * 0.08}>
+                  <button
+                    className={`skills-tab ${idx === 0 ? "active" : ""}`}
+                    onClick={(e) => {
+                      document.querySelectorAll(".skills-tab").forEach((t) => t.classList.remove("active"));
+                      e.currentTarget.classList.add("active");
+                      document.querySelectorAll(".skills-panel").forEach((p, i) => {
+                        (p as HTMLElement).style.display = i === idx ? "grid" : "none";
+                      });
+                    }}
+                  >
+                    <CatIcon size={16} />
+                    <span>{category}</span>
+                  </button>
                 </MotionItem>
               );
             })}
           </div>
+
+          {/* Skill Panels */}
+          {SKILLS_BY_CATEGORY.map(({ category, skills }, catIdx) => (
+            <StaggerContainer
+              key={category}
+              className="skills-panel"
+              style={{ display: catIdx === 0 ? "grid" : "none" } as React.CSSProperties}
+            >
+              {skills.map((skill) => {
+                const IconComp = SKILL_ICONS[skill.name] || Code2;
+                return (
+                  <motion.div
+                    className="skill-card-premium"
+                    key={skill.name}
+                    variants={staggerChildVariants}
+                    whileHover={{ y: -6, scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    <div className="skill-card-glow" />
+                    <div className="skill-card-inner-p">
+                      <div className="skill-ring-wrap">
+                        <SkillRing level={skill.level} />
+                        <div className="skill-ring-icon">
+                          <IconComp size={20} strokeWidth={1.5} />
+                        </div>
+                        <span className="skill-ring-pct">{skill.level}%</span>
+                      </div>
+                      <h4 className="skill-card-name">{skill.name}</h4>
+                      <div className={`skill-chip ${skill.status.toLowerCase()}`}>{skill.status}</div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </StaggerContainer>
+          ))}
         </MotionSection>
 
         {/* ===== PROJECTS ===== */}
