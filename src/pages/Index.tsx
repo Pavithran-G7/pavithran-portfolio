@@ -35,9 +35,9 @@ const SECTION_BG_COLORS = [
   { section: "#about", color: "hsl(0, 0%, 7%)" },
   { section: "#skills", color: "hsl(0, 0%, 0%)" },
   { section: "#projects", color: "hsl(0, 0%, 7%)" },
-  { section: "#education", color: "hsl(0, 0%, 9%)" },
-  { section: ".achievements-section", color: "hsl(0, 0%, 13%)" },
   { section: "#experience", color: "hsl(0, 0%, 8%)" },
+  { section: ".achievements-section", color: "hsl(0, 0%, 13%)" },
+  { section: "#education", color: "hsl(0, 0%, 9%)" },
   { section: "#contact", color: "hsl(0, 0%, 12%)" },
 ];
 
