@@ -250,7 +250,7 @@ const EXPERIENCE = [
 const SOCIAL_ICONS = [
   { icon: "fa-brands fa-github", url: "https://github.com/Pavithran030", tooltip: "GitHub" },
   { icon: "fa-brands fa-linkedin", url: "https://www.linkedin.com/in/pavithran030", tooltip: "LinkedIn" },
-  { icon: "fa-brands fa-x-twitter", url: "#", tooltip: "Twitter/X" },
+  { icon: "fa-solid fa-code", url: "https://codolio.com/profile/Pavithran030", tooltip: "Codolio" },
 ];
 
 const PROJECT_CARD_WIDTH = 480;
@@ -1192,6 +1192,17 @@ export default function Index() {
                   <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
                 </svg>
               </a>
+              <a
+                href="https://codolio.com/profile/Pavithran030"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Codolio"
+                className="hero-social-link"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
+                </svg>
+              </a>
               <span className="hero-social-divider"></span>
             </div>
 
@@ -1266,6 +1277,15 @@ export default function Index() {
                   </a>
                   <a href="mailto:techpavithran18@gmail.com" className="profile-social-btn" aria-label="Email">
                     <i className="fa-solid fa-envelope"></i>
+                  </a>
+                  <a
+                    href="https://codolio.com/profile/Pavithran030"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="profile-social-btn"
+                    aria-label="Codolio"
+                  >
+                    <i className="fa-solid fa-code"></i>
                   </a>
                 </div>
               </div>
