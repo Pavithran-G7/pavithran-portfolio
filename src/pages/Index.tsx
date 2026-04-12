@@ -1116,8 +1116,8 @@ export default function Index() {
             <h1 className="hero-name">
               <span className="hero-name-first">PAVITHRAN</span>
               <span className="hero-name-last">
-                {" "}
-                G<span className="hero-name-dot">.</span>
+                {"\u00A0"}
+                G
               </span>
             </h1>
 
