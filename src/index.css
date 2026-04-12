@@ -3260,13 +3260,8 @@ html.lenis body {
     letter-spacing: 0.13em;
   }
 
-  /* Disable 3D tilt on skill cards for mobile */
-  .skill-card {
-    perspective: none;
-    transform-style: flat;
-  }
-
-  .skill-card:hover {
+  /* Disable hover lift on skill cards for mobile */
+  .skill-card-premium:hover {
     transform: none;
   }
 
