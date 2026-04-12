@@ -73,9 +73,10 @@ interface StaggerContainerProps {
   children: React.ReactNode;
   className?: string;
   staggerDelay?: number;
+  style?: React.CSSProperties;
 }
 
-export function StaggerContainer({ children, className = "" }: StaggerContainerProps) {
+export function StaggerContainer({ children, className = "", style }: StaggerContainerProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, margin: "-30px 0px -30px 0px" });
 
@@ -83,6 +84,7 @@ export function StaggerContainer({ children, className = "" }: StaggerContainerP
     <motion.div
       ref={ref}
       className={className}
+      style={style}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={{
