@@ -10,6 +10,7 @@ import project004 from "@/assets/project-004.jpg";
 import project005 from "@/assets/project-005.jpg";
 import { SEO } from "@/components/SEO";
 import { MotionSection, MotionItem, StaggerContainer, staggerChildVariants } from "@/components/MotionSection";
+import { ScrollTimeline } from "@/components/ScrollTimeline";
 
 // Section background colors for scroll-driven transitions
 const SECTION_BG_COLORS = [
@@ -1098,24 +1099,18 @@ export default function Index() {
         <MotionSection id="education" className="education-section">
           <span className="section-label">// 04. KNOWLEDGE BASE</span>
           <h2 className="section-heading" data-splitting>Education</h2>
-          <div className="education-timeline">
-            <div className="education-line"></div>
-            {EDUCATION.map((edu, i) => (
-              <MotionItem key={i} className="education-card" delay={i * 0.15}>
-                <div className="edu-initial">{edu.initial}</div>
-                <div className="edu-degree">{edu.degree}</div>
-                <div className="edu-institution">{edu.institution}</div>
-                <div className="edu-meta">
-                  <span className="edu-year">{edu.year}</span>
-                  <span className="edu-gpa">{edu.gpa}</span>
-                </div>
-                <div className="edu-tags">
-                  {edu.tags.map(t => <span key={t}>{t}</span>)}
-                </div>
-                <div className={`edu-status ${edu.status}`}>{edu.status === 'pursuing' ? '● PURSUING' : '✓ COMPLETED'}</div>
-              </MotionItem>
-            ))}
-          </div>
+          <ScrollTimeline
+            items={EDUCATION.map(edu => ({
+              initial: edu.initial,
+              title: edu.degree,
+              subtitle: edu.institution,
+              date: edu.year,
+              tags: edu.tags,
+              meta: [{ label: "GPA", value: edu.gpa }],
+              badge: edu.status === "pursuing" ? "PURSUING" : "COMPLETED",
+              badgeVariant: edu.status as "pursuing" | "completed",
+            }))}
+          />
         </MotionSection>
 
         {/* ===== ACHIEVEMENTS ===== */}
@@ -1151,24 +1146,17 @@ export default function Index() {
         <MotionSection id="experience" className="experience-section">
           <span className="section-label">// 06. MISSION HISTORY</span>
           <h2 className="section-heading" data-splitting>Experience</h2>
-          <div className="experience-timeline">
-            <svg className="experience-svg-line" width="40" preserveAspectRatio="none">
-              <path className="exp-svg-path" d="M20,0 L20,800" fill="none" stroke="hsl(10,100%,59%)" strokeWidth="2" style={{ filter: 'drop-shadow(0 0 4px hsl(10,100%,59%,0.5))' }} />
-            </svg>
-            {EXPERIENCE.map((exp, i) => (
-              <MotionItem key={i} className="experience-entry" delay={i * 0.2}>
-                <div className="exp-card">
-                  <div className="exp-date">{exp.date}</div>
-                  <div className="exp-role">{exp.role}</div>
-                  <div className="exp-company">{exp.company}</div>
-                  <ul className="exp-bullets">
-                    {exp.bullets.map((b, j) => <li key={j}>{b}</li>)}
-                  </ul>
-                  <span className={`exp-status ${exp.status}`}>{exp.statusText}</span>
-                </div>
-              </MotionItem>
-            ))}
-          </div>
+          <ScrollTimeline
+            items={EXPERIENCE.map(exp => ({
+              initial: exp.role.charAt(0),
+              title: exp.role,
+              subtitle: exp.company,
+              date: exp.date,
+              bullets: exp.bullets,
+              badge: exp.statusText,
+              badgeVariant: "completed" as const,
+            }))}
+          />
         </MotionSection>
 
         {/* ===== CONTACT ===== */}
