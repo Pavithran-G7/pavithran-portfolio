@@ -257,7 +257,7 @@ export default function Index() {
   const lenisRef = useRef<Lenis | null>(null);
   const heroVantaHostRef = useRef<HTMLDivElement>(null);
   const vantaRef = useRef<VantaEffectInstance | null>(null);
-  const audioCtxRef = useRef<AudioContext | null>(null);
+  
 
   const mousePos = useRef({ x: 0, y: 0 });
   const ringPos = useRef({ x: 0, y: 0 });
