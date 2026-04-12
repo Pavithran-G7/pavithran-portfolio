@@ -1374,29 +1374,7 @@ export default function Index() {
             My <span className="accent">Skills</span>
           </h2>
 
-          {/* Category Tabs */}
-          <div className="skills-tab-bar">
-            {SKILLS_BY_CATEGORY.map(({ category }, idx) => {
-              const CatIcon = CATEGORY_ICONS[category] || Code2;
-              return (
-                <MotionItem key={category} delay={idx * 0.08}>
-                  <button
-                    className={`skills-tab ${idx === 0 ? "active" : ""}`}
-                    onClick={(e) => {
-                      document.querySelectorAll(".skills-tab").forEach((t) => t.classList.remove("active"));
-                      e.currentTarget.classList.add("active");
-                      document.querySelectorAll(".skills-panel").forEach((p, i) => {
-                        (p as HTMLElement).style.display = i === idx ? "grid" : "none";
-                      });
-                    }}
-                  >
-                    <CatIcon size={16} />
-                    <span>{category}</span>
-                  </button>
-                </MotionItem>
-              );
-            })}
-          </div>
+
 
           {/* All Skills as 3D Orbs */}
           <div className="skills-orb-cloud">
