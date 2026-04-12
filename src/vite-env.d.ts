@@ -9,10 +9,6 @@ type GsapTimeline = {
 	call: (...args: unknown[]) => GsapTimeline;
 };
 
-declare const THREE: {
-	[key: string]: unknown;
-};
-
 declare const gsap: {
 	timeline: (...args: unknown[]) => GsapTimeline;
 	to: (...args: unknown[]) => GsapTween;
@@ -37,3 +33,11 @@ declare const TextPlugin: {
 };
 
 declare const Splitting: (...args: unknown[]) => unknown;
+
+declare module "vanta/src/vanta.dots.js" {
+	const DOTS: (options: Record<string, unknown>) => {
+		destroy?: () => void;
+		resize?: () => void;
+	};
+	export default DOTS;
+}

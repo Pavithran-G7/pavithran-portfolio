@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Code2, FileCode, Braces, Atom, Wind, Server, Terminal, Database, CircuitBoard, Flame, GitBranch, Github, Container, Palette, Layout, Wrench } from "lucide-react";
 import Lenis from 'lenis';
+import * as THREE from "three";
 import { motion, useScroll, useSpring, useInView } from "motion/react";
 import project001 from "@/assets/project-001.jpg";
 import project002 from "@/assets/project-002.jpg";
@@ -16,10 +17,10 @@ const SECTION_BG_COLORS = [
   { section: '#about', color: 'hsl(0, 0%, 7%)' },
   { section: '#skills', color: 'hsl(0, 0%, 0%)' },
   { section: '#projects', color: 'hsl(0, 0%, 7%)' },
-  { section: '#education', color: 'hsl(0, 0%, 0%)' },
-  { section: '.achievements-section', color: 'hsl(0, 0%, 7%)' },
-  { section: '#experience', color: 'hsl(0, 0%, 0%)' },
-  { section: '#contact', color: 'hsl(0, 0%, 7%)' },
+  { section: '#education', color: 'hsl(0, 0%, 9%)' },
+  { section: '.achievements-section', color: 'hsl(0, 0%, 13%)' },
+  { section: '#experience', color: 'hsl(0, 0%, 8%)' },
+  { section: '#contact', color: 'hsl(0, 0%, 12%)' },
 ];
 
 const NAV_LINKS = ["home", "about", "skills", "projects", "experience", "contact"];
@@ -65,6 +66,9 @@ const PROJECTS = [
   { id: "001", title: "Fee Concession Automation", desc: "RPA solution using UiPath to automate fee concession approval process, reducing manual processing time.", longDesc: "Designed and implemented an RPA solution using UiPath to automate the fee concession approval process. Reduced manual processing time significantly and improved operational efficiency for the organization. The bot handles form validation, data extraction, and approval routing automatically.", tech: ["UiPath", "RPA", "Automation"], image: project001 },
   { id: "002", title: "Farm Assist — AI Chatbot", desc: "Bilingual (Tamil/English) AI-powered chatbot using React.js and n8n for real-time farmer assistance.", longDesc: "Developed a bilingual (Tamil/English) AI-powered chatbot using React.js and n8n. Integrated APIs and webhook-based workflows for real-time farmer assistance. Improved accessibility and user engagement through conversational AI, helping farmers get instant answers about crop management, weather, and market prices.", tech: ["React.js", "n8n", "APIs", "AI"], image: project002 },
   { id: "003", title: "Motion Capture System", desc: "Real-time human motion recognition using OpenCV, MediaPipe and Unity for 3D visualization.", longDesc: "Built a real-time human motion recognition system using OpenCV and MediaPipe. Integrated Python-based pose detection with Unity for 3D visualization. Enabled real-time movement tracking and interaction, creating an immersive experience for motion analysis and gaming applications.", tech: ["Python", "MediaPipe", "OpenCV", "Unity"], image: project003 },
+  { id: "004", title: "Smart Resume Screener", desc: "Placeholder: upcoming NLP-assisted resume filtering workflow for recruiter pipelines.", longDesc: "Placeholder project. Planned feature set includes resume parsing, scoring, and shortlist recommendations with explainable ranking insights.", tech: ["Python", "NLP", "FastAPI"], image: project004 },
+  { id: "005", title: "Vision Attendance System", desc: "Placeholder: upcoming real-time face recognition attendance application.", longDesc: "Placeholder project. Planned flow includes webcam capture, identity matching, secure logs, and analytics dashboard exports.", tech: ["OpenCV", "Face Recognition", "React"], image: project005 },
+  { id: "006", title: "AI Interview Copilot", desc: "Placeholder: upcoming interview simulation and feedback assistant.", longDesc: "Placeholder project. Planned module includes role-based mock sessions, rubric scoring, and personalized improvement reports.", tech: ["LLM", "Speech", "Evaluation"], image: project003 },
 ];
 
 const EDUCATION = [
@@ -104,7 +108,12 @@ const PROJECT_CARD_WIDTH = 480;
 const PROJECT_GAP = 32;
 const NAVBAR_HEIGHT = 96;
 
-// Counter component that animates when in view
+type VantaEffectInstance = {
+  destroy?: () => void;
+  resize?: () => void;
+};
+
+/* Fix #5: Counter snaps to exact final value */
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-30px" });
@@ -112,16 +121,19 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 
   useEffect(() => {
     if (!isInView) return;
-    let start = 0;
     const duration = 1500;
     const startTime = performance.now();
     const animate = (now: number) => {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      start = Math.floor(eased * target);
-      setValue(start);
-      if (progress < 1) requestAnimationFrame(animate);
+      const current = Math.floor(eased * target);
+      setValue(current);
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setValue(target); // Snap to exact target on completion
+      }
     };
     requestAnimationFrame(animate);
   }, [isInView, target]);
@@ -242,6 +254,8 @@ export default function Index() {
   const loaderBarRef = useRef<HTMLDivElement>(null);
   const loaderTextRef = useRef<HTMLSpanElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
+  const heroVantaHostRef = useRef<HTMLDivElement>(null);
+  const vantaRef = useRef<VantaEffectInstance | null>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
 
   const mousePos = useRef({ x: 0, y: 0 });
@@ -267,6 +281,67 @@ export default function Index() {
     } catch {
       // Ignore audio API failures
     }
+  }, []);
+
+  // ===== HERO BACKGROUND — VANTA DOTS =====
+  useEffect(() => {
+    const host = heroVantaHostRef.current;
+    if (!host) return;
+
+    let cancelled = false;
+
+    const initVanta = async () => {
+      // Vanta effect modules read THREE from window scope at module evaluation time.
+      (window as unknown as { THREE?: unknown }).THREE = THREE;
+      const mod = await import("vanta/src/vanta.dots.js");
+      if (cancelled) return;
+
+      const DOTS = mod.default as (opts: Record<string, unknown>) => VantaEffectInstance;
+      vantaRef.current?.destroy?.();
+      vantaRef.current = DOTS({
+        el: host,
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.0,
+        minWidth: 200.0,
+        scale: 1.0,
+        scaleMobile: 1.0,
+        color: 0xe08f2e,
+        backgroundColor: 0x1d1818,
+        size: 2.4,
+        spacing: 22.0,
+        showLines: false,
+      });
+
+      // Pull the dots field upward and denser so it fills the full hero background.
+      const dots = vantaRef.current as unknown as {
+        camera?: {
+          position?: { y: number; z: number };
+          ty?: number;
+          tz?: number;
+          lookAt?: (x: number, y: number, z: number) => void;
+        };
+        resize?: () => void;
+      };
+
+      if (dots.camera?.position) {
+        dots.camera.position.y = 340;
+        dots.camera.position.z = 150;
+        dots.camera.ty = 220;
+        dots.camera.tz = 220;
+        dots.camera.lookAt?.(0, 0, 0);
+      }
+      dots.resize?.();
+    };
+
+    void initVanta();
+
+    return () => {
+      cancelled = true;
+      vantaRef.current?.destroy?.();
+      vantaRef.current = null;
+    };
   }, []);
 
   // ===== LOADER SEQUENCE =====
@@ -309,7 +384,7 @@ export default function Index() {
       lenis.destroy();
       lenisRef.current = null;
     };
-  }, [loaded]);
+  }, [loaded, revealGone]);
 
   // ===== CUSTOM CURSOR =====
   useEffect(() => {
@@ -358,19 +433,26 @@ export default function Index() {
   }, [loaded, revealGone]);
 
   // ===== SCROLL TRACKING =====
+  // Fix #6: Improved detection — uses 40% of viewport height for more accurate section tracking
   useEffect(() => {
     const onScroll = () => {
       const scrollTop = window.scrollY;
       setNavScrolled(scrollTop > 80);
       setShowBackTop(scrollTop > 400);
 
+      const threshold = window.innerHeight * 0.4;
       const sections = NAV_LINKS.map(id => document.getElementById(id));
+      let foundActive = false;
       for (let i = sections.length - 1; i >= 0; i--) {
         const s = sections[i];
-        if (s && s.getBoundingClientRect().top <= 200) {
+        if (s && s.getBoundingClientRect().top <= threshold) {
           setActiveNav(NAV_LINKS[i]);
+          foundActive = true;
           break;
         }
+      }
+      if (!foundActive && scrollTop < 100) {
+        setActiveNav("home");
       }
     };
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -399,6 +481,7 @@ export default function Index() {
         }
       });
       heroTl.to(".hero-text", { y: -80, opacity: 0, scale: 0.97, duration: 1, ease: "power2.in" }, 0);
+      heroTl.to("#hero-vanta-bg", { opacity: 0.4, duration: 0.8 }, 0);
       heroTl.to(".hero-glow-orb", { opacity: 0, scale: 1.3, duration: 1 }, 0);
       heroTl.to(".hero-grid-pattern", { opacity: 0, duration: 0.8 }, 0);
       heroTl.to(".hero-corner-frame", { opacity: 0, duration: 0.6 }, 0);
@@ -419,23 +502,39 @@ export default function Index() {
       const projectsTrack = document.querySelector('.projects-track') as HTMLElement;
       const projectsSection = document.getElementById('projects');
       if (projectsTrack && projectsSection && !isMobile) {
-        const trackWidth = projectsTrack.scrollWidth;
-        const viewportWidth = window.innerWidth;
-        const translateDistance = trackWidth - viewportWidth + viewportWidth * 0.1;
+        const projectsWrapper = projectsSection.querySelector('.projects-pin-wrapper') as HTMLElement | null;
+        if (projectsWrapper) {
+          // The wrapper has horizontal padding, so clientWidth alone overestimates available track viewport.
+          // Use both last-card alignment and scrollWidth fallback for reliability across layout changes.
+          const wrapperStyles = window.getComputedStyle(projectsWrapper);
+          const padLeft = parseFloat(wrapperStyles.paddingLeft) || 0;
+          const padRight = parseFloat(wrapperStyles.paddingRight) || 0;
+          const trackViewportWidth = projectsWrapper.clientWidth - padLeft - padRight;
+          const cards = projectsTrack.querySelectorAll<HTMLElement>('.project-card');
+          const lastCard = cards[cards.length - 1];
+          const byTrackWidth = Math.max(projectsTrack.scrollWidth - trackViewportWidth, 0);
+          const byLastCard = lastCard ? Math.max(lastCard.offsetLeft + lastCard.offsetWidth - trackViewportWidth, 0) : 0;
+          const translateDistance = Math.max(byTrackWidth, byLastCard);
 
-        gsap.to(projectsTrack, {
-          x: -translateDistance,
-          ease: "none",
-          scrollTrigger: {
-            trigger: projectsSection,
-            start: "top top",
-            end: () => `+=${translateDistance}`,
-            scrub: 0.8,
-            pin: true,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          },
-        });
+          if (translateDistance > 0) {
+          gsap.to(projectsTrack, {
+            x: -translateDistance,
+            ease: "none",
+            scrollTrigger: {
+              trigger: projectsSection,
+              start: "top top",
+              end: () => `+=${translateDistance}`,
+              scrub: true,
+              pin: true,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+            },
+          });
+
+          // Ensure trigger measurements are updated after timeline registration.
+          (ScrollTrigger as unknown as { refresh?: () => void }).refresh?.();
+          }
+        }
       }
 
       // ---- EDUCATION line ----
@@ -488,29 +587,28 @@ export default function Index() {
         }
       });
 
-      // ---- MODERN SECTION REVEALS (clip-path + blur + depth) ----
-      const sections = Array.from(document.querySelectorAll<HTMLElement>('.content-wrapper section:not(.hero-section)'));
+      // ---- MODERN SECTION REVEALS (y + opacity, no clip-path clipping) ----
+      // Fix #8/#15: Removed aggressive clip-path and blur to prevent card clipping and compositing flash
+      const sections = Array.from(document.querySelectorAll<HTMLElement>('.content-wrapper section:not(.hero-section):not(.projects-section)'));
       sections.forEach((section, index) => {
         gsap.fromTo(
           section,
           {
-            clipPath: 'inset(12% 0% 14% 0% round 24px)',
-            y: 90,
-            opacity: 0.35,
-            filter: 'blur(10px)',
+            y: 60,
+            opacity: 0.2,
+            filter: 'blur(3px)',
           },
           {
-            clipPath: 'inset(0% 0% 0% 0% round 0px)',
             y: 0,
             opacity: 1,
             filter: 'blur(0px)',
-            duration: 1.25,
-            ease: 'power4.out',
+            duration: 1.2,
+            ease: 'power3.out',
             scrollTrigger: {
               trigger: section,
-              start: 'top 84%',
-              end: 'top 48%',
-              scrub: 0.65,
+              start: 'top 88%',
+              end: 'top 55%',
+              scrub: 0.5,
             },
             delay: index * 0.02,
           }
@@ -620,16 +718,28 @@ export default function Index() {
   }, []);
 
   useEffect(() => {
-    const hash = window.location.hash.replace("#", "");
-    if (!hash) return;
-    const alignToHash = () => scrollToSection(hash, true);
-    window.addEventListener("load", alignToHash);
-    const timeout = window.setTimeout(alignToHash, 0);
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    // Always reopen from hero on full refresh.
+    const alignToTop = () => {
+      if (window.location.hash) {
+        window.history.replaceState(null, "", window.location.pathname);
+      }
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      }
+      setActiveNav("home");
+    };
+    window.addEventListener("load", alignToTop);
+    const timeout = window.setTimeout(alignToTop, 0);
     return () => {
-      window.removeEventListener("load", alignToHash);
+      window.removeEventListener("load", alignToTop);
       window.clearTimeout(timeout);
     };
-  }, [scrollToSection]);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -745,6 +855,15 @@ export default function Index() {
       {/* MOBILE MENU */}
       <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(false)}>
         <div className="mobile-menu-inner" onClick={(e) => e.stopPropagation()}>
+          <button
+            type="button"
+            className="mobile-menu-close"
+            aria-label="Close mobile menu"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <span></span>
+            <span></span>
+          </button>
           <div className="mobile-menu-nav-list" role="menu" aria-label="Mobile navigation">
             {NAV_LINKS.map((id, i) => (
               <a
@@ -804,6 +923,7 @@ export default function Index() {
       <div className="content-wrapper">
         {/* ===== HERO ===== */}
         <section id="home" className="hero-section">
+          <div id="hero-vanta-bg" ref={heroVantaHostRef} className="hero-vanta-bg" aria-hidden="true"></div>
           <div className="hero-grid-pattern"></div>
           <div className="hero-glow-orb hero-glow-orb--1"></div>
           <div className="hero-glow-orb hero-glow-orb--2"></div>
@@ -1032,8 +1152,8 @@ export default function Index() {
           <span className="section-label">// 06. MISSION HISTORY</span>
           <h2 className="section-heading" data-splitting>Experience</h2>
           <div className="experience-timeline">
-            <svg className="experience-svg-line" width="40" height="100%" preserveAspectRatio="none">
-              <path className="exp-svg-path" d="M20,0 L20,2000" fill="none" stroke="hsl(10,100%,59%)" strokeWidth="2" style={{ filter: 'drop-shadow(0 0 4px hsl(10,100%,59%,0.5))' }} />
+            <svg className="experience-svg-line" width="40" preserveAspectRatio="none">
+              <path className="exp-svg-path" d="M20,0 L20,800" fill="none" stroke="hsl(10,100%,59%)" strokeWidth="2" style={{ filter: 'drop-shadow(0 0 4px hsl(10,100%,59%,0.5))' }} />
             </svg>
             {EXPERIENCE.map((exp, i) => (
               <MotionItem key={i} className="experience-entry" delay={i * 0.2}>
@@ -1084,19 +1204,19 @@ export default function Index() {
               <form className="contact-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label>Name</label>
-                  <input type="text" required placeholder="John Doe" />
+                  <input type="text" name="name" required placeholder="John Doe" />
                 </div>
                 <div className="form-group">
                   <label>Email</label>
-                  <input type="email" required placeholder="john@example.com" />
+                  <input type="email" name="email" required placeholder="john@example.com" />
                 </div>
                 <div className="form-group">
                   <label>Subject</label>
-                  <input type="text" required placeholder="Project inquiry" />
+                  <input type="text" name="subject" required placeholder="Project inquiry" />
                 </div>
                 <div className="form-group">
                   <label>Message</label>
-                  <textarea required placeholder="Tell me about your project..." rows={4}></textarea>
+                  <textarea name="message" required placeholder="Tell me about your project..." rows={4}></textarea>
                 </div>
                 <button type="submit" className={`btn-submit ${formSent ? 'sent' : ''}`}>
                   {formSent ? '✓ Message Sent' : 'Send Message'}
@@ -1108,7 +1228,7 @@ export default function Index() {
 
         {/* ===== FOOTER ===== */}
         <footer className="footer">
-          <div className="footer-copy">© 2025 Pavithran G. All rights reserved.</div>
+          <div className="footer-copy">© {new Date().getFullYear()} Pavithran G. All rights reserved.</div>
         </footer>
       </div>
 

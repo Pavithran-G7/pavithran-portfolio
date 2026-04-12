@@ -10,7 +10,7 @@ interface MotionSectionProps {
 
 export function MotionSection({ children, className = "", id, delay = 0 }: MotionSectionProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px 0px -50px 0px" });
+  const isInView = useInView(ref, { once: false, margin: "-50px 0px -50px 0px" });
 
   return (
     <motion.section
@@ -43,7 +43,7 @@ interface MotionItemProps {
 
 export function MotionItem({ children, className = "", delay = 0, direction = "up", style, onClick, onMouseMove, onMouseLeave }: MotionItemProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-30px 0px -30px 0px" });
+  const isInView = useInView(ref, { once: false, margin: "-30px 0px -30px 0px" });
 
   const initialX = direction === "left" ? -50 : direction === "right" ? 50 : 0;
   const initialY = direction === "up" ? 40 : 0;
@@ -77,7 +77,7 @@ interface StaggerContainerProps {
 
 export function StaggerContainer({ children, className = "" }: StaggerContainerProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-30px 0px -30px 0px" });
+  const isInView = useInView(ref, { once: false, margin: "-30px 0px -30px 0px" });
 
   return (
     <motion.div
