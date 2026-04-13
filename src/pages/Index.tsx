@@ -25,6 +25,17 @@ import project002 from "@/assets/project-002.jpg";
 import project003 from "@/assets/project-003.jpg";
 import project004 from "@/assets/project-004.jpg";
 import project005 from "@/assets/project-005.jpg";
+import skillPython from "@/assets/skills/python.svg";
+import skillC from "@/assets/skills/c.svg";
+import skillMySQL from "@/assets/skills/mysql.svg";
+import skillGit from "@/assets/skills/git.svg";
+import skillGitHub from "@/assets/skills/github.svg";
+import skillJava from "@/assets/skills/java.svg";
+import skillTensorFlow from "@/assets/skills/tensorflow.svg";
+import skillNumPy from "@/assets/skills/numpy.svg";
+import skillPandas from "@/assets/skills/pandas.svg";
+import skillOpenCV from "@/assets/skills/opencv.svg";
+import skillGoogleColab from "@/assets/skills/googlecolab.svg";
 import { SEO } from "@/components/SEO";
 import { MotionSection, MotionItem, StaggerContainer, staggerChildVariants } from "@/components/MotionSection";
 import { ScrollTimeline } from "@/components/ScrollTimeline";
@@ -59,6 +70,20 @@ const SKILL_ICONS: Record<string, React.ComponentType<unknown>> = {
   Git: GitBranch,
   GitHub: Github,
   "Google Colab": Layout,
+};
+
+const SKILL_LOGOS: Record<string, { src: string; alt: string; className?: string }> = {
+  Python: { src: skillPython, alt: "Python logo" },
+  C: { src: skillC, alt: "C logo" },
+  Java: { src: skillJava, alt: "Java logo" },
+  "SQL (MySQL)": { src: skillMySQL, alt: "MySQL logo" },
+  TensorFlow: { src: skillTensorFlow, alt: "TensorFlow logo" },
+  NumPy: { src: skillNumPy, alt: "NumPy logo" },
+  Pandas: { src: skillPandas, alt: "Pandas logo" },
+  "Computer Vision": { src: skillOpenCV, alt: "OpenCV logo" },
+  "Google Colab": { src: skillGoogleColab, alt: "Google Colab logo" },
+  Git: { src: skillGit, alt: "Git logo" },
+  GitHub: { src: skillGitHub, alt: "GitHub logo" },
 };
 
 const CATEGORY_ICONS: Record<string, React.ComponentType<unknown>> = {
@@ -319,11 +344,23 @@ function ProjectsHorizontalScroll({
   projects: typeof PROJECTS;
   onProjectClick: (p: (typeof PROJECTS)[0]) => void;
 }) {
+  const [isMobileProjects, setIsMobileProjects] = useState(
+    typeof window !== "undefined" ? window.innerWidth <= 768 : false,
+  );
+
+  useEffect(() => {
+    const onResize = () => setIsMobileProjects(window.innerWidth <= 768);
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
   return (
     <section id="projects" className="projects-section">
       <div
         className="projects-pin-wrapper"
         style={{
+          position: "relative",
           height: "100vh",
           display: "flex",
           flexDirection: "column",
@@ -341,6 +378,7 @@ function ProjectsHorizontalScroll({
         <div
           className="projects-track"
           style={{
+            position: "relative",
             display: "flex",
             gap: `${PROJECT_GAP}px`,
             willChange: "transform",
@@ -351,10 +389,10 @@ function ProjectsHorizontalScroll({
               className="project-card"
               key={p.id}
               style={{ flex: `0 0 ${PROJECT_CARD_WIDTH}px` }}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              initial={isMobileProjects ? { opacity: 0, x: i % 2 === 0 ? -56 : 56 } : { opacity: 0, y: 40 }}
+              whileInView={isMobileProjects ? { opacity: 1, x: 0 } : { opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: isMobileProjects ? "-20px" : "-50px" }}
+              transition={{ duration: isMobileProjects ? 0.72 : 0.6, delay: isMobileProjects ? i * 0.08 : i * 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className="project-visual" onClick={() => onProjectClick(p)} style={{ cursor: "pointer" }}>
                 <img src={p.image} alt={p.title} className="project-image" loading="lazy" />
@@ -1346,6 +1384,7 @@ export default function Index() {
                   <StaggerContainer className="skills-grid">
                     {skills.map((skill) => {
                       const IconComp = SKILL_ICONS[skill.name] || Code2;
+                      const logo = SKILL_LOGOS[skill.name];
                       return (
                         <motion.div
                           className="skill-card"
@@ -1354,13 +1393,21 @@ export default function Index() {
                           onMouseMove={handleSkillMouseMove as any}
                           onMouseLeave={handleSkillMouseLeave as any}
                         >
-                          <div className="skill-icon">
-                            <IconComp size={24} strokeWidth={1.5} />
+                          <div className="skill-card-core">
+                            <div className="skill-icon">
+                              {logo ? (
+                                <img
+                                  src={logo.src}
+                                  alt={logo.alt}
+                                  className={`skill-icon-image${logo.className ? ` ${logo.className}` : ""}`}
+                                  loading="lazy"
+                                />
+                              ) : (
+                                <IconComp size={26} strokeWidth={1.5} />
+                              )}
+                            </div>
+                            <div className="skill-name">{skill.name}</div>
                           </div>
-                          <div className="skill-name">{skill.name}</div>
-                          <AnimatedSkillBar level={skill.level} />
-                          <div className="skill-level">{skill.level}%</div>
-                          <div className={`skill-status ${skill.status.toLowerCase()}`}>{skill.status}</div>
                         </motion.div>
                       );
                     })}
