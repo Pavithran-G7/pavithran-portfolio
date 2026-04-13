@@ -95,22 +95,40 @@ const CATEGORY_ICONS: Record<string, React.ComponentType<unknown>> = {
 
 const CATEGORY_ORDER = ["LANGUAGES", "AI & ML", "AUTOMATION", "TOOLS"];
 
+const SKILL_COLORS: Record<string, [string, string]> = {
+  Python: ["#3776AB", "#FFD43B"],
+  C: ["#A8B9CC", "#555555"],
+  Java: ["#ED8B00", "#5382A1"],
+  "SQL (MySQL)": ["#00758F", "#F29111"],
+  "Machine Learning": ["#FF6F61", "#6B5B95"],
+  "Computer Vision": ["#00C9A7", "#845EC2"],
+  TensorFlow: ["#FF6F00", "#FFA726"],
+  MediaPipe: ["#0097A7", "#4DB6AC"],
+  NumPy: ["#4DABCF", "#4D77CF"],
+  Pandas: ["#150458", "#E70488"],
+  UiPath: ["#FA4616", "#FF8C00"],
+  n8n: ["#EA4B71", "#FF6B9D"],
+  Git: ["#F05032", "#DE4C36"],
+  GitHub: ["#6e5494", "#BD2C00"],
+  "Google Colab": ["#F9AB00", "#E8710A"],
+};
+
 const SKILLS = [
-  { name: "Python", category: "LANGUAGES", level: 90, status: "OPERATIONAL" },
-  { name: "C", category: "LANGUAGES", level: 80, status: "OPERATIONAL" },
-  { name: "Java", category: "LANGUAGES", level: 78, status: "ADVANCED" },
-  { name: "SQL (MySQL)", category: "LANGUAGES", level: 75, status: "ADVANCED" },
-  { name: "Machine Learning", category: "AI & ML", level: 88, status: "OPERATIONAL" },
-  { name: "Computer Vision", category: "AI & ML", level: 82, status: "ADVANCED" },
-  { name: "TensorFlow", category: "AI & ML", level: 80, status: "OPERATIONAL" },
-  { name: "MediaPipe", category: "AI & ML", level: 75, status: "ADVANCED" },
-  { name: "NumPy", category: "AI & ML", level: 85, status: "OPERATIONAL" },
-  { name: "Pandas", category: "AI & ML", level: 83, status: "OPERATIONAL" },
-  { name: "UiPath", category: "AUTOMATION", level: 78, status: "ADVANCED" },
-  { name: "n8n", category: "AUTOMATION", level: 72, status: "ADVANCED" },
-  { name: "Git", category: "TOOLS", level: 85, status: "OPERATIONAL" },
-  { name: "GitHub", category: "TOOLS", level: 88, status: "OPERATIONAL" },
-  { name: "Google Colab", category: "TOOLS", level: 80, status: "OPERATIONAL" },
+  { name: "Python", category: "LANGUAGES", level: 90 },
+  { name: "C", category: "LANGUAGES", level: 80 },
+  { name: "Java", category: "LANGUAGES", level: 78 },
+  { name: "SQL (MySQL)", category: "LANGUAGES", level: 75 },
+  { name: "Machine Learning", category: "AI & ML", level: 88 },
+  { name: "Computer Vision", category: "AI & ML", level: 82 },
+  { name: "TensorFlow", category: "AI & ML", level: 80 },
+  { name: "MediaPipe", category: "AI & ML", level: 75 },
+  { name: "NumPy", category: "AI & ML", level: 85 },
+  { name: "Pandas", category: "AI & ML", level: 83 },
+  { name: "UiPath", category: "AUTOMATION", level: 78 },
+  { name: "n8n", category: "AUTOMATION", level: 72 },
+  { name: "Git", category: "TOOLS", level: 85 },
+  { name: "GitHub", category: "TOOLS", level: 88 },
+  { name: "Google Colab", category: "TOOLS", level: 80 },
 ];
 
 const SKILLS_BY_CATEGORY = CATEGORY_ORDER.map((cat) => ({
@@ -320,22 +338,7 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
   );
 }
 
-// Skill bar that fills when in view
-function AnimatedSkillBar({ level }: { level: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-20px" });
 
-  return (
-    <div className="skill-bar" ref={ref}>
-      <motion.div
-        className="skill-bar-fill"
-        initial={{ width: "0%" }}
-        animate={isInView ? { width: `${level}%` } : { width: "0%" }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-      />
-    </div>
-  );
-}
 
 function ProjectsHorizontalScroll({
   projects,
@@ -1369,52 +1372,64 @@ export default function Index() {
           <h2 className="section-heading" data-splitting>
             My <span className="accent">Skills</span>
           </h2>
-          <div className="skills-categories">
-            {SKILLS_BY_CATEGORY.map(({ category, skills }, catIdx) => {
-              const CatIcon = CATEGORY_ICONS[category] || Code2;
-              return (
-                <MotionItem key={category} delay={catIdx * 0.1}>
-                  <div className="skill-category-header">
-                    <div className="skill-category-icon">
-                      <CatIcon size={20} />
-                    </div>
-                    <h3 className="skill-category-title">{category}</h3>
-                    <span className="skill-category-count">{skills.length} skills</span>
+
+
+
+          {/* All Skills as 3D Orbs */}
+          <div className="skills-orb-cloud">
+            {SKILLS_BY_CATEGORY.map(({ category, skills }, catIdx) => (
+              <div key={category} className="skills-orb-group">
+                <MotionItem delay={catIdx * 0.1}>
+                  <div className="skills-orb-group-label">
+                    {(() => { const CatIcon = CATEGORY_ICONS[category] || Code2; return <CatIcon size={14} />; })()}
+                    <span>{category}</span>
                   </div>
-                  <StaggerContainer className="skills-grid">
-                    {skills.map((skill) => {
-                      const IconComp = SKILL_ICONS[skill.name] || Code2;
-                      const logo = SKILL_LOGOS[skill.name];
-                      return (
-                        <motion.div
-                          className="skill-card"
-                          key={skill.name}
-                          variants={staggerChildVariants}
-                          onMouseMove={handleSkillMouseMove as any}
-                          onMouseLeave={handleSkillMouseLeave as any}
-                        >
-                          <div className="skill-card-core">
-                            <div className="skill-icon">
-                              {logo ? (
-                                <img
-                                  src={logo.src}
-                                  alt={logo.alt}
-                                  className={`skill-icon-image${logo.className ? ` ${logo.className}` : ""}`}
-                                  loading="lazy"
-                                />
-                              ) : (
-                                <IconComp size={26} strokeWidth={1.5} />
-                              )}
-                            </div>
-                            <div className="skill-name">{skill.name}</div>
-                          </div>
-                        </motion.div>
-                      );
-                    })}
-                  </StaggerContainer>
                 </MotionItem>
-              );
-            })}
+                <div className="skills-orb-row">
+                  {skills.map((skill, i) => {
+                    const IconComp = SKILL_ICONS[skill.name] || Code2;
+                    const [c1, c2] = SKILL_COLORS[skill.name] || ["#60a5fa", "#34d399"];
+                    return (
+                      <MotionItem key={skill.name} delay={catIdx * 0.1 + i * 0.06}>
+                        <motion.div
+                          className="skill-orb"
+                          whileHover={{ scale: 1.18, y: -10 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                          style={{
+                            "--orb-c1": c1,
+                            "--orb-c2": c2,
+                          } as React.CSSProperties}
+                        >
+                          <div className="skill-orb-sphere" />
+                          <div className="skill-orb-icon">
+                            <IconComp size={22} strokeWidth={1.5} />
+                          </div>
+                          <div className="skill-orb-ring">
+                            <svg viewBox="0 0 60 60" className="skill-orb-ring-svg">
+                              <circle cx="30" cy="30" r="27" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="2.5" />
+                              <circle
+                                cx="30" cy="30" r="27" fill="none"
+                                stroke="url(#orbGrad)" strokeWidth="2.5" strokeLinecap="round"
+                                strokeDasharray={`${(2 * Math.PI * 27 * skill.level) / 100} ${2 * Math.PI * 27}`}
+                                style={{ transform: "rotate(-90deg)", transformOrigin: "center" }}
+                              />
+                              <defs>
+                                <linearGradient id="orbGrad">
+                                  <stop offset="0%" stopColor={c1} />
+                                  <stop offset="100%" stopColor={c2} />
+                                </linearGradient>
+                              </defs>
+                            </svg>
+                          </div>
+                          <span className="skill-orb-label">{skill.name}</span>
+                          <span className="skill-orb-pct">{skill.level}%</span>
+                        </motion.div>
+                      </MotionItem>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
           </div>
         </MotionSection>
 
