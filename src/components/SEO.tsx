@@ -16,7 +16,7 @@ type SeoProps = {
 };
 
 const SITE_URL = "https://pavithraninfo.dev";
-const SITE_NAME = "Pavithran G Portfolio";
+const SITE_NAME = "Pavithran G";
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.svg`;
 const DEFAULT_ROBOTS = "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1";
 const DEFAULT_KEYWORDS = [
@@ -96,7 +96,7 @@ export function SEO({
     const normalizedPath = (path.startsWith("/") ? path : `/${path}`).split("?")[0].split("#")[0] || "/";
     const canonicalUrl = `${SITE_URL}${normalizedPath}`;
     const robotsContent = noIndex
-      ? "noindex,nofollow,max-image-preview:none"
+      ? "noindex,nofollow,max-image-preview:none,max-snippet:-1,max-video-preview:-1"
       : (robots ?? DEFAULT_ROBOTS);
     const keywordContent = keywords.filter(Boolean).join(", ");
 
@@ -109,7 +109,7 @@ export function SEO({
     upsertMeta("name", "author", "Pavithran G");
     upsertMeta("name", "application-name", SITE_NAME);
     upsertMeta("name", "generator", "Vite + React + TypeScript");
-    upsertMeta("name", "theme-color", "#0a0f14");
+    upsertMeta("name", "theme-color", "#000000");
     upsertMeta("name", "color-scheme", "dark");
     upsertMeta("name", "keywords", keywordContent);
     upsertMeta("name", "robots", robotsContent);

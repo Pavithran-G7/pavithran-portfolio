@@ -1,20 +1,17 @@
 {
-  "name": "Pavithran G Portfolio",
+  "name": "Pavithran G",
   "short_name": "Pavithran G",
   "description": "AI and ML developer portfolio showcasing machine learning, computer vision, and automation projects.",
+  "id": "/",
   "start_url": "/",
+  "display_override": ["standalone", "browser"],
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
   "scope": "/",
   "lang": "en",
+  "orientation": "portrait-primary",
   "icons": [
-    {
-      "src": "/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    },
     {
       "src": "/favicon.ico",
       "sizes": "48x48 32x32 16x16",
