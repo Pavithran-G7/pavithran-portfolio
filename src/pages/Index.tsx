@@ -36,6 +36,10 @@ import skillNumPy from "@/assets/skills/numpy.svg";
 import skillPandas from "@/assets/skills/pandas.svg";
 import skillOpenCV from "@/assets/skills/opencv.svg";
 import skillGoogleColab from "@/assets/skills/googlecolab.svg";
+import skillMachineLearning from "@/assets/skills/machine-learning.svg";
+import skillMediaPipe from "@/assets/skills/mediapipe.svg";
+import skillUiPath from "@/assets/skills/uipath.svg";
+import skillN8n from "@/assets/skills/n8n.svg";
 import { SEO } from "@/components/SEO";
 import { MotionSection, MotionItem, StaggerContainer, staggerChildVariants } from "@/components/MotionSection";
 import { ScrollTimeline } from "@/components/ScrollTimeline";
@@ -54,33 +58,19 @@ const SECTION_BG_COLORS = [
 
 const NAV_LINKS = ["home", "about", "skills", "projects", "experience", "contact"];
 
-const SKILL_ICONS: Record<string, React.ComponentType<unknown>> = {
-  Python: FileCode,
-  C: Terminal,
-  Java: Braces,
-  "SQL (MySQL)": CircuitBoard,
-  TensorFlow: Atom,
-  MediaPipe: Flame,
-  NumPy: Database,
-  Pandas: Server,
-  "Machine Learning": Code2,
-  "Computer Vision": Palette,
-  UiPath: Container,
-  n8n: Wind,
-  Git: GitBranch,
-  GitHub: Github,
-  "Google Colab": Layout,
-};
-
 const SKILL_LOGOS: Record<string, { src: string; alt: string; className?: string }> = {
   Python: { src: skillPython, alt: "Python logo" },
   C: { src: skillC, alt: "C logo" },
   Java: { src: skillJava, alt: "Java logo" },
   "SQL (MySQL)": { src: skillMySQL, alt: "MySQL logo" },
+  "Machine Learning": { src: skillMachineLearning, alt: "Machine Learning logo" },
   TensorFlow: { src: skillTensorFlow, alt: "TensorFlow logo" },
+  MediaPipe: { src: skillMediaPipe, alt: "MediaPipe logo" },
   NumPy: { src: skillNumPy, alt: "NumPy logo" },
   Pandas: { src: skillPandas, alt: "Pandas logo" },
   "Computer Vision": { src: skillOpenCV, alt: "OpenCV logo" },
+  UiPath: { src: skillUiPath, alt: "UiPath logo" },
+  n8n: { src: skillN8n, alt: "n8n logo" },
   "Google Colab": { src: skillGoogleColab, alt: "Google Colab logo" },
   Git: { src: skillGit, alt: "Git logo" },
   GitHub: { src: skillGitHub, alt: "GitHub logo" },
@@ -1383,7 +1373,6 @@ export default function Index() {
                   </div>
                   <StaggerContainer className="skills-grid">
                     {skills.map((skill) => {
-                      const IconComp = SKILL_ICONS[skill.name] || Code2;
                       const logo = SKILL_LOGOS[skill.name];
                       return (
                         <motion.div
@@ -1395,15 +1384,13 @@ export default function Index() {
                         >
                           <div className="skill-card-core">
                             <div className="skill-icon">
-                              {logo ? (
+                              {logo && (
                                 <img
                                   src={logo.src}
                                   alt={logo.alt}
                                   className={`skill-icon-image${logo.className ? ` ${logo.className}` : ""}`}
                                   loading="lazy"
                                 />
-                              ) : (
-                                <IconComp size={26} strokeWidth={1.5} />
                               )}
                             </div>
                             <div className="skill-name">{skill.name}</div>
