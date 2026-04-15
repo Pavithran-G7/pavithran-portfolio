@@ -25,6 +25,7 @@ import project002 from "@/assets/project-002.jpg";
 import project003 from "@/assets/project-003.jpg";
 import project004 from "@/assets/project-004.jpg";
 import project005 from "@/assets/project-005.jpg";
+import profilePhoto from "@/assets/pavithran.jpeg";
 import skillPython from "@/assets/skills/python.svg";
 import skillC from "@/assets/skills/c.svg";
 import skillMySQL from "@/assets/skills/mysql.svg";
@@ -1266,7 +1267,7 @@ export default function Index() {
               <div className="profile-card-glow"></div>
               <div className="profile-card-inner">
                 <div className="profile-photo-wrapper">
-                  <div className="profile-photo-placeholder">PG</div>
+                  <img src={profilePhoto} alt="Pavithran G" className="profile-photo" loading="lazy" />
                   <div className="profile-photo-ring"></div>
                   <div className="profile-photo-dot"></div>
                 </div>
