@@ -1582,6 +1582,10 @@ html.lenis body {
   align-items: start;
 }
 
+.about-text {
+  min-width: 0;
+}
+
 /* --- Premium Profile Card with Photo --- */
 .about-profile-card {
   position: relative;
@@ -3419,8 +3423,18 @@ html.lenis body {
 
 @media (max-width: 1024px) {
   .about-grid {
-    grid-template-columns: 300px 1fr;
-    gap: 34px;
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .about-profile-card {
+    max-width: 430px;
+    margin: 0 auto;
+  }
+
+  .about-text {
+    max-width: 100%;
   }
 
   .contact-grid {
@@ -3514,6 +3528,59 @@ html.lenis body {
     grid-template-columns: 1fr;
   }
 
+  .about-grid {
+    gap: 24px;
+  }
+
+  .profile-card-inner {
+    padding: 20px 14px;
+    gap: 12px;
+  }
+
+  .profile-photo-wrapper {
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-name-tag {
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+
+  .profile-role-badge {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    padding: 5px 12px;
+    max-width: 100%;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+
+  .profile-meta-row {
+    gap: 10px;
+  }
+
+  .profile-meta-item {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .profile-social-links {
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .about-text p {
+    font-size: 12px;
+    line-height: 1.65;
+  }
+
   .skill-card-core {
     min-height: 108px;
   }
@@ -3528,6 +3595,21 @@ html.lenis body {
   .timeline-card--left,
   .timeline-card--right {
     width: calc(100% - 40px);
+  }
+}
+
+@media (max-width: 360px) {
+  .profile-card-inner {
+    padding: 18px 12px;
+  }
+
+  .profile-role-badge {
+    letter-spacing: 0.08em;
+    font-size: 9px;
+  }
+
+  .profile-meta-item {
+    font-size: 11px;
   }
 }
 
