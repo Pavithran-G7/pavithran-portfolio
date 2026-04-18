@@ -25,6 +25,7 @@ import project002 from "@/assets/project-002.jpg";
 import project003 from "@/assets/project-003.jpg";
 import project004 from "@/assets/project-004.jpg";
 import project005 from "@/assets/project-005.jpg";
+import project006 from "@/assets/project-006.jpg";
 import profilePhoto from "@/assets/pavithran.jpeg";
 import skillPython from "@/assets/skills/python.svg";
 import skillC from "@/assets/skills/c.svg";
@@ -162,7 +163,7 @@ const PROJECTS = [
     longDesc:
       "Placeholder project. Planned module includes role-based mock sessions, rubric scoring, and personalized improvement reports.",
     tech: ["LLM", "Speech", "Evaluation"],
-    image: project003,
+    image: project006,
   },
 ];
 
