@@ -37,6 +37,7 @@ import skillNumPy from "@/assets/skills/numpy.svg";
 import skillPandas from "@/assets/skills/pandas.svg";
 import skillOpenCV from "@/assets/skills/opencv.svg";
 import skillGoogleColab from "@/assets/skills/googlecolab.svg";
+import skillFastAPI from "@/assets/skills/fastapi.svg";
 import skillMachineLearning from "@/assets/skills/machine-learning.svg";
 import skillMediaPipe from "@/assets/skills/mediapipe.svg";
 import skillUiPath from "@/assets/skills/uipath.svg";
@@ -73,6 +74,7 @@ const SKILL_LOGOS: Record<string, { src: string; alt: string; className?: string
   UiPath: { src: skillUiPath, alt: "UiPath logo" },
   n8n: { src: skillN8n, alt: "n8n logo" },
   "Google Colab": { src: skillGoogleColab, alt: "Google Colab logo" },
+  FastAPI: { src: skillFastAPI, alt: "FastAPI logo" },
   Git: { src: skillGit, alt: "Git logo" },
   GitHub: { src: skillGitHub, alt: "GitHub logo" },
 };
@@ -91,6 +93,7 @@ const SKILLS = [
   { name: "C", category: "LANGUAGES", level: 80, status: "OPERATIONAL" },
   { name: "Java", category: "LANGUAGES", level: 78, status: "ADVANCED" },
   { name: "SQL (MySQL)", category: "LANGUAGES", level: 75, status: "ADVANCED" },
+  { name: "FastAPI", category: "LANGUAGES", level: 78, status: "ADVANCED" },
   { name: "Machine Learning", category: "AI & ML", level: 88, status: "OPERATIONAL" },
   { name: "Computer Vision", category: "AI & ML", level: 82, status: "ADVANCED" },
   { name: "TensorFlow", category: "AI & ML", level: 80, status: "OPERATIONAL" },
@@ -1009,16 +1012,6 @@ export default function Index() {
               </li>
             ))}
           </ul>
-          <a
-            href="#contact"
-            className="nav-cta"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("contact");
-            }}
-          >
-            Let's Talk
-          </a>
           <div
             className={`hamburger ${mobileMenuOpen ? "open" : ""}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -1074,16 +1067,6 @@ export default function Index() {
           </div>
           <div className="mobile-menu-footer">
             <div className="mobile-menu-divider"></div>
-            <a
-              href="#contact"
-              className="mobile-menu-cta"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection("contact");
-              }}
-            >
-              Let's Talk
-            </a>
             <div className="mobile-menu-socials">
               {SOCIAL_ICONS.map((s) => (
                 <a
