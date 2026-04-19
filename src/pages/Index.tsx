@@ -25,6 +25,7 @@ import project002 from "@/assets/project-002.jpg";
 import project003 from "@/assets/project-003.jpg";
 import project004 from "@/assets/project-004.jpg";
 import project005 from "@/assets/project-005.jpg";
+import project006 from "@/assets/project-006.jpg";
 import profilePhoto from "@/assets/pavithran.jpeg";
 import skillPython from "@/assets/skills/python.svg";
 import skillC from "@/assets/skills/c.svg";
@@ -81,19 +82,20 @@ const SKILL_LOGOS: Record<string, { src: string; alt: string; className?: string
 
 const CATEGORY_ICONS: Record<string, React.ComponentType<unknown>> = {
   LANGUAGES: Terminal,
+  FRAMEWORKS: Braces,
   "AI & ML": Atom,
   AUTOMATION: Wind,
   TOOLS: Wrench,
 };
 
-const CATEGORY_ORDER = ["LANGUAGES", "AI & ML", "AUTOMATION", "TOOLS"];
+const CATEGORY_ORDER = ["LANGUAGES", "FRAMEWORKS", "AI & ML", "AUTOMATION", "TOOLS"];
 
 const SKILLS = [
   { name: "Python", category: "LANGUAGES", level: 90, status: "OPERATIONAL" },
   { name: "C", category: "LANGUAGES", level: 80, status: "OPERATIONAL" },
   { name: "Java", category: "LANGUAGES", level: 78, status: "ADVANCED" },
   { name: "SQL (MySQL)", category: "LANGUAGES", level: 75, status: "ADVANCED" },
-  { name: "FastAPI", category: "LANGUAGES", level: 78, status: "ADVANCED" },
+  { name: "FastAPI", category: "FRAMEWORKS", level: 78, status: "ADVANCED" },
   { name: "Machine Learning", category: "AI & ML", level: 88, status: "OPERATIONAL" },
   { name: "Computer Vision", category: "AI & ML", level: 82, status: "ADVANCED" },
   { name: "TensorFlow", category: "AI & ML", level: 80, status: "OPERATIONAL" },
@@ -165,7 +167,7 @@ const PROJECTS = [
     longDesc:
       "Placeholder project. Planned module includes role-based mock sessions, rubric scoring, and personalized improvement reports.",
     tech: ["LLM", "Speech", "Evaluation"],
-    image: project003,
+    image: project006,
   },
 ];
 
@@ -802,7 +804,7 @@ export default function Index() {
   useEffect(() => {
     if (!loaded || window.innerWidth <= 768) return;
 
-    const magneticEls = document.querySelectorAll(".hero-btn, .nav-cta, .hero-social-link, .btn-submit");
+    const magneticEls = document.querySelectorAll(".hero-btn, .hero-social-link, .btn-submit");
     const handlers: Array<{ el: Element; move: (e: MouseEvent) => void; leave: () => void }> = [];
 
     magneticEls.forEach((el) => {
