@@ -514,7 +514,7 @@ export default function Index() {
 
   // ===== LENIS SMOOTH SCROLL =====
   useEffect(() => {
-    if (!loaded || !revealGone) return;
+    if (!introDone) return;
 
     const lenis = new Lenis({
       lerp: 0.06,
@@ -538,11 +538,11 @@ export default function Index() {
       lenis.destroy();
       lenisRef.current = null;
     };
-  }, [loaded, revealGone]);
+  }, [introDone]);
 
   // ===== CUSTOM CURSOR =====
   useEffect(() => {
-    if (!loaded || !revealGone || window.innerWidth <= 768) return;
+    if (!introDone || window.innerWidth <= 768) return;
     const ring = cursorRingRef.current;
     const dot = cursorDotRef.current;
     if (!ring || !dot) return;
@@ -592,7 +592,7 @@ export default function Index() {
       window.removeEventListener("mousedown", down);
       window.removeEventListener("mouseup", up);
     };
-  }, [loaded, revealGone]);
+  }, [introDone]);
 
   // ===== SCROLL TRACKING =====
   // Fix #6: Improved detection — uses 40% of viewport height for more accurate section tracking
@@ -623,7 +623,7 @@ export default function Index() {
 
   // ===== GSAP — only for complex pinning & text plugin =====
   useEffect(() => {
-    if (!loaded || !revealGone) return;
+    if (!introDone) return;
 
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin);
 
@@ -773,7 +773,7 @@ export default function Index() {
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
-  }, [loaded, revealGone]);
+  }, [introDone]);
 
   // ===== MAGNETIC HOVER EFFECT (desktop only) =====
   useEffect(() => {
@@ -803,7 +803,7 @@ export default function Index() {
         (el as HTMLElement).removeEventListener("mouseleave", leave);
       });
     };
-  }, [loaded, revealGone]);
+  }, [introDone]);
 
   // Prevent background scrolling while mobile navigation is open.
   useEffect(() => {
@@ -942,7 +942,7 @@ export default function Index() {
       )}
 
       {/* CURSORS */}
-      {loaded && revealGone && (
+      {introDone && (
         <>
           <div className="cursor-ring" ref={cursorRingRef}></div>
           <div className="cursor-dot" ref={cursorDotRef}></div>
@@ -1011,7 +1011,7 @@ export default function Index() {
       </nav>
 
       {/* SCROLL PROGRESS — shown only after user begins scrolling */}
-      {loaded && revealGone && navScrolled && <ScrollProgressBar />}
+      {introDone && navScrolled && <ScrollProgressBar />}
 
       {/* MOBILE MENU */}
       <div className={`mobile-menu ${mobileMenuOpen ? "open" : ""}`} onClick={() => setMobileMenuOpen(false)}>
