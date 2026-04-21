@@ -46,6 +46,7 @@ import skillN8n from "@/assets/skills/n8n.svg";
 import { SEO } from "@/components/SEO";
 import { MotionSection, MotionItem, StaggerContainer, staggerChildVariants } from "@/components/MotionSection";
 import { ScrollTimeline } from "@/components/ScrollTimeline";
+import { IntroAnimation } from "@/components/IntroAnimation";
 
 // Section background colors for scroll-driven transitions
 const SECTION_BG_COLORS = [
@@ -431,9 +432,7 @@ function ScrollProgressBar() {
 }
 
 export default function Index() {
-  const [loaded, setLoaded] = useState(false);
-  const [diamondOpen, setDiamondOpen] = useState(false);
-  const [revealGone, setRevealGone] = useState(false);
+  const [introDone, setIntroDone] = useState(false);
   const [navScrolled, setNavScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showBackTop, setShowBackTop] = useState(false);
@@ -443,8 +442,6 @@ export default function Index() {
 
   const cursorRingRef = useRef<HTMLDivElement>(null);
   const cursorDotRef = useRef<HTMLDivElement>(null);
-  const loaderBarRef = useRef<HTMLDivElement>(null);
-  const loaderTextRef = useRef<HTMLSpanElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
   const heroVantaHostRef = useRef<HTMLDivElement>(null);
   const vantaRef = useRef<VantaEffectInstance | null>(null);
@@ -513,29 +510,7 @@ export default function Index() {
     };
   }, []);
 
-  // ===== LOADER SEQUENCE =====
-  useEffect(() => {
-    const tl = gsap.timeline();
-    tl.to({}, { duration: 0.7 })
-      .to(loaderTextRef.current, { duration: 1.0, text: "INITIALIZING PORTFOLIO SYSTEMS...", ease: "none" }, 0.9)
-      .call(
-        () => {
-          if (loaderBarRef.current) loaderBarRef.current.style.width = "100%";
-        },
-        [],
-        1.9,
-      )
-      .to("#loader > *", { opacity: 0, duration: 0.4 }, 2.7)
-      .call(
-        () => {
-          setLoaded(true);
-          setTimeout(() => setDiamondOpen(true), 100);
-          setTimeout(() => setRevealGone(true), 1400);
-        },
-        [],
-        3.1,
-      );
-  }, []);
+  // ===== INTRO SEQUENCE handled by <IntroAnimation /> =====
 
   // ===== LENIS SMOOTH SCROLL =====
   useEffect(() => {
