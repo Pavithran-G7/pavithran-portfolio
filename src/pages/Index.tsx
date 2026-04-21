@@ -777,7 +777,7 @@ export default function Index() {
 
   // ===== MAGNETIC HOVER EFFECT (desktop only) =====
   useEffect(() => {
-    if (!loaded || window.innerWidth <= 768) return;
+    if (!introDone || window.innerWidth <= 768) return;
 
     const magneticEls = document.querySelectorAll(".hero-btn, .hero-social-link, .btn-submit");
     const handlers: Array<{ el: Element; move: (e: MouseEvent) => void; leave: () => void }> = [];
@@ -913,33 +913,8 @@ export default function Index() {
         type="website"
       />
 
-      {/* LOADER */}
-      <div id="loader" className={loaded ? "hidden" : ""}>
-        <div className="loader-scanline" />
-        <svg className="loader-logo" viewBox="0 0 60 60">
-          <polygon points="30,2 58,30 30,58 2,30" fill="none" stroke="hsl(10,100%,59%)" strokeWidth="2" />
-          <polygon
-            points="30,12 48,30 30,48 12,30"
-            fill="none"
-            stroke="hsl(10,100%,59%)"
-            strokeWidth="1.5"
-            opacity="0.5"
-          />
-        </svg>
-        <div className="loader-text">
-          <span ref={loaderTextRef}></span>
-        </div>
-        <div className="loader-progress">
-          <div className="loader-progress-bar" ref={loaderBarRef}></div>
-        </div>
-      </div>
-
-      {/* DIAMOND REVEAL */}
-      {!revealGone && (
-        <div className={`diamond-overlay ${diamondOpen ? "open" : ""}`}>
-          <div className="diamond-glow"></div>
-        </div>
-      )}
+      {/* CINEMATIC INTRO */}
+      {!introDone && <IntroAnimation onComplete={() => setIntroDone(true)} />}
 
       {/* CURSORS */}
       {introDone && (
