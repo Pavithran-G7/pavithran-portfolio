@@ -46,6 +46,7 @@ import skillN8n from "@/assets/skills/n8n.svg";
 import { SEO } from "@/components/SEO";
 import { MotionSection, MotionItem, StaggerContainer, staggerChildVariants } from "@/components/MotionSection";
 import { ScrollTimeline } from "@/components/ScrollTimeline";
+import { IntroAnimation } from "@/components/IntroAnimation";
 
 // Section background colors for scroll-driven transitions
 const SECTION_BG_COLORS = [
@@ -431,9 +432,7 @@ function ScrollProgressBar() {
 }
 
 export default function Index() {
-  const [loaded, setLoaded] = useState(false);
-  const [diamondOpen, setDiamondOpen] = useState(false);
-  const [revealGone, setRevealGone] = useState(false);
+  const [introDone, setIntroDone] = useState(false);
   const [navScrolled, setNavScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showBackTop, setShowBackTop] = useState(false);
@@ -443,8 +442,6 @@ export default function Index() {
 
   const cursorRingRef = useRef<HTMLDivElement>(null);
   const cursorDotRef = useRef<HTMLDivElement>(null);
-  const loaderBarRef = useRef<HTMLDivElement>(null);
-  const loaderTextRef = useRef<HTMLSpanElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
   const heroVantaHostRef = useRef<HTMLDivElement>(null);
   const vantaRef = useRef<VantaEffectInstance | null>(null);
@@ -513,33 +510,11 @@ export default function Index() {
     };
   }, []);
 
-  // ===== LOADER SEQUENCE =====
-  useEffect(() => {
-    const tl = gsap.timeline();
-    tl.to({}, { duration: 0.7 })
-      .to(loaderTextRef.current, { duration: 1.0, text: "INITIALIZING PORTFOLIO SYSTEMS...", ease: "none" }, 0.9)
-      .call(
-        () => {
-          if (loaderBarRef.current) loaderBarRef.current.style.width = "100%";
-        },
-        [],
-        1.9,
-      )
-      .to("#loader > *", { opacity: 0, duration: 0.4 }, 2.7)
-      .call(
-        () => {
-          setLoaded(true);
-          setTimeout(() => setDiamondOpen(true), 100);
-          setTimeout(() => setRevealGone(true), 1400);
-        },
-        [],
-        3.1,
-      );
-  }, []);
+  // ===== INTRO SEQUENCE handled by <IntroAnimation /> =====
 
   // ===== LENIS SMOOTH SCROLL =====
   useEffect(() => {
-    if (!loaded || !revealGone) return;
+    if (!introDone) return;
 
     const lenis = new Lenis({
       lerp: 0.06,
@@ -563,11 +538,11 @@ export default function Index() {
       lenis.destroy();
       lenisRef.current = null;
     };
-  }, [loaded, revealGone]);
+  }, [introDone]);
 
   // ===== CUSTOM CURSOR =====
   useEffect(() => {
-    if (!loaded || !revealGone || window.innerWidth <= 768) return;
+    if (!introDone || window.innerWidth <= 768) return;
     const ring = cursorRingRef.current;
     const dot = cursorDotRef.current;
     if (!ring || !dot) return;
@@ -617,7 +592,7 @@ export default function Index() {
       window.removeEventListener("mousedown", down);
       window.removeEventListener("mouseup", up);
     };
-  }, [loaded, revealGone]);
+  }, [introDone]);
 
   // ===== SCROLL TRACKING =====
   // Fix #6: Improved detection — uses 40% of viewport height for more accurate section tracking
@@ -648,7 +623,7 @@ export default function Index() {
 
   // ===== GSAP — only for complex pinning & text plugin =====
   useEffect(() => {
-    if (!loaded || !revealGone) return;
+    if (!introDone) return;
 
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin);
 
@@ -798,11 +773,11 @@ export default function Index() {
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
-  }, [loaded, revealGone]);
+  }, [introDone]);
 
   // ===== MAGNETIC HOVER EFFECT (desktop only) =====
   useEffect(() => {
-    if (!loaded || window.innerWidth <= 768) return;
+    if (!introDone || window.innerWidth <= 768) return;
 
     const magneticEls = document.querySelectorAll(".hero-btn, .hero-social-link, .btn-submit");
     const handlers: Array<{ el: Element; move: (e: MouseEvent) => void; leave: () => void }> = [];
@@ -828,7 +803,7 @@ export default function Index() {
         (el as HTMLElement).removeEventListener("mouseleave", leave);
       });
     };
-  }, [loaded, revealGone]);
+  }, [introDone]);
 
   // Prevent background scrolling while mobile navigation is open.
   useEffect(() => {
@@ -938,36 +913,11 @@ export default function Index() {
         type="website"
       />
 
-      {/* LOADER */}
-      <div id="loader" className={loaded ? "hidden" : ""}>
-        <div className="loader-scanline" />
-        <svg className="loader-logo" viewBox="0 0 60 60">
-          <polygon points="30,2 58,30 30,58 2,30" fill="none" stroke="hsl(10,100%,59%)" strokeWidth="2" />
-          <polygon
-            points="30,12 48,30 30,48 12,30"
-            fill="none"
-            stroke="hsl(10,100%,59%)"
-            strokeWidth="1.5"
-            opacity="0.5"
-          />
-        </svg>
-        <div className="loader-text">
-          <span ref={loaderTextRef}></span>
-        </div>
-        <div className="loader-progress">
-          <div className="loader-progress-bar" ref={loaderBarRef}></div>
-        </div>
-      </div>
-
-      {/* DIAMOND REVEAL */}
-      {!revealGone && (
-        <div className={`diamond-overlay ${diamondOpen ? "open" : ""}`}>
-          <div className="diamond-glow"></div>
-        </div>
-      )}
+      {/* CINEMATIC INTRO */}
+      {!introDone && <IntroAnimation onComplete={() => setIntroDone(true)} />}
 
       {/* CURSORS */}
-      {loaded && revealGone && (
+      {introDone && (
         <>
           <div className="cursor-ring" ref={cursorRingRef}></div>
           <div className="cursor-dot" ref={cursorDotRef}></div>
@@ -1036,7 +986,7 @@ export default function Index() {
       </nav>
 
       {/* SCROLL PROGRESS — shown only after user begins scrolling */}
-      {loaded && revealGone && navScrolled && <ScrollProgressBar />}
+      {introDone && navScrolled && <ScrollProgressBar />}
 
       {/* MOBILE MENU */}
       <div className={`mobile-menu ${mobileMenuOpen ? "open" : ""}`} onClick={() => setMobileMenuOpen(false)}>
