@@ -156,6 +156,7 @@ canvas {
 }
 
 .intro-monogram {
+  color: hsl(var(--accent-ice));
   filter: drop-shadow(0 0 12px hsl(var(--accent-ice) / 0.55))
     drop-shadow(0 0 28px hsl(var(--accent-ice) / 0.25));
 }

@@ -88,7 +88,7 @@ export function IntroAnimation({ onComplete }: IntroAnimationProps) {
               {/* P */}
               <motion.path
                 d="M30 110 L30 15 L70 15 Q95 15 95 40 Q95 65 70 65 L30 65"
-                stroke="hsl(var(--accent-ice))"
+                stroke="currentColor"
                 strokeWidth="3"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -99,7 +99,7 @@ export function IntroAnimation({ onComplete }: IntroAnimationProps) {
               {/* G */}
               <motion.path
                 d="M180 35 Q175 15 150 15 Q120 15 120 60 Q120 110 150 110 Q180 110 180 80 L180 65 L155 65"
-                stroke="hsl(var(--accent-ice))"
+                stroke="currentColor"
                 strokeWidth="3"
                 strokeLinecap="round"
                 strokeLinejoin="round"
