@@ -736,8 +736,18 @@ canvas {
     background: transparent;
   }
 
+  .nav-inner {
+    grid-template-columns: auto 1fr;
+    column-gap: 12px;
+  }
+
   .scroll-progress-bar {
     top: 64px;
+  }
+
+  .hamburger {
+    grid-column: 2;
+    justify-self: end;
   }
 
   .nav-brand-mark {
